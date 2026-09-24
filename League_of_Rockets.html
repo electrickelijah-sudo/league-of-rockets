@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Turbo Strike 3D: Estadio Vida</title>
+  <title>League of Rockets: Champions Field</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700;900&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
@@ -2335,9 +2335,13 @@
         <button class="close-btn" onclick="closeModal('maps-modal')">✕</button>
       </div>
       <div class="map-grid">
-        <div class="map-card active-map" id="map-sunset" onclick="selectArena('sunset')">
+        <div class="map-card active-map" id="map-champions" onclick="selectArena('champions')">
+          <div class="map-title">🏆 Champions Field</div>
+          <div class="map-desc">The iconic championship stadium with illuminated space-truss super-arches, sweeping searchlights, and clean esports grandstands.</div>
+        </div>
+        <div class="map-card" id="map-sunset" onclick="selectArena('sunset')">
           <div class="map-title">🌴 Estadio Vida</div>
-          <div class="map-desc">Authentic open-air hillside stadium surrounded by tropical jungle peaks and vibrant colorful favela village.</div>
+          <div class="map-desc">Authentic open-air hillside stadium surrounded by tropical jungle peaks and vibrant colorful hillside village.</div>
         </div>
         <div class="map-card" id="map-neon" onclick="selectArena('neon')">
           <div class="map-title">🌃 Cyber Neon Arena</div>
@@ -4913,6 +4917,243 @@
 
     scene.add(mountainGroup);
 
+    // 3. CHAMPIONS FIELD ARENA SUPERSTRUCTURE & HOLOGRAPHIC SPECTACLE
+    const superstructureGroup = new THREE.Group();
+    const neonCyanMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
+    const neonOrangeMat = new THREE.MeshBasicMaterial({ color: 0xff6600 });
+    const superArchTrussMat = new THREE.MeshStandardMaterial({ color: 0x1a2232, metalness: 0.85, roughness: 0.35 });
+
+    // 1. Four Massive Illuminated Space-Truss Super-Arches bridging across the arena
+    const archZCoords = [-34, -11, 11, 34];
+    const archWidth = hw + 5.5; // reaches from sideline to sideline (~27.5m half-width)
+    const archHeight = 26.5;    // rises 26.5m overhead
+
+    archZCoords.forEach((az, archIdx) => {
+      const isBlueSide = az < 0;
+      const glowMat = isBlueSide ? neonCyanMat : neonOrangeMat;
+      const archMeshGroup = new THREE.Group();
+      archMeshGroup.position.set(0, 0, az);
+
+      const segments = 28;
+      const ptsUpper = [];
+      const ptsLower = [];
+
+      for (let s = 0; s <= segments; s++) {
+        const t = (s / segments) * 2 - 1; // -1 to +1
+        const x = t * archWidth;
+        const y = Math.max(0, (1 - t * t) * archHeight);
+        ptsUpper.push(new THREE.Vector3(x, y + 0.6, 0));
+        ptsLower.push(new THREE.Vector3(x, y, 0));
+      }
+
+      // Upper and lower tubular steel rails
+      for (let s = 0; s < segments; s++) {
+        const p1 = ptsUpper[s];
+        const p2 = ptsUpper[s + 1];
+        const dir = new THREE.Vector3().subVectors(p2, p1);
+        const len = dir.length();
+        const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
+
+        const railGeo = new THREE.CylinderGeometry(0.22, 0.22, len, 6);
+        const rail = new THREE.Mesh(railGeo, superArchTrussMat);
+        rail.position.copy(mid);
+        rail.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
+        archMeshGroup.add(rail);
+
+        // Lower rail
+        const lp1 = ptsLower[s];
+        const lp2 = ptsLower[s + 1];
+        const ldir = new THREE.Vector3().subVectors(lp2, lp1);
+        const llen = ldir.length();
+        const lmid = new THREE.Vector3().addVectors(lp1, lp2).multiplyScalar(0.5);
+
+        const lrailGeo = new THREE.CylinderGeometry(0.18, 0.18, llen, 6);
+        const lrail = new THREE.Mesh(lrailGeo, superArchTrussMat);
+        lrail.position.copy(lmid);
+        lrail.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), ldir.clone().normalize());
+        archMeshGroup.add(lrail);
+
+        // Neon LED runner strip along lower edge
+        const neonStrip = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, llen, 4), glowMat);
+        neonStrip.position.copy(lmid);
+        neonStrip.position.y -= 0.14;
+        neonStrip.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), ldir.clone().normalize());
+        archMeshGroup.add(neonStrip);
+
+        // Diagonal cross-truss struts
+        if (s % 2 === 0) {
+          const crossDir = new THREE.Vector3().subVectors(p2, lp1);
+          const crossLen = crossDir.length();
+          const crossMid = new THREE.Vector3().addVectors(p1, lp2).multiplyScalar(0.5);
+          const strut = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, crossLen, 4), superArchTrussMat);
+          strut.position.copy(crossMid);
+          strut.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), crossDir.clone().normalize());
+          archMeshGroup.add(strut);
+        }
+      }
+
+      // Arch Downward Spotlights
+      [-12, 0, 12].forEach(fx => {
+        const fy = (1 - (fx / archWidth) * (fx / archWidth)) * archHeight;
+        const spotHousing = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.6, 0.8, 8), superArchTrussMat);
+        spotHousing.position.set(fx, fy - 0.4, 0);
+        spotHousing.rotation.x = Math.PI;
+        archMeshGroup.add(spotHousing);
+
+        const bulb = new THREE.Mesh(new THREE.CircleGeometry(0.35, 8), glowMat);
+        bulb.position.set(fx, fy - 0.82, 0);
+        bulb.rotation.x = Math.PI / 2;
+        archMeshGroup.add(bulb);
+      });
+
+      superstructureGroup.add(archMeshGroup);
+    });
+
+    // 2. Floating 3D Holographic Team Goal Shields
+    function createHolographicGoalShield(isBlueSide) {
+      const shieldGroup = new THREE.Group();
+      const colHex = isBlueSide ? 0x00f0ff : 0xff6600;
+      const shieldGlowMat = new THREE.MeshBasicMaterial({
+        color: colHex,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.85
+      });
+      const solidHoloMat = new THREE.MeshBasicMaterial({
+        color: colHex,
+        transparent: true,
+        opacity: 0.35,
+        side: THREE.DoubleSide
+      });
+
+      // Outer hexagonal shield outline
+      const hexShape = new THREE.Shape();
+      for (let i = 0; i < 6; i++) {
+        const ang = (i / 6) * Math.PI * 2 + Math.PI / 6;
+        const rx = Math.cos(ang) * 3.8;
+        const ry = Math.sin(ang) * 4.4;
+        if (i === 0) hexShape.moveTo(rx, ry);
+        else hexShape.lineTo(rx, ry);
+      }
+      hexShape.closePath();
+
+      const shieldMesh = new THREE.Mesh(new THREE.ShapeGeometry(hexShape), solidHoloMat);
+      shieldGroup.add(shieldMesh);
+
+      // Rotating Energy Rings
+      const ring1 = new THREE.Mesh(new THREE.TorusGeometry(3.0, 0.08, 6, 24), shieldGlowMat);
+      shieldGroup.add(ring1);
+      shieldGroup.ring1 = ring1;
+
+      const ring2 = new THREE.Mesh(new THREE.TorusGeometry(2.1, 0.06, 6, 20), shieldGlowMat);
+      ring2.rotation.x = 0.5;
+      shieldGroup.add(ring2);
+      shieldGroup.ring2 = ring2;
+
+      // Stylized Team Insignia
+      const crestGroup = new THREE.Group();
+      [-1, 1].forEach(side => {
+        const wingGeo = new THREE.BufferGeometry();
+        const pts = new Float32Array([
+          0, 0, 0.05,
+          side * 2.6, 1.8, 0.05,
+          side * 1.8, -0.6, 0.05
+        ]);
+        wingGeo.setAttribute('position', new THREE.BufferAttribute(pts, 3));
+        const wing = new THREE.Mesh(wingGeo, shieldGlowMat);
+        crestGroup.add(wing);
+      });
+      shieldGroup.add(crestGroup);
+      shieldGroup.crest = crestGroup;
+
+      return shieldGroup;
+    }
+
+    const holoShieldBlue = createHolographicGoalShield(true);
+    holoShieldBlue.position.set(0, 11.5, -hl - 0.8);
+    superstructureGroup.add(holoShieldBlue);
+
+    const holoShieldOrange = createHolographicGoalShield(false);
+    holoShieldOrange.position.set(0, 11.5, hl + 0.8);
+    holoShieldOrange.rotation.y = Math.PI;
+    superstructureGroup.add(holoShieldOrange);
+
+    // 3. Sweeping Volumetric Stadium Searchlights
+    const stadiumSearchlights = [];
+    const searchlightCoords = [
+      { x: -hw - 12, z: -hl - 6, baseRot: Math.PI / 4 },
+      { x: hw + 12, z: -hl - 6, baseRot: -Math.PI / 4 },
+      { x: -hw - 12, z: hl + 6, baseRot: (3 * Math.PI) / 4 },
+      { x: hw + 12, z: hl + 6, baseRot: -(3 * Math.PI) / 4 }
+    ];
+
+    searchlightCoords.forEach((sc, sidx) => {
+      const slGroup = new THREE.Group();
+      slGroup.position.set(sc.x, 24, sc.z);
+
+      const slBase = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.5, 2.0, 8), superArchTrussMat);
+      slGroup.add(slBase);
+
+      const slHead = new THREE.Group();
+      slHead.position.y = 1.6;
+      slGroup.add(slHead);
+
+      const barrelMat = new THREE.MeshStandardMaterial({ color: 0x111620, metalness: 0.9, roughness: 0.2 });
+      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.7, 2.2, 12), barrelMat);
+      barrel.rotation.x = Math.PI / 2;
+      slHead.add(barrel);
+
+      // Volumetric Sweeping Light Cone (Soft additive beam)
+      const beamMat = new THREE.MeshBasicMaterial({
+        color: sidx < 2 ? 0x66d4ff : 0xffaa44,
+        transparent: true,
+        opacity: 0.28,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide
+      });
+      const beamGeo = new THREE.ConeGeometry(5.8, 90, 16, 1, true);
+      beamGeo.translate(0, 45, 0);
+      beamGeo.rotateX(Math.PI / 2);
+      const beam = new THREE.Mesh(beamGeo, beamMat);
+      slHead.add(beam);
+
+      superstructureGroup.add(slGroup);
+      stadiumSearchlights.push({ head: slHead, baseRot: sc.baseRot, phase: sidx * 1.57 });
+    });
+
+    // 4. Glowing Neon Pitch Seam Runners & Kickoff Ring
+    const pitchRunnerBlue = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonCyanMat);
+    pitchRunnerBlue.position.set(-hw, 0.10, -hl / 2);
+    superstructureGroup.add(pitchRunnerBlue);
+
+    const pitchRunnerBlueR = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonCyanMat);
+    pitchRunnerBlueR.position.set(hw, 0.10, -hl / 2);
+    superstructureGroup.add(pitchRunnerBlueR);
+
+    const pitchRunnerOrange = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonOrangeMat);
+    pitchRunnerOrange.position.set(-hw, 0.10, hl / 2);
+    superstructureGroup.add(pitchRunnerOrange);
+
+    const pitchRunnerOrangeR = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonOrangeMat);
+    pitchRunnerOrangeR.position.set(hw, 0.10, hl / 2);
+    superstructureGroup.add(pitchRunnerOrangeR);
+
+    // Center Field Neon Kickoff Ring
+    const kickoffRingGeo = new THREE.RingGeometry(8.9, 9.2, 48);
+    const kickoffRing = new THREE.Mesh(kickoffRingGeo, new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.65
+    }));
+    kickoffRing.rotation.x = -Math.PI / 2;
+    kickoffRing.position.set(0, 0.04, 0);
+    superstructureGroup.add(kickoffRing);
+
+    scene.add(superstructureGroup);
+
+
     // 3. STACKED COLORFUL HILLSIDE FAVELA VILLAGE (Estadio Vida Signature Architecture)
     const cityGroup = new THREE.Group();
 
@@ -5149,6 +5390,7 @@
       });
     }
 
+    cityGroup.visible = false; // Hidden by default, toggled via Maps modal
     scene.add(cityGroup);
 
     // 4. OPEN-AIR STADIUM PERIMETER & SAFETY NETTING (Estadio Vida Open Sky Parity)
@@ -12446,39 +12688,56 @@
       rebuildPreviewCar();
     }
 
-    // 5 ARENAS SWITCHER
-    let currentArenaKey = 'sunset';
+    // 6 ARENAS SWITCHER (Champions Field, Estadio Vida, Cyber Neon, Glacier Ice, Volcano, Space)
+    let currentArenaKey = 'champions';
     function selectArena(key) {
       currentArenaKey = key;
       document.querySelectorAll('.map-card').forEach(c => c.classList.remove('active-map'));
       const activeEl = document.getElementById('map-' + key);
       if (activeEl) activeEl.classList.add('active-map');
 
-      if (key === 'sunset') {
+      if (key === 'champions') {
+        scene.background.setHex(0x0a1020);
+        scene.fog.color.setHex(0x10182c);
+        sunLight.color.setHex(0xffc288);
+        ambientLight.color.setHex(0x6e7e9a);
+        if (typeof superstructureGroup !== 'undefined') superstructureGroup.visible = true;
+        if (typeof cityGroup !== 'undefined') cityGroup.visible = false;
+      } else if (key === 'sunset') {
         scene.background.setHex(0x230c18);
         scene.fog.color.setHex(0x56232c);
         sunLight.color.setHex(0xffb26a);
         ambientLight.color.setHex(0x523245);
+        if (typeof superstructureGroup !== 'undefined') superstructureGroup.visible = false;
+        if (typeof cityGroup !== 'undefined') cityGroup.visible = true;
       } else if (key === 'neon') {
         scene.background.setHex(0x060814);
         scene.fog.color.setHex(0x0d1228);
         sunLight.color.setHex(0x00f0ff);
         ambientLight.color.setHex(0x334477);
+        if (typeof superstructureGroup !== 'undefined') superstructureGroup.visible = true;
+        if (typeof cityGroup !== 'undefined') cityGroup.visible = false;
       } else if (key === 'ice') {
         scene.background.setHex(0x0e1c2e);
         scene.fog.color.setHex(0x19304d);
         sunLight.color.setHex(0xd0e8ff);
         ambientLight.color.setHex(0x6080a8);
+        if (typeof superstructureGroup !== 'undefined') superstructureGroup.visible = true;
+        if (typeof cityGroup !== 'undefined') cityGroup.visible = false;
       } else if (key === 'volcano') {
         scene.background.setHex(0x1a0604);
         scene.fog.color.setHex(0x2d0a06);
         sunLight.color.setHex(0xff4400);
         ambientLight.color.setHex(0x882211);
+        if (typeof superstructureGroup !== 'undefined') superstructureGroup.visible = false;
+        if (typeof cityGroup !== 'undefined') cityGroup.visible = false;
       } else if (key === 'space') {
         scene.background.setHex(0x030308);
         scene.fog.color.setHex(0x060614);
         sunLight.color.setHex(0xffffff);
         ambientLight.color.setHex(0x443366);
+        if (typeof superstructureGroup !== 'undefined') superstructureGroup.visible = true;
+        if (typeof cityGroup !== 'undefined') cityGroup.visible = false;
       }
       showStatBadge('ARENA: ' + key.toUpperCase(), 0, '🏟️');
       closeModal('maps-modal');
