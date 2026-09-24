@@ -6123,6 +6123,41 @@
     /* =========================================================================
        AUTHENTIC ROCKET LEAGUE OCTANE WHEELS (BLUE MULTI-SPOKE ALLOY)
        ========================================================================= */
+    // Helper: High-fidelity beveled smooth box geometry with rounded edges & smooth normals
+    function createSmoothBoxGeo(w, h, d, bevel, segments) {
+      const minDim = Math.min(w, h, d);
+      const b = Math.max(0.003, bevel !== undefined ? bevel : Math.min(0.038, minDim * 0.22));
+      const segs = segments || 3;
+      const hw = Math.max(0.005, w / 2 - b);
+      const hh = Math.max(0.005, h / 2 - b);
+      const r = Math.min(b, hw, hh);
+
+      const shape = new THREE.Shape();
+      shape.moveTo(-hw + r, -hh);
+      shape.lineTo(hw - r, -hh);
+      shape.quadraticCurveTo(hw, -hh, hw, -hh + r);
+      shape.lineTo(hw, hh - r);
+      shape.quadraticCurveTo(hw, hh, hw - r, hh);
+      shape.lineTo(-hw + r, hh);
+      shape.quadraticCurveTo(-hw, hh, -hw, hh - r);
+      shape.lineTo(-hw, -hh + r);
+      shape.quadraticCurveTo(-hw, -hh, -hw + r, -hh);
+
+      const extrudeSettings = {
+        steps: 1,
+        depth: Math.max(0.005, d - b * 2),
+        bevelEnabled: true,
+        bevelThickness: b,
+        bevelSize: b,
+        bevelOffset: 0,
+        bevelSegments: segs
+      };
+      const geo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+      geo.center();
+      geo.computeVertexNormals();
+      return geo;
+    }
+
     function createDetailedWheel(isLeft = true, underglowColor = 0x00a2ff, isGunmetal = true, radius = 0.35, width = 0.28) {
       const wGroup = new THREE.Group();
       const spinGroup = new THREE.Group();
@@ -6141,8 +6176,8 @@
         envMapIntensity: 0.4
       });
 
-      // 1. Hollow rubber performance tire with rounded sidewalls
-      const tireGeo = new THREE.CylinderGeometry(radius, radius, width * 0.90, 24, 1, true);
+      // 1. Silky smooth rubber performance tire with high-density rounded sidewalls
+      const tireGeo = new THREE.CylinderGeometry(radius, radius, width * 0.90, 36, 1, true);
       const tire = new THREE.Mesh(tireGeo, tireMat);
       tire.rotation.z = Math.PI / 2;
       spinGroup.add(tire);
@@ -6150,7 +6185,7 @@
       // Outer and inner rounded sidewall beads
       const sidewallTube = radius * 0.14;
       const sidewallMajor = radius - sidewallTube;
-      const sidewallGeo = new THREE.TorusGeometry(sidewallMajor, sidewallTube, 8, 20);
+      const sidewallGeo = new THREE.TorusGeometry(sidewallMajor, sidewallTube, 12, 32);
 
       const outerWall = new THREE.Mesh(sidewallGeo, tireMat);
       outerWall.rotation.y = Math.PI / 2;
@@ -6164,7 +6199,7 @@
 
       // 2. Deep dish rim barrel (Gunmetal / Polished Titanium Barrel, open-ended)
       const rimBarrel = new THREE.Mesh(
-        new THREE.CylinderGeometry(rimRadius, rimRadius, width * 0.88, 20, 1, true),
+        new THREE.CylinderGeometry(rimRadius, rimRadius, width * 0.88, 32, 1, true),
         new THREE.MeshStandardMaterial({
           color: 0x181b22,
           metalness: 0.95,
@@ -6176,10 +6211,10 @@
       rimBarrel.rotation.z = Math.PI / 2;
       spinGroup.add(rimBarrel);
 
-      // 3. Machined Chrome Rim Lip Ring
+      // 3. Machined Chrome Rim Lip Ring (Silky 32-segment curve)
       const rimRingMat = new THREE.MeshStandardMaterial({ color: 0xe0e6ed, metalness: 0.98, roughness: 0.06, envMapIntensity: 3.2 });
       const rimRing = new THREE.Mesh(
-        new THREE.TorusGeometry(rimRadius, radius * 0.024, 8, 20),
+        new THREE.TorusGeometry(rimRadius, radius * 0.024, 12, 32),
         rimRingMat
       );
       rimRing.rotation.y = Math.PI / 2;
@@ -6670,70 +6705,84 @@
       const isOrangeTeam = (teamTheme === 'orange' || teamTheme === 0xff5500);
       const primaryColor = isOrangeTeam ? 0xff4800 : 0x0052f5;
 
-      // Authentic PBR Automotive materials
+      // Deep Automotive Clearcoat & Smooth Automotive PBR Materials
       const mats = {
-        paint: new THREE.MeshStandardMaterial({
+        paint: new THREE.MeshPhysicalMaterial({
           color: primaryColor,
           metalness: 0.65,
-          roughness: 0.18,
+          roughness: 0.10,
+          clearcoat: 1.0,
+          clearcoatRoughness: 0.03,
+          reflectivity: 0.95,
+          envMapIntensity: 2.8,
+          side: THREE.DoubleSide
+        }),
+        white_trim: new THREE.MeshPhysicalMaterial({
+          color: 0xf5f5fa,
+          metalness: 0.20,
+          roughness: 0.12,
+          clearcoat: 1.0,
+          clearcoatRoughness: 0.03,
           envMapIntensity: 2.4,
           side: THREE.DoubleSide
         }),
-        white_trim: new THREE.MeshStandardMaterial({
-          color: 0xf5f5fa,
-          metalness: 0.18,
-          roughness: 0.22,
-          envMapIntensity: 2.0,
-          side: THREE.DoubleSide
-        }),
-        racing_stripe: new THREE.MeshStandardMaterial({
+        racing_stripe: new THREE.MeshPhysicalMaterial({
           color: 0xffffff,
-          metalness: 0.08,
-          roughness: 0.14,
-          envMapIntensity: 2.2,
+          metalness: 0.10,
+          roughness: 0.08,
+          clearcoat: 1.0,
+          clearcoatRoughness: 0.02,
+          envMapIntensity: 2.6,
           side: THREE.DoubleSide
         }),
-        glass: new THREE.MeshStandardMaterial({
-          color: 0x080b12,
-          roughness: 0.04,
+        glass: new THREE.MeshPhysicalMaterial({
+          color: 0x060810,
+          roughness: 0.02,
           metalness: 0.96,
-          envMapIntensity: 3.5,
+          clearcoat: 1.0,
+          clearcoatRoughness: 0.01,
+          transmission: 0.20,
+          transparent: true,
+          opacity: 0.94,
+          envMapIntensity: 4.2,
           side: THREE.DoubleSide
         }),
         carbon: new THREE.MeshStandardMaterial({
           color: 0x12141a,
-          roughness: 0.50,
-          metalness: 0.45,
-          envMapIntensity: 1.6
+          roughness: 0.45,
+          metalness: 0.50,
+          envMapIntensity: 1.8
         }),
         chassis: new THREE.MeshStandardMaterial({
           color: 0x161820,
-          roughness: 0.40,
-          metalness: 0.85,
-          envMapIntensity: 1.8
+          roughness: 0.35,
+          metalness: 0.88,
+          envMapIntensity: 2.0
         }),
         chrome: new THREE.MeshStandardMaterial({
           color: 0xffffff,
           metalness: 1.0,
           roughness: 0.02,
-          envMapIntensity: 3.5
+          envMapIntensity: 3.8
         }),
         gunmetal: new THREE.MeshStandardMaterial({
           color: 0x222630,
           metalness: 0.95,
-          roughness: 0.20,
-          envMapIntensity: 2.4
+          roughness: 0.18,
+          envMapIntensity: 2.6
         }),
         rubber: new THREE.MeshStandardMaterial({
           color: 0x14161a,
           roughness: 0.85,
           metalness: 0.05
         }),
-        engine_red: new THREE.MeshStandardMaterial({
+        engine_red: new THREE.MeshPhysicalMaterial({
           color: 0xd32f2f,
-          roughness: 0.20,
+          roughness: 0.18,
           metalness: 0.45,
-          envMapIntensity: 2.0
+          clearcoat: 0.85,
+          clearcoatRoughness: 0.04,
+          envMapIntensity: 2.2
         }),
         neon_cyan: new THREE.MeshBasicMaterial({ color: 0x00f0ff }),
         headlight_white: new THREE.MeshBasicMaterial({ color: 0xffffff }),
@@ -6744,7 +6793,13 @@
       car.secondaryMat = mats.racing_stripe;
 
       const addMesh = (geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => {
-        const m = new THREE.Mesh(geo, mat);
+        // Automatically smoothen box geometries with rounded bevels & continuous vertex normals
+        let finalGeo = geo;
+        if (geo && geo.type === 'BoxGeometry' && geo.parameters) {
+          const p = geo.parameters;
+          finalGeo = createSmoothBoxGeo(p.width, p.height, p.depth);
+        }
+        const m = new THREE.Mesh(finalGeo, mat);
         m.position.set(x, y, z);
         if (rx || ry || rz) m.rotation.set(rx, ry, rz);
         m.castShadow = true;
@@ -13297,8 +13352,13 @@
           player.forwardDir = new THREE.Vector3(Math.sin(player.heading), 0, Math.cos(player.heading));
         }
 
+        // Smooth steering rate filter for buttery controls
+        if (typeof player.steerFiltered === 'undefined') player.steerFiltered = 0;
+        player.steerFiltered = THREE.MathUtils.lerp(player.steerFiltered, steerInput, Math.min(1.0, dt * 18.0));
+        const effectiveSteer = player.steerFiltered;
+
         // Steer rotates car forward direction around surface normal (3D surface steering)
-        const steerAngle = steerInput * currentTurnSpeed * dt * speedTurnFactor * reverseFactor;
+        const steerAngle = effectiveSteer * currentTurnSpeed * dt * speedTurnFactor * reverseFactor;
         player.forwardDir.applyAxisAngle(player.surfaceNormal, steerAngle).normalize();
 
         const rightDir = player.surfaceNormal.clone().cross(player.forwardDir).normalize();
