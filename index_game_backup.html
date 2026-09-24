@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>League of Rockets: Champions Field</title>
+  <title>Turbo Strike 3D: Estadio Vida</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700;900&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
@@ -2335,13 +2335,13 @@
         <button class="close-btn" onclick="closeModal('maps-modal')">✕</button>
       </div>
       <div class="map-grid">
-        <div class="map-card active-map" id="map-champions" onclick="selectArena('champions')">
-          <div class="map-title">🏆 Champions Field</div>
-          <div class="map-desc">The iconic championship stadium with illuminated space-truss super-arches, sweeping searchlights, and clean esports grandstands.</div>
+        <div class="map-card active-map" id="map-sunset" onclick="selectArena('sunset')">
+          <div class="map-title">🌴 Estadio Vida (Grass)</div>
+          <div class="map-desc">Authentic open-air stadium covered in full, lush 3D volumetric emerald grass, surrounded by tropical peaks.</div>
         </div>
-        <div class="map-card" id="map-sunset" onclick="selectArena('sunset')">
-          <div class="map-title">🌴 Estadio Vida</div>
-          <div class="map-desc">Authentic open-air hillside stadium surrounded by tropical jungle peaks and vibrant colorful hillside village.</div>
+        <div class="map-card" id="map-champions" onclick="selectArena('champions')">
+          <div class="map-title">🏆 Champions Field</div>
+          <div class="map-desc">Esports championship stadium with illuminated space-truss super-arches and sweeping searchlights.</div>
         </div>
         <div class="map-card" id="map-neon" onclick="selectArena('neon')">
           <div class="map-title">🌃 Cyber Neon Arena</div>
@@ -3993,11 +3993,11 @@
         const rx = bx * rootOffset;
         const rz = bz * rootOffset;
 
-        // Authentic manicured sports turf blade levels (Height: 0.09m, Width: 0.06m)
+        // Lush volumetric grass carpet blades (Rich, full, dense 3D grass)
         const levels = [
-          { y: 0.00, w: 0.06, bend: 0.00, col: rootColor },
-          { y: 0.04, w: 0.04, bend: 0.015, col: midColor },
-          { y: 0.09, w: 0.015, bend: 0.035, col: tipColor }
+          { y: 0.00, w: 0.30, bend: 0.00, col: rootColor },
+          { y: 0.26, w: 0.22, bend: 0.18, col: midColor },
+          { y: 0.52, w: 0.09, bend: 0.42, col: tipColor }
         ];
 
         for (let l = 0; l < levels.length; l++) {
@@ -4026,7 +4026,7 @@
         }
       }
 
-      // 2. Delicate ground-covering thatch fibers
+      // 2. Dense ground-covering thatch leaves (full grass carpet)
       const groundCount = 4;
       for (let g = 0; g < groundCount; g++) {
         const gAngle = (g / groundCount) * Math.PI * 2 + Math.PI / 4;
@@ -4038,8 +4038,8 @@
         const bx = cosG;
         const bz = sinG;
 
-        const w = 0.06;
-        const len = 0.12;
+        const w = 0.32;
+        const len = 0.70;
 
         positions.push(-nx * (w * 0.5), 0.03, -nz * (w * 0.5));
         normals.push(0, 1, 0);
@@ -4117,9 +4117,9 @@
 
       const py = 0.01;
       const ry = Math.random() * Math.PI * 2;
-      const sx = 0.22 + Math.random() * 0.08;
-      const sy = 0.18 + Math.random() * 0.06;
-      const sz = 0.22 + Math.random() * 0.08;
+      const sx = 0.42 + Math.random() * 0.20;
+      const sy = 0.35 + Math.random() * 0.16;
+      const sz = 0.42 + Math.random() * 0.20;
 
       dummyTuft.position.set(px, py, pz);
       dummyTuft.rotation.set(0, ry, 0);
@@ -4134,12 +4134,12 @@
 
       if (i < 54000) {
         if (isLight) {
-          tuftBaseColor.setHex(0x1f7a36); // Sunlit rich emerald
+          tuftBaseColor.setHex(0x28a745); // Sunlit vibrant lush emerald turf
         } else {
-          tuftBaseColor.setHex(0x124d22); // Deep velvety sports turf
+          tuftBaseColor.setHex(0x157328); // Manicured deep emerald stripe
         }
       } else {
-        tuftBaseColor.setHex(0x185627); // Natural perimeter turf
+        tuftBaseColor.setHex(0x1e8736); // Natural perimeter lawn
       }
 
       const jitter = (Math.random() - 0.5) * 0.06;
@@ -4919,6 +4919,7 @@
 
     // 3. CHAMPIONS FIELD ARENA SUPERSTRUCTURE & HOLOGRAPHIC SPECTACLE
     const superstructureGroup = new THREE.Group();
+    superstructureGroup.visible = false; // Hidden on Estadio Vida grass map
     const neonCyanMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
     const neonOrangeMat = new THREE.MeshBasicMaterial({ color: 0xff6600 });
     const superArchTrussMat = new THREE.MeshStandardMaterial({ color: 0x1a2232, metalness: 0.85, roughness: 0.35 });
@@ -5390,7 +5391,7 @@
       });
     }
 
-    cityGroup.visible = false; // Hidden by default, toggled via Maps modal
+    cityGroup.visible = true; // Active on Estadio Vida grass map
     scene.add(cityGroup);
 
     // 4. OPEN-AIR STADIUM PERIMETER & SAFETY NETTING (Estadio Vida Open Sky Parity)
@@ -12689,7 +12690,7 @@
     }
 
     // 6 ARENAS SWITCHER (Champions Field, Estadio Vida, Cyber Neon, Glacier Ice, Volcano, Space)
-    let currentArenaKey = 'champions';
+    let currentArenaKey = 'sunset';
     function selectArena(key) {
       currentArenaKey = key;
       document.querySelectorAll('.map-card').forEach(c => c.classList.remove('active-map'));
