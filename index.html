@@ -335,9 +335,9 @@
       top: 135px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(10, 16, 30, 0.88);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(0, 240, 255, 0.45);
+      background: linear-gradient(135deg, rgba(6, 8, 16, 0.95) 0%, rgba(16, 10, 26, 0.95) 100%);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(157, 0, 255, 0.55);
       border-radius: 8px;
       padding: 6px 18px;
       font-size: 11px;
@@ -348,17 +348,18 @@
       gap: 12px;
       letter-spacing: 1px;
       text-transform: uppercase;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 240, 255, 0.25);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 18px rgba(157, 0, 255, 0.35);
       z-index: 20;
     }
     .controller-icon {
       font-size: 16px;
-      filter: drop-shadow(0 0 5px #00f0ff);
+      filter: drop-shadow(0 0 6px #00f0ff);
     }
     .controller-sub {
-      color: #94a3b8;
+      color: #ffaa00;
       font-size: 10px;
       font-weight: 600;
+      text-shadow: 0 0 8px rgba(255, 170, 0, 0.4);
     }
 
     /* Supersonic speed lines vignette */
@@ -579,6 +580,9 @@
       justify-content: space-between;
       opacity: 1;
       transition: opacity 0.4s ease, transform 0.4s ease;
+      background:
+        radial-gradient(circle at 75% 52%, rgba(157, 0, 255, 0.16) 0%, rgba(0, 229, 255, 0.10) 32%, rgba(5, 7, 14, 0.72) 75%, rgba(2, 3, 6, 0.94) 100%),
+        linear-gradient(180deg, rgba(3, 4, 8, 0.90) 0%, rgba(6, 8, 16, 0.35) 35%, rgba(6, 8, 16, 0.48) 70%, rgba(2, 3, 6, 0.96) 100%);
     }
     .rl-main-menu.hidden {
       opacity: 0;
@@ -592,17 +596,19 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      padding: 28px 42px;
+      padding: 26px 42px;
       pointer-events: auto;
+      background: linear-gradient(180deg, rgba(3, 4, 8, 0.85) 0%, transparent 100%);
+      border-bottom: 1px solid rgba(157, 0, 255, 0.22);
     }
     .rl-brand-container {
       display: flex;
       flex-direction: column;
-      filter: drop-shadow(0 4px 18px rgba(0, 240, 255, 0.45));
+      filter: drop-shadow(0 4px 20px rgba(0, 229, 255, 0.5)) drop-shadow(0 0 35px rgba(157, 0, 255, 0.4));
     }
     .rl-logo-text {
       font-family: 'Teko', sans-serif;
-      font-size: 56px;
+      font-size: 58px;
       font-weight: 900;
       line-height: 0.9;
       letter-spacing: 2px;
@@ -610,11 +616,10 @@
       font-style: italic;
       text-transform: uppercase;
       transform: skewX(-8deg);
-      text-shadow: 0 0 24px rgba(0, 240, 255, 0.6);
+      text-shadow: 0 0 28px rgba(0, 229, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.9);
     }
     .rl-logo-accent {
-      color: #00f0ff;
-      background: linear-gradient(135deg, #00f0ff 0%, #0088ff 100%);
+      background: linear-gradient(135deg, #00f0ff 0%, #bd00ff 52%, #ff6600 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -623,35 +628,41 @@
       font-weight: 800;
       font-size: 13px;
       letter-spacing: 3px;
-      color: #ffaa00;
+      color: #ff8800;
       text-transform: uppercase;
       margin-top: 4px;
-      text-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+      text-shadow: 0 0 12px rgba(255, 136, 0, 0.7), 0 0 24px rgba(157, 0, 255, 0.5);
     }
 
     /* Top Right Profile Widget */
     .rl-profile-widget {
-      background: linear-gradient(135deg, rgba(16, 24, 42, 0.9) 0%, rgba(8, 14, 26, 0.95) 100%);
-      border: 1.5px solid rgba(0, 240, 255, 0.4);
+      background: linear-gradient(135deg, rgba(8, 10, 18, 0.96) 0%, rgba(16, 10, 28, 0.96) 100%);
+      border: 1.5px solid rgba(0, 229, 255, 0.5);
       border-radius: 12px;
       padding: 10px 18px;
       display: flex;
       align-items: center;
       gap: 14px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 240, 255, 0.2);
-      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 229, 255, 0.25), inset 0 0 15px rgba(157, 0, 255, 0.12);
+      backdrop-filter: blur(14px);
+      transition: all 0.2s ease;
+    }
+    .rl-profile-widget:hover {
+      border-color: #9d00ff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 35px rgba(157, 0, 255, 0.35);
     }
     .rl-profile-avatar {
-      font-size: 30px;
-      background: rgba(0, 240, 255, 0.15);
-      border: 1px solid #00f0ff;
+      font-size: 28px;
+      background: rgba(0, 229, 255, 0.15);
+      border: 1.5px solid #00e5ff;
       border-radius: 50%;
       width: 46px;
       height: 46px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 14px rgba(0, 240, 255, 0.4);
+      box-shadow: 0 0 16px rgba(0, 229, 255, 0.5);
     }
     .rl-profile-info {
       display: flex;
@@ -660,7 +671,7 @@
     }
     .rl-profile-title {
       font-family: 'Teko', sans-serif;
-      font-size: 20px;
+      font-size: 21px;
       letter-spacing: 1px;
       color: #00f0ff;
       line-height: 1;
@@ -671,12 +682,13 @@
       background: rgba(255, 255, 255, 0.12);
       border-radius: 4px;
       overflow: hidden;
+      border: 1px solid rgba(157, 0, 255, 0.3);
     }
     .rl-profile-bar-fill {
       width: 35%;
       height: 100%;
-      background: linear-gradient(90deg, #00f0ff, #0088ff);
-      box-shadow: 0 0 8px #00f0ff;
+      background: linear-gradient(90deg, #00e5ff 0%, #9d00ff 100%);
+      box-shadow: 0 0 10px #9d00ff;
       transition: width 0.3s ease;
     }
     .rl-profile-stats {
@@ -684,11 +696,12 @@
       justify-content: space-between;
       font-size: 11px;
       font-weight: 700;
-      color: #8899aa;
+      color: #a0aec0;
     }
     .rl-coins-badge {
-      color: #ffbb00;
+      color: #ffaa00;
       font-weight: 800;
+      text-shadow: 0 0 8px rgba(255, 170, 0, 0.6);
     }
 
     /* Active Loadout Banner in Header */
@@ -696,30 +709,31 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      background: linear-gradient(135deg, rgba(16, 24, 42, 0.92) 0%, rgba(8, 14, 26, 0.96) 100%);
-      border: 1.5px solid rgba(0, 240, 255, 0.4);
+      background: linear-gradient(135deg, rgba(8, 10, 18, 0.96) 0%, rgba(18, 12, 32, 0.96) 100%);
+      border: 1.5px solid rgba(157, 0, 255, 0.55);
       border-radius: 12px;
       padding: 8px 18px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 240, 255, 0.2);
-      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 22px rgba(157, 0, 255, 0.3), inset 0 0 15px rgba(0, 229, 255, 0.12);
+      backdrop-filter: blur(14px);
       pointer-events: auto;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .rl-loadout-badge:hover {
       border-color: #00f0ff;
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 12px 35px rgba(0, 240, 255, 0.35);
+      box-shadow: 0 12px 35px rgba(0, 229, 255, 0.4), 0 0 25px rgba(157, 0, 255, 0.4);
     }
     .rl-loadout-icon-wrap {
       font-size: 26px;
       width: 44px;
       height: 44px;
       border-radius: 8px;
-      background: rgba(0, 240, 255, 0.15);
-      border: 1px solid rgba(0, 240, 255, 0.4);
+      background: rgba(157, 0, 255, 0.2);
+      border: 1.5px solid #9d00ff;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 0 14px rgba(157, 0, 255, 0.5);
     }
     .rl-loadout-details {
       display: flex;
@@ -730,7 +744,7 @@
       font-size: 9px;
       font-weight: 800;
       letter-spacing: 2px;
-      color: #00f0ff;
+      color: #00e5ff;
       text-transform: uppercase;
     }
     .rl-loadout-name {
@@ -740,16 +754,17 @@
       color: #fff;
       line-height: 1;
       letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
     }
     .rl-loadout-sub {
       font-size: 11px;
-      color: #8899aa;
+      color: #a0aec0;
       letter-spacing: 1px;
     }
     .rl-loadout-edit-btn {
-      background: rgba(0, 240, 255, 0.2);
-      border: 1px solid #00f0ff;
-      color: #00f0ff;
+      background: linear-gradient(135deg, rgba(255, 102, 0, 0.25) 0%, rgba(255, 136, 0, 0.38) 100%);
+      border: 1.5px solid #ff6600;
+      color: #ffaa00;
       font-family: 'Rajdhani', sans-serif;
       font-size: 12px;
       font-weight: 800;
@@ -759,17 +774,19 @@
       cursor: pointer;
       margin-left: 10px;
       transition: all 0.15s ease;
+      box-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
     }
     .rl-loadout-edit-btn:hover {
-      background: #00f0ff;
-      color: #080d14;
-      box-shadow: 0 0 14px #00f0ff;
+      background: linear-gradient(135deg, #ff6600 0%, #ff8800 100%);
+      color: #04060a;
+      box-shadow: 0 0 18px #ff6600;
+      border-color: #ffaa00;
     }
 
     .rl-mode-pop {
       font-size: 10px;
       font-weight: 700;
-      color: #00ffaa;
+      color: #00e5ff;
       letter-spacing: 1px;
       margin-top: 4px;
       display: flex;
@@ -788,9 +805,9 @@
       margin-top: -30px;
     }
     .rl-menu-btn {
-      background: linear-gradient(90deg, rgba(15, 22, 38, 0.92) 0%, rgba(10, 16, 28, 0.78) 100%);
-      border: 1.5px solid rgba(255, 255, 255, 0.18);
-      border-left: 6px solid rgba(0, 240, 255, 0.7);
+      background: linear-gradient(90deg, rgba(6, 8, 16, 0.96) 0%, rgba(14, 12, 26, 0.88) 100%);
+      border: 1.5px solid rgba(157, 0, 255, 0.28);
+      border-left: 6px solid #00e5ff;
       color: #fff;
       padding: 10px 22px;
       border-radius: 0 12px 12px 0;
@@ -800,31 +817,33 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 2px;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       transition: all 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(157, 0, 255, 0.06);
       outline: none;
     }
     .rl-menu-btn:hover {
-      background: linear-gradient(90deg, rgba(0, 240, 255, 0.25) 0%, rgba(0, 136, 255, 0.15) 100%);
-      border-color: #00f0ff;
-      border-left: 10px solid #00f0ff;
+      background: linear-gradient(90deg, rgba(157, 0, 255, 0.38) 0%, rgba(0, 229, 255, 0.22) 100%);
+      border-color: #00e5ff;
+      border-left: 10px solid #ff6600;
       transform: skewX(-8deg) translateX(12px) scale(1.03);
-      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.35);
+      box-shadow: 0 10px 30px rgba(157, 0, 255, 0.5), 0 0 20px rgba(0, 229, 255, 0.35);
     }
     .rl-menu-btn.primary {
-      background: linear-gradient(90deg, rgba(0, 240, 255, 0.28) 0%, rgba(0, 102, 255, 0.35) 100%);
-      border-color: #00f0ff;
-      border-left: 8px solid #00f0ff;
-      box-shadow: 0 6px 25px rgba(0, 240, 255, 0.3);
+      background: linear-gradient(90deg, rgba(0, 229, 255, 0.24) 0%, rgba(157, 0, 255, 0.35) 100%);
+      border-color: #00e5ff;
+      border-left: 8px solid #ff6600;
+      box-shadow: 0 8px 30px rgba(0, 229, 255, 0.35), 0 0 20px rgba(255, 102, 0, 0.25);
     }
     .rl-menu-btn.primary:hover {
-      background: linear-gradient(90deg, #00f0ff 0%, #0088ff 100%);
-      color: #050810;
+      background: linear-gradient(90deg, #ff6600 0%, #9d00ff 50%, #00e5ff 100%);
+      color: #fff;
       border-left: 12px solid #fff;
+      box-shadow: 0 12px 40px rgba(255, 102, 0, 0.5), 0 0 30px rgba(157, 0, 255, 0.5);
     }
     .rl-menu-btn.primary:hover .rl-btn-sub {
-      color: #050810;
+      color: #04060a;
+      font-weight: 800;
     }
     .rl-btn-text {
       font-family: 'Teko', sans-serif;
@@ -833,13 +852,14 @@
       letter-spacing: 1.5px;
       line-height: 1;
       transform: skewX(8deg);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
     .rl-btn-sub {
       font-family: 'Rajdhani', sans-serif;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 2px;
-      color: #8899aa;
+      color: #8fa0b5;
       transform: skewX(8deg);
       text-transform: uppercase;
     }
@@ -849,11 +869,11 @@
       position: absolute;
       left: 350px;
       top: 130px;
-      background: linear-gradient(180deg, rgba(14, 20, 36, 0.96) 0%, rgba(8, 12, 22, 0.98) 100%);
-      border: 2px solid rgba(0, 240, 255, 0.5);
+      background: linear-gradient(180deg, rgba(8, 10, 18, 0.98) 0%, rgba(14, 10, 24, 0.98) 100%);
+      border: 2px solid rgba(157, 0, 255, 0.6);
       border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 240, 255, 0.25);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(157, 0, 255, 0.3);
       backdrop-filter: blur(16px);
       pointer-events: auto;
       display: none;
@@ -878,18 +898,19 @@
       font-size: 26px;
       color: #00f0ff;
       letter-spacing: 1px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(157, 0, 255, 0.25);
       padding-bottom: 8px;
     }
     .rl-drawer-close {
       background: none;
       border: none;
-      color: #8899aa;
+      color: #8fa0b5;
       font-size: 18px;
       cursor: pointer;
+      transition: color 0.15s ease;
     }
     .rl-drawer-close:hover {
-      color: #fff;
+      color: #ff6600;
     }
     .rl-modes-grid {
       display: flex;
@@ -897,23 +918,23 @@
       gap: 10px;
     }
     .rl-mode-card {
-      background: rgba(20, 30, 52, 0.7);
-      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      background: rgba(12, 14, 26, 0.85);
+      border: 1.5px solid rgba(157, 0, 255, 0.2);
       border-radius: 10px;
       padding: 12px 16px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.18s ease;
     }
     .rl-mode-card:hover {
-      background: linear-gradient(90deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 102, 255, 0.15) 100%);
+      background: linear-gradient(90deg, rgba(157, 0, 255, 0.28) 0%, rgba(0, 229, 255, 0.2) 100%);
       border-color: #00f0ff;
       transform: translateX(6px);
-      box-shadow: 0 6px 20px rgba(0, 240, 255, 0.25);
+      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
     }
     .rl-mode-badge {
       font-size: 10px;
       font-weight: 800;
-      color: #ffaa00;
+      color: #ff8800;
       letter-spacing: 2px;
       margin-bottom: 2px;
     }
@@ -926,7 +947,7 @@
     }
     .rl-mode-desc {
       font-size: 12px;
-      color: #8899aa;
+      color: #8fa0b5;
       margin-top: 3px;
     }
 
@@ -936,15 +957,15 @@
       top: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(-100px);
-      background: linear-gradient(90deg, rgba(0, 240, 255, 0.2) 0%, rgba(10, 18, 32, 0.95) 50%, rgba(0, 240, 255, 0.2) 100%);
+      background: linear-gradient(90deg, rgba(157, 0, 255, 0.3) 0%, rgba(6, 8, 16, 0.98) 50%, rgba(0, 229, 255, 0.3) 100%);
       border: 2px solid #00f0ff;
       border-radius: 12px;
       padding: 12px 32px;
       display: flex;
       align-items: center;
       gap: 16px;
-      box-shadow: 0 8px 32px rgba(0, 240, 255, 0.4), 0 0 20px rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(0, 229, 255, 0.45), 0 0 25px rgba(157, 0, 255, 0.35);
+      backdrop-filter: blur(14px);
       z-index: 80;
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       pointer-events: none;
@@ -955,8 +976,9 @@
     .rl-matchmaking-spinner {
       width: 22px;
       height: 22px;
-      border: 3px solid rgba(0, 240, 255, 0.2);
-      border-top-color: #00f0ff;
+      border: 3px solid rgba(157, 0, 255, 0.3);
+      border-top-color: #ff6600;
+      border-right-color: #00f0ff;
       border-radius: 50%;
       animation: rlSpinner 0.8s linear infinite;
     }
@@ -969,11 +991,12 @@
       color: #00f0ff;
       letter-spacing: 2px;
       line-height: 1;
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
     }
     .rl-mm-sub {
       font-size: 11px;
       font-weight: 700;
-      color: #8899aa;
+      color: #ffaa00;
       letter-spacing: 1.5px;
       text-transform: uppercase;
     }
@@ -984,25 +1007,27 @@
       align-items: center;
       gap: 24px;
       padding: 18px 45px;
-      background: linear-gradient(180deg, transparent 0%, rgba(6, 10, 18, 0.85) 100%);
+      background: linear-gradient(180deg, transparent 0%, rgba(3, 4, 8, 0.94) 100%);
       pointer-events: auto;
+      border-top: 1px solid rgba(157, 0, 255, 0.18);
     }
     .rl-prompt-item {
       font-size: 12px;
       font-weight: 800;
-      color: #8899aa;
+      color: #8fa0b5;
       letter-spacing: 1.5px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
     .rl-prompt-key {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(157, 0, 255, 0.18);
+      border: 1px solid rgba(0, 229, 255, 0.45);
       color: #fff;
       padding: 3px 8px;
       border-radius: 6px;
       font-size: 11px;
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.25);
     }
 
     .in-main-menu .hud-match-only {
@@ -2753,6 +2778,123 @@
     const tireTreadTex = createTireTreadTexture();
     const brakeRotorTex = createBrakeRotorTexture();
     const turfBumpTex = createTurfBumpTexture();
+
+    /* =========================================================================
+       AUTHENTIC ROCKET LEAGUE MAIN MENU HERO PODIUM & STUDIO 3-POINT LIGHT RIG
+       (Black Obsidian, Electric Blue, Fiery Orange, and Royal Purple Aesthetic)
+       ========================================================================= */
+    const heroPodiumGroup = new THREE.Group();
+    heroPodiumGroup.position.set(1.8, 0.02, -9.5);
+
+    // 1. High-Gloss Dark Obsidian Beveled Championship Turntable Base
+    const podiumBaseGeo = new THREE.CylinderGeometry(4.4, 4.75, 0.10, 48);
+    const podiumBaseMat = new THREE.MeshStandardMaterial({
+      color: 0x080912,
+      roughness: 0.18,
+      metalness: 0.88,
+      envMapIntensity: 1.2
+    });
+    const podiumBase = new THREE.Mesh(podiumBaseGeo, podiumBaseMat);
+    podiumBase.position.y = 0.05;
+    heroPodiumGroup.add(podiumBase);
+
+    // 2. Glowing Neon Electric Blue Outer Runner Ring
+    const outerRingGeo = new THREE.RingGeometry(4.18, 4.34, 48);
+    const outerRingMat = new THREE.MeshBasicMaterial({
+      color: 0x00f0ff,
+      side: THREE.DoubleSide
+    });
+    const outerRingMesh = new THREE.Mesh(outerRingGeo, outerRingMat);
+    outerRingMesh.rotation.x = -Math.PI / 2;
+    outerRingMesh.position.y = 0.102;
+    heroPodiumGroup.add(outerRingMesh);
+
+    // 3. Glowing Neon Royal Purple Inner Runner Ring
+    const innerRingGeo = new THREE.RingGeometry(3.05, 3.18, 48);
+    const innerRingMat = new THREE.MeshBasicMaterial({
+      color: 0x9d00ff,
+      side: THREE.DoubleSide
+    });
+    const innerRingMesh = new THREE.Mesh(innerRingGeo, innerRingMat);
+    innerRingMesh.rotation.x = -Math.PI / 2;
+    innerRingMesh.position.y = 0.103;
+    heroPodiumGroup.add(innerRingMesh);
+
+    // 4. Flame Orange Directional Chevrons / Corner Pips
+    const chevronMat = new THREE.MeshBasicMaterial({
+      color: 0xff6600,
+      side: THREE.DoubleSide
+    });
+    for (let cIdx = 0; cIdx < 4; cIdx++) {
+      const cAngle = (cIdx * Math.PI / 2) + Math.PI / 4;
+      const cR = 3.68;
+      const cPipGeo = new THREE.PlaneGeometry(0.35, 0.12);
+      const cPip = new THREE.Mesh(cPipGeo, chevronMat);
+      cPip.rotation.x = -Math.PI / 2;
+      cPip.rotation.z = cAngle;
+      cPip.position.set(Math.cos(cAngle) * cR, 0.104, Math.sin(cAngle) * cR);
+      heroPodiumGroup.add(cPip);
+    }
+
+    // 5. Soft Ground Contact Shadow & Purple Ambient Reflection Disc
+    const contactDiscGeo = new THREE.CircleGeometry(2.2, 32);
+    const contactDiscMat = new THREE.MeshBasicMaterial({
+      color: 0x030308,
+      transparent: true,
+      opacity: 0.75
+    });
+    const contactDisc = new THREE.Mesh(contactDiscGeo, contactDiscMat);
+    contactDisc.rotation.x = -Math.PI / 2;
+    contactDisc.position.y = 0.105;
+    heroPodiumGroup.add(contactDisc);
+
+    scene.add(heroPodiumGroup);
+
+    // Studio 3-Point Hero Lighting Rig:
+    // Key Light: Intense Electric Cyan Blue from front-left
+    const menuKeyLight = new THREE.PointLight(0x00f0ff, 3.2, 28, 1.4);
+    menuKeyLight.position.set(-1.8, 4.2, -5.6);
+    scene.add(menuKeyLight);
+
+    // Rim Light: Fiery Neon Orange from rear-right
+    const menuRimLight = new THREE.PointLight(0xff6600, 3.6, 26, 1.3);
+    menuRimLight.position.set(5.2, 3.4, -13.5);
+    scene.add(menuRimLight);
+
+    // Ambient / Fill Light: Electric Royal Purple from overhead/center
+    const menuPurpleFill = new THREE.PointLight(0x9d00ff, 2.4, 22, 1.2);
+    menuPurpleFill.position.set(1.8, 4.2, -9.5);
+    scene.add(menuPurpleFill);
+
+    function updateMainMenuElements(active) {
+      if (typeof heroPodiumGroup !== 'undefined' && heroPodiumGroup) heroPodiumGroup.visible = active;
+      if (typeof menuKeyLight !== 'undefined' && menuKeyLight) menuKeyLight.visible = active;
+      if (typeof menuRimLight !== 'undefined' && menuRimLight) menuRimLight.visible = active;
+      if (typeof menuPurpleFill !== 'undefined' && menuPurpleFill) menuPurpleFill.visible = active;
+      if (typeof instancedGrass !== 'undefined' && instancedGrass) {
+        instancedGrass.visible = !active;
+      }
+      if (typeof ball !== 'undefined' && ball) {
+        if (ball.mesh) ball.mesh.visible = !active;
+        if (ball.indicator) ball.indicator.visible = !active;
+        if (ball.light) ball.light.visible = !active;
+        if (ball.altitudeBeam) ball.altitudeBeam.visible = !active;
+      }
+      if (typeof bots !== 'undefined' && Array.isArray(bots)) {
+        bots.forEach(b => {
+          if (b.mesh) b.mesh.visible = !active;
+          if (b.nameTag) b.nameTag.visible = !active;
+          if (b.shadow) b.shadow.visible = !active;
+        });
+      }
+      if (typeof sunLight !== 'undefined' && sunLight) {
+        sunLight.intensity = active ? 0.38 : 0.88;
+      }
+      if (typeof ambientLight !== 'undefined' && ambientLight) {
+        ambientLight.color.setHex(active ? 0x221235 : 0x48324f);
+        ambientLight.intensity = active ? 0.75 : 0.58;
+      }
+    }
 
     /* =========================================================================
        ESTADIO VIDA TURF & PITCH MARKINGS (AUTHENTIC FAVELA HILLSIDE PARITY)
@@ -8212,6 +8354,7 @@
 
           // Transition to In-Match state
           isInMainMenu = false;
+          updateMainMenuElements(false);
           const hud = document.getElementById('hud');
           if (hud) hud.classList.remove('in-main-menu');
           const menuOverlay = document.getElementById('main-menu-overlay');
@@ -8238,13 +8381,18 @@
       const menuOverlay = document.getElementById('main-menu-overlay');
       if (menuOverlay) menuOverlay.classList.remove('hidden');
 
-      // Position car and ball in showroom showcase positions
-      player.pos.set(0, 0.52, -10);
+      // Activate Main Menu Hero Presentation
+      updateMainMenuElements(true);
+      player.pos.set(1.8, 0.52, -9.5);
       player.vel.set(0, 0, 0);
-      player.heading = 0;
+      player.heading = -0.52;
       player.pitch = 0;
       player.roll = 0;
       player.speed = 0;
+      if (player.mesh) {
+        player.mesh.position.copy(player.pos);
+        player.mesh.rotation.set(0, player.heading, 0);
+      }
       ball.pos.set(0, BALL_RADIUS * mutatorBallScale, 0);
       ball.vel.set(0, 0, 0);
 
@@ -10530,16 +10678,37 @@
        ========================================================================= */
     function updateCamera(dt) {
       if (isInMainMenu) {
-        menuOrbitTimer += dt * 0.28;
-        const orbitDist = 9.2;
-        const orbitHeight = 2.4 + Math.sin(menuOrbitTimer * 0.6) * 0.4;
+        menuOrbitTimer += dt * 0.35;
+
+        // Ensure menu hero elements and car placement are set
+        updateMainMenuElements(true);
+
+        player.pos.set(1.8, 0.52, -9.5);
+        player.heading = -0.52; // Facing ~30 deg towards front-left/camera
+        player.vel.set(0, 0, 0);
+        player.speed = 0;
+        player.pitch = 0;
+        player.roll = 0;
+        if (player.mesh) {
+          player.mesh.position.copy(player.pos);
+          player.mesh.rotation.set(0, player.heading, 0);
+        }
+
+        // Hero Camera: Close-up front 3/4 perspective with subtle cinematic crane float
+        // Frames the vehicle heroically on the right side of the screen
+        const camTime = menuOrbitTimer * 0.40;
+        const swayX = Math.sin(camTime) * 0.22;
+        const swayY = Math.sin(camTime * 1.3) * 0.07;
+        const swayZ = Math.cos(camTime) * 0.18;
+
         const targetCamPos = new THREE.Vector3(
-          player.pos.x + Math.sin(menuOrbitTimer) * orbitDist,
-          player.pos.y + orbitHeight,
-          player.pos.z + Math.cos(menuOrbitTimer) * orbitDist
+          -1.35 + swayX,
+          1.24 + swayY,
+          -5.55 + swayZ
         );
-        camera.position.lerp(targetCamPos, Math.min(1.0, dt * 4.0));
-        const lookTarget = player.pos.clone().add(new THREE.Vector3(0, 0.9, 0));
+
+        camera.position.lerp(targetCamPos, Math.min(1.0, dt * 5.0));
+        const lookTarget = new THREE.Vector3(1.8, 0.72, -9.5);
         camera.lookAt(lookTarget);
         return;
       }
@@ -10926,8 +11095,13 @@
     applyEquippedLoadout();
     updateMenuLoadoutWidget();
     setupTeamsForMode('1v1');
-    player.pos.set(0, 0.52, -10);
-    player.heading = 0;
+    updateMainMenuElements(true);
+    player.pos.set(1.8, 0.52, -9.5);
+    player.heading = -0.52;
+    if (player.mesh) {
+      player.mesh.position.copy(player.pos);
+      player.mesh.rotation.set(0, player.heading, 0);
+    }
     ball.pos.set(0, BALL_RADIUS, 0);
     animate();
   </script>
