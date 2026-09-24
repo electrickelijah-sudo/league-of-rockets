@@ -2253,6 +2253,9 @@
     /* =========================================================================
        AUDIO SYNTHESIZER (Web Audio API)
        ========================================================================= */
+    /* =========================================================================
+       AUDIO SYNTHESIZER (Web Audio API - Enhanced High-Fidelity Sound System)
+       ========================================================================= */
     class SoundEngine {
       constructor() {
         this.ctx = null;
@@ -2269,69 +2272,93 @@
         this.initialized = false;
         this.isSupersonicDucked = false;
       }
+
       init() {
-        if (this.initialized) return;
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        this.ctx = new AudioContext();
+        if (this.initialized) {
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume().catch(() => {});
+          }
+          return;
+        }
+        try {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContext) return;
+          this.ctx = new AudioContext();
+          if (this.ctx.state === 'suspended') {
+            this.ctx.resume().catch(() => {});
+          }
 
-        // 1. Master Channel with Supersonic Audio Ducking Filter
-        this.masterGain = this.ctx.createGain();
-        this.masterGain.gain.setValueAtTime(0.85, this.ctx.currentTime);
+          // 1. Master Channel with Supersonic Audio Ducking Filter
+          this.masterGain = this.ctx.createGain();
+          this.masterGain.gain.setValueAtTime(0.90, this.ctx.currentTime);
 
-        this.duckFilter = this.ctx.createBiquadFilter();
-        this.duckFilter.type = 'lowpass';
-        this.duckFilter.frequency.setValueAtTime(20000, this.ctx.currentTime);
-        this.duckFilter.Q.value = 1.0;
+          this.duckFilter = this.ctx.createBiquadFilter();
+          this.duckFilter.type = 'lowpass';
+          this.duckFilter.frequency.setValueAtTime(20000, this.ctx.currentTime);
+          this.duckFilter.Q.value = 1.0;
 
-        this.masterGain.connect(this.duckFilter);
-        this.duckFilter.connect(this.ctx.destination);
+          this.masterGain.connect(this.duckFilter);
+          this.duckFilter.connect(this.ctx.destination);
 
-        // 2. High-Performance Dual-Oscillator Car Engine Synth
-        this.engineGain = this.ctx.createGain();
-        this.engineGain.gain.setValueAtTime(0.04, this.ctx.currentTime);
+          // 2. High-Performance Dual-Oscillator Car Engine Synth
+          this.engineGain = this.ctx.createGain();
+          this.engineGain.gain.setValueAtTime(0.04, this.ctx.currentTime);
 
-        this.engineOsc = this.ctx.createOscillator();
-        this.engineOsc.type = 'sawtooth';
-        this.engineOsc.frequency.setValueAtTime(55, this.ctx.currentTime);
+          this.engineOsc = this.ctx.createOscillator();
+          this.engineOsc.type = 'sawtooth';
+          this.engineOsc.frequency.setValueAtTime(55, this.ctx.currentTime);
 
-        this.engineSubOsc = this.ctx.createOscillator();
-        this.engineSubOsc.type = 'triangle';
-        this.engineSubOsc.frequency.setValueAtTime(27.5, this.ctx.currentTime);
+          this.engineSubOsc = this.ctx.createOscillator();
+          this.engineSubOsc.type = 'triangle';
+          this.engineSubOsc.frequency.setValueAtTime(27.5, this.ctx.currentTime);
 
-        this.engineOsc.connect(this.engineGain);
-        this.engineSubOsc.connect(this.engineGain);
-        this.engineGain.connect(this.masterGain);
-        this.engineOsc.start();
-        this.engineSubOsc.start();
+          this.engineOsc.connect(this.engineGain);
+          this.engineSubOsc.connect(this.engineGain);
+          this.engineGain.connect(this.masterGain);
+          this.engineOsc.start();
+          this.engineSubOsc.start();
 
-        // 3. Rocket Thruster Afterburner Synth
-        this.boostGain = this.ctx.createGain();
-        this.boostGain.gain.setValueAtTime(0, this.ctx.currentTime);
+          // 3. Rocket Thruster Afterburner Synth
+          this.boostGain = this.ctx.createGain();
+          this.boostGain.gain.setValueAtTime(0, this.ctx.currentTime);
 
-        this.boostOsc = this.ctx.createOscillator();
-        this.boostOsc.type = 'sawtooth';
-        this.boostOsc.frequency.setValueAtTime(140, this.ctx.currentTime);
-        this.boostOsc.connect(this.boostGain);
-        this.boostGain.connect(this.masterGain);
-        this.boostOsc.start();
+          this.boostOsc = this.ctx.createOscillator();
+          this.boostOsc.type = 'sawtooth';
+          this.boostOsc.frequency.setValueAtTime(140, this.ctx.currentTime);
+          this.boostOsc.connect(this.boostGain);
+          this.boostGain.connect(this.masterGain);
+          this.boostOsc.start();
 
-        // 4. Tire Drift / Turf Slide Friction Synth
-        this.driftGain = this.ctx.createGain();
-        this.driftGain.gain.setValueAtTime(0, this.ctx.currentTime);
-        this.driftOsc = this.ctx.createOscillator();
-        this.driftOsc.type = 'triangle';
-        this.driftOsc.frequency.setValueAtTime(160, this.ctx.currentTime);
-        this.driftOsc.connect(this.driftGain);
-        this.driftGain.connect(this.masterGain);
-        this.driftOsc.start();
+          // 4. Tire Drift / Turf Slide Friction Synth
+          this.driftGain = this.ctx.createGain();
+          this.driftGain.gain.setValueAtTime(0, this.ctx.currentTime);
+          this.driftOsc = this.ctx.createOscillator();
+          this.driftOsc.type = 'triangle';
+          this.driftOsc.frequency.setValueAtTime(160, this.ctx.currentTime);
+          this.driftOsc.connect(this.driftGain);
+          this.driftGain.connect(this.masterGain);
+          this.driftOsc.start();
 
-        this.initialized = true;
+          this.initialized = true;
+        } catch (e) {
+          console.warn('AudioContext init error:', e);
+        }
       }
+
+      ensureAudio() {
+        if (!this.initialized) {
+          this.init();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume().catch(() => {});
+        }
+        return this.initialized && this.ctx && this.ctx.state === 'running';
+      }
+
       updateEngine(speed, isBoosting, throttle = 1) {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
         const absSpd = Math.abs(speed);
-        // Dynamic pitch scaling with car RPM and speed
         const basePitch = 50 + absSpd * 95 + (isBoosting ? 110 : 0);
         this.engineOsc.frequency.setTargetAtTime(basePitch, now, 0.04);
         this.engineSubOsc.frequency.setTargetAtTime(basePitch * 0.5, now, 0.04);
@@ -2346,8 +2373,9 @@
           this.boostGain.gain.setTargetAtTime(0.0, now, 0.05);
         }
       }
+
       updateDrift(isDrifting, speed) {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
         if (isDrifting && speed > 5) {
           const vol = Math.min(0.18, (speed / 30) * 0.18);
@@ -2357,10 +2385,10 @@
           this.driftGain.gain.setTargetAtTime(0.0, now, 0.06);
         }
       }
+
       playSonicBoom() {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
-        // 1. Violent sub-bass thunder drop
         const boom = this.ctx.createOscillator();
         const boomGain = this.ctx.createGain();
         boom.type = 'sawtooth';
@@ -2373,51 +2401,73 @@
         boom.start(now);
         boom.stop(now + 0.7);
 
-        // 2. Audio Ducking Filter on World Mix (mimics high-G shockwave ear compression)
         if (this.duckFilter) {
           this.duckFilter.frequency.setValueAtTime(800, now);
           this.duckFilter.frequency.exponentialRampToValueAtTime(20000, now + 0.45);
         }
       }
+
       playJump() {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
+        const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const g = this.ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(130, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(440, this.ctx.currentTime + 0.12);
-        g.gain.setValueAtTime(0.24, this.ctx.currentTime);
-        g.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.14);
+        osc.frequency.setValueAtTime(130, now);
+        osc.frequency.exponentialRampToValueAtTime(440, now + 0.12);
+        g.gain.setValueAtTime(0.24, now);
+        g.gain.exponentialRampToValueAtTime(0.01, now + 0.14);
         osc.connect(g);
         g.connect(this.masterGain || this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.15);
+        osc.start(now);
+        osc.stop(now + 0.15);
       }
+
       playHit(force = 1) {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const g = this.ctx.createGain();
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(Math.min(180, 75 + force * 2.5), now);
-        osc.frequency.exponentialRampToValueAtTime(28, now + 0.14);
-        g.gain.setValueAtTime(Math.min(0.65, 0.20 + force * 0.008), now);
-        g.gain.exponentialRampToValueAtTime(0.01, now + 0.16);
+        const baseFreq = 80 + Math.min(100, force * 15);
+        osc.frequency.setValueAtTime(baseFreq, now);
+        osc.frequency.exponentialRampToValueAtTime(25, now + 0.12);
+        const gainVal = Math.min(0.65, 0.22 + force * 0.04);
+        g.gain.setValueAtTime(gainVal, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
         osc.connect(g);
         g.connect(this.masterGain || this.ctx.destination);
         osc.start(now);
-        osc.stop(now + 0.18);
+        osc.stop(now + 0.20);
+
+        if (force > 3.0) {
+          const snap = this.ctx.createOscillator();
+          const sg = this.ctx.createGain();
+          snap.type = 'sawtooth';
+          snap.frequency.setValueAtTime(850, now);
+          snap.frequency.exponentialRampToValueAtTime(140, now + 0.06);
+          sg.gain.setValueAtTime(0.20, now);
+          sg.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          snap.connect(sg);
+          sg.connect(this.masterGain || this.ctx.destination);
+          snap.start(now);
+          snap.stop(now + 0.09);
+        }
       }
+
+      playBallHit(force = 1) {
+        this.playHit(force);
+      }
+
       playGoal() {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
-        // Deep goal explosion blast sub-kick
         const sub = this.ctx.createOscillator();
         const subG = this.ctx.createGain();
         sub.type = 'sawtooth';
         sub.frequency.setValueAtTime(160, now);
-        sub.frequency.exponentialRampToValueAtTime(20, now + 0.95);
-        subG.gain.setValueAtTime(0.85, now);
+        sub.frequency.exponentialRampToValueAtTime(24, now + 1.1);
+        subG.gain.setValueAtTime(0.95, now);
         subG.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
         sub.connect(subG);
         subG.connect(this.ctx.destination);
@@ -2427,10 +2477,10 @@
         this.playGoalAirhorn();
         this.playCrowdCheer();
       }
+
       playGoalAirhorn() {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
-        // Authentic 4-tone stadium airhorn chord [F4, A4, C5, F5]
         const freqs = [349.2, 440.0, 523.2, 698.4];
         freqs.forEach(f => {
           const horn = this.ctx.createOscillator();
@@ -2438,8 +2488,8 @@
           horn.type = 'sawtooth';
           horn.frequency.setValueAtTime(f, now + 0.1);
           horn.frequency.setValueAtTime(f * 1.01, now + 0.25);
-          g.gain.setValueAtTime(0.12, now + 0.1);
-          g.gain.setValueAtTime(0.15, now + 0.3);
+          g.gain.setValueAtTime(0.14, now + 0.1);
+          g.gain.setValueAtTime(0.18, now + 0.3);
           g.gain.exponentialRampToValueAtTime(0.01, now + 1.6);
           horn.connect(g);
           g.connect(this.ctx.destination);
@@ -2447,12 +2497,12 @@
           horn.stop(now + 1.7);
         });
       }
+
       playCrowdCheer() {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
-        // Multi-layered stadium crowd roar
         const pitches = [180, 240, 310, 420];
-        pitches.forEach((p, idx) => {
+        pitches.forEach(p => {
           const osc = this.ctx.createOscillator();
           const g = this.ctx.createGain();
           osc.type = 'triangle';
@@ -2468,8 +2518,9 @@
           osc.stop(now + 2.6);
         });
       }
+
       playCrowdGasp() {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const g = this.ctx.createGain();
@@ -2479,89 +2530,68 @@
         g.gain.setValueAtTime(0.16, now);
         g.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
         osc.connect(g);
-        g.connect(this.ctx.destination);
+        g.connect(this.masterGain || this.ctx.destination);
         osc.start(now);
         osc.stop(now + 0.38);
       }
-      playDemo() {
-        if (!this.initialized) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const g = this.ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(150, now);
-        osc.frequency.exponentialRampToValueAtTime(18, now + 0.85);
-        g.gain.setValueAtTime(0.85, now);
-        g.gain.exponentialRampToValueAtTime(0.01, now + 0.95);
-        osc.connect(g);
-        g.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 1.0);
-      }
-      playBump() {
-        if (!this.initialized) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const g = this.ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(110, now);
-        osc.frequency.exponentialRampToValueAtTime(32, now + 0.16);
-        g.gain.setValueAtTime(0.5, now);
-        g.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
-        osc.connect(g);
-        g.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.20);
-      }
-      playQuickChat() {
-        if (!this.initialized) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const g = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(580, now);
-        osc.frequency.setValueAtTime(880, now + 0.08);
-        g.gain.setValueAtTime(0.2, now);
-        g.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
-        osc.connect(g);
-        g.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.24);
-      }
-      playFlip() {
-        if (!this.initialized) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const g = this.ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(280, now);
-        osc.frequency.exponentialRampToValueAtTime(70, now + 0.18);
-        g.gain.setValueAtTime(0.35, now);
-        g.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
-        osc.connect(g);
-        g.connect(this.masterGain || this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.24);
-      }
+
       playCountdown(count) {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const g = this.ctx.createGain();
-        osc.type = 'triangle';
-        const isGo = (count === 0 || count === 'GO!');
-        const freq = isGo ? 880 : 440;
-        const dur = isGo ? 0.35 : 0.18;
-        osc.frequency.setValueAtTime(freq, now);
-        g.gain.setValueAtTime(isGo ? 0.30 : 0.22, now);
-        g.gain.exponentialRampToValueAtTime(0.01, now + dur);
-        osc.connect(g);
-        g.connect(this.masterGain || this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + dur + 0.02);
+        const isGo = (count === 0 || count === 'GO!' || count === 'GO');
+
+        if (!isGo) {
+          // 3, 2, 1: High-clarity digital stadium countdown beep (1046.5Hz C6)
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1046.5, now);
+          g.gain.setValueAtTime(0.32, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+          osc.connect(g);
+          g.connect(this.masterGain || this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.18);
+
+          const sub = this.ctx.createOscillator();
+          const sg = this.ctx.createGain();
+          sub.type = 'triangle';
+          sub.frequency.setValueAtTime(523.25, now);
+          sg.gain.setValueAtTime(0.20, now);
+          sg.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+          sub.connect(sg);
+          sg.connect(this.masterGain || this.ctx.destination);
+          sub.start(now);
+          sub.stop(now + 0.16);
+        } else {
+          // GO! Explosive double-octave blast
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(2093, now); // C7
+          g.gain.setValueAtTime(0.45, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.40);
+          osc.connect(g);
+          g.connect(this.masterGain || this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.42);
+
+          const bass = this.ctx.createOscillator();
+          const bg = this.ctx.createGain();
+          bass.type = 'sawtooth';
+          bass.frequency.setValueAtTime(261.6, now);
+          bass.frequency.exponentialRampToValueAtTime(65.4, now + 0.35);
+          bg.gain.setValueAtTime(0.38, now);
+          bg.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+          bass.connect(bg);
+          bg.connect(this.masterGain || this.ctx.destination);
+          bass.start(now);
+          bass.stop(now + 0.40);
+        }
       }
+
       playFlipReset() {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const g = this.ctx.createGain();
@@ -2575,58 +2605,151 @@
         osc.start(now);
         osc.stop(now + 0.22);
       }
+
       playBoostPickup() {
-        if (!this.initialized) return;
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const g = this.ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(340, now);
-        osc.frequency.exponentialRampToValueAtTime(740, now + 0.18);
-        g.gain.setValueAtTime(0.22, now);
-        g.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-        osc.connect(g);
-        g.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.22);
-      }
-      playMenuSelect() {
-        if (!this.initialized) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const g = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(580, now);
-        osc.frequency.exponentialRampToValueAtTime(880, now + 0.06);
-        g.gain.setValueAtTime(0.20, now);
-        g.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.exponentialRampToValueAtTime(980, now + 0.16);
+        g.gain.setValueAtTime(0.26, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.20);
         osc.connect(g);
         g.connect(this.masterGain || this.ctx.destination);
         osc.start(now);
-        osc.stop(now + 0.09);
+        osc.stop(now + 0.22);
       }
-      playMatchFound() {
-        if (!this.initialized) return;
+
+      // High-grade tactile mechanical + digital UI click
+      playMenuClick() {
+        if (!this.ensureAudio()) return;
         const now = this.ctx.currentTime;
-        const tones = [{ f: 523.25, t: 0 }, { f: 783.99, t: 0.12 }];
-        tones.forEach(tone => {
+
+        const snap = this.ctx.createOscillator();
+        const snapG = this.ctx.createGain();
+        snap.type = 'triangle';
+        snap.frequency.setValueAtTime(2600, now);
+        snap.frequency.exponentialRampToValueAtTime(450, now + 0.02);
+        snapG.gain.setValueAtTime(0.32, now);
+        snapG.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+        snap.connect(snapG);
+        snapG.connect(this.masterGain || this.ctx.destination);
+        snap.start(now);
+        snap.stop(now + 0.035);
+
+        const body = this.ctx.createOscillator();
+        const bodyG = this.ctx.createGain();
+        body.type = 'sine';
+        body.frequency.setValueAtTime(360, now);
+        body.frequency.exponentialRampToValueAtTime(110, now + 0.045);
+        bodyG.gain.setValueAtTime(0.40, now);
+        bodyG.gain.exponentialRampToValueAtTime(0.001, now + 0.055);
+        body.connect(bodyG);
+        bodyG.connect(this.masterGain || this.ctx.destination);
+        body.start(now);
+        body.stop(now + 0.06);
+      }
+
+      playMenuSelect() {
+        this.playMenuClick();
+      }
+
+      // Subtle, pleasant high-tech UI hover chirp
+      playMenuHover() {
+        if (!this.ensureAudio()) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1200, now);
+        osc.frequency.exponentialRampToValueAtTime(1750, now + 0.022);
+        g.gain.setValueAtTime(0.09, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.028);
+        osc.connect(g);
+        g.connect(this.masterGain || this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.032);
+      }
+
+      // Cinematic Match Launch: Sub-bass impact + supersonic riser + chord burst
+      playMatchLaunch(mode = '1v1') {
+        if (!this.ensureAudio()) return;
+        const now = this.ctx.currentTime;
+
+        const sub = this.ctx.createOscillator();
+        const subG = this.ctx.createGain();
+        sub.type = 'sine';
+        sub.frequency.setValueAtTime(190, now);
+        sub.frequency.exponentialRampToValueAtTime(36, now + 0.42);
+        subG.gain.setValueAtTime(0.60, now);
+        subG.gain.exponentialRampToValueAtTime(0.001, now + 0.50);
+        sub.connect(subG);
+        subG.connect(this.masterGain || this.ctx.destination);
+        sub.start(now);
+        sub.stop(now + 0.52);
+
+        const rise = this.ctx.createOscillator();
+        const riseG = this.ctx.createGain();
+        rise.type = 'sawtooth';
+        rise.frequency.setValueAtTime(260, now);
+        rise.frequency.exponentialRampToValueAtTime(1480, now + 0.25);
+        riseG.gain.setValueAtTime(0.22, now);
+        riseG.gain.exponentialRampToValueAtTime(0.001, now + 0.30);
+        rise.connect(riseG);
+        riseG.connect(this.masterGain || this.ctx.destination);
+        rise.start(now);
+        rise.stop(now + 0.32);
+
+        [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
           const osc = this.ctx.createOscillator();
           const g = this.ctx.createGain();
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(tone.f, now + tone.t);
-          g.gain.setValueAtTime(0.25, now + tone.t);
-          g.gain.exponentialRampToValueAtTime(0.01, now + tone.t + 0.35);
+          const t = now + 0.06 + idx * 0.04;
+          osc.frequency.setValueAtTime(freq, t);
+          g.gain.setValueAtTime(0.24, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.38);
           osc.connect(g);
           g.connect(this.masterGain || this.ctx.destination);
-          osc.start(now + tone.t);
-          osc.stop(now + tone.t + 0.36);
+          osc.start(t);
+          osc.stop(t + 0.40);
         });
+      }
+
+      playMatchFound() {
+        this.playMatchLaunch();
+      }
+
+      // High-tech pneumatic wrench click for garage equip
+      playEquipSound() {
+        if (!this.ensureAudio()) return;
+        const now = this.ctx.currentTime;
+        for (let i = 0; i < 3; i++) {
+          const t = now + i * 0.035;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(450 + i * 220, t);
+          osc.frequency.exponentialRampToValueAtTime(160, t + 0.025);
+          g.gain.setValueAtTime(0.22, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.03);
+          osc.connect(g);
+          g.connect(this.masterGain || this.ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.035);
+        }
       }
     }
 
     const sound = new SoundEngine();
-    window.addEventListener('keydown', () => sound.init(), { once: true });
-    window.addEventListener('click', () => sound.init(), { once: true });
+    const unlockAudio = () => {
+      sound.ensureAudio();
+    };
+    window.addEventListener('keydown', unlockAudio);
+    window.addEventListener('click', unlockAudio);
+    window.addEventListener('pointerdown', unlockAudio);
+    window.addEventListener('touchstart', unlockAudio);
 
     /* =========================================================================
        THREE.JS SCENE, SHADERS, LIGHTING & POST-PROCESSING TONE MAPPING
@@ -8735,7 +8858,10 @@
       achievedSupersonic = false;
 
       // Authentic Tactical Kickoff Spawns (1:1 Scale)
-      if (currentGameMode === '1v1') {
+      if (currentGameMode === 'training') {
+        player.pos.set(0, 0.52, -32);
+        player.heading = 0;
+      } else if (currentGameMode === '1v1') {
         player.pos.set(0, 0.52, -38);
         player.heading = 0;
         bot.pos.set(0, 0.52, 38);
@@ -8895,21 +9021,21 @@
     let isMatchmakingActive = false;
 
     function togglePlaySubmenu() {
+      if (sound) sound.playMenuClick();
       const drawer = document.getElementById('rl-play-drawer');
       if (!drawer) return;
       if (drawer.classList.contains('active')) {
         drawer.classList.remove('active');
       } else {
         drawer.classList.add('active');
-        if (sound && sound.playMenuSelect) sound.playMenuSelect();
       }
     }
 
     function showPlaySubmenu() {
+      if (sound) sound.playMenuClick();
       const drawer = document.getElementById('rl-play-drawer');
       if (drawer) {
         drawer.classList.add('active');
-        if (sound && sound.playMenuSelect) sound.playMenuSelect();
       }
     }
 
@@ -8919,54 +9045,48 @@
     }
 
     function startMatchmaking(mode) {
-      if (isMatchmakingActive) return;
-      isMatchmakingActive = true;
+      if (sound) {
+        sound.ensureAudio();
+        sound.playMatchLaunch(mode);
+      }
+
       hidePlaySubmenu();
 
       const banner = document.getElementById('rl-matchmaking-banner');
       const title = document.getElementById('rl-mm-title');
       const sub = document.getElementById('rl-mm-sub');
 
+      const modeLabel = (mode === 'training') ? 'FREE PLAY' : mode.toUpperCase();
       if (banner && title && sub) {
-        const modeLabel = (mode === 'training') ? 'FREE PLAY' : mode.toUpperCase();
-        title.innerText = `SEARCHING: ${modeLabel} (US-EAST)...`;
-        sub.innerText = 'LOCATING HIGH-TICK ARENA SERVER';
+        title.innerText = `🚀 LAUNCHING: ${modeLabel}...`;
+        sub.innerText = 'DEPLOYING BATTLE-CAR TO ARENA';
         banner.classList.add('active');
       }
-      if (sound && sound.playMenuSelect) sound.playMenuSelect();
 
-      // Step 2: Reservation Found (after 600ms)
+      // Fast, ultra-responsive 220ms launch transition!
       setTimeout(() => {
-        if (title && sub) {
-          title.innerText = '✔️ RESERVATION FOUND!';
-          sub.innerText = 'PREPARING ARENA PITCH & BOT OPPONENTS';
-        }
-        if (sound && sound.playMatchFound) sound.playMatchFound();
-      }, 600);
+        if (banner) banner.classList.remove('active');
+        isMatchmakingActive = false;
 
-      // Step 3: Joining Arena & Launch Kickoff (after 1200ms)
-      setTimeout(() => {
-        if (title && sub) {
-          title.innerText = '🚀 JOINING ARENA...';
-          sub.innerText = 'DEPLOYING TO KICKOFF LINE';
-        }
+        isInMainMenu = false;
+        updateMainMenuElements(false);
+        const hud = document.getElementById('hud');
+        if (hud) hud.classList.remove('in-main-menu');
+        const menuOverlay = document.getElementById('main-menu-overlay');
+        if (menuOverlay) menuOverlay.classList.add('hidden');
 
-        setTimeout(() => {
-          if (banner) banner.classList.remove('active');
-          isMatchmakingActive = false;
+        setupTeamsForMode(mode);
 
-          // Transition to In-Match state
-          isInMainMenu = false;
-          updateMainMenuElements(false);
-          const hud = document.getElementById('hud');
-          if (hud) hud.classList.remove('in-main-menu');
-          const menuOverlay = document.getElementById('main-menu-overlay');
-          if (menuOverlay) menuOverlay.classList.add('hidden');
-
-          setupTeamsForMode(mode);
+        if (mode === 'training') {
+          resetKickoff();
+          isKickoffCountdown = false;
+          countdownBanner.style.display = 'none';
+          showStatBadge('FREE PLAY ACTIVE', 0, '🎯');
+          sendQuickChatMessage('System', 'BLUE', 'Free Play active! Unlimited boost. Press ESC for menu.');
+        } else {
           startKickoffCountdown();
-        }, 500);
-      }, 1200);
+        }
+      }, 220);
     }
 
     function returnToMainMenu() {
@@ -8986,6 +9106,7 @@
 
       // Activate Main Menu Hero Presentation
       updateMainMenuElements(true);
+    attachMenuSoundListeners();
       player.pos.set(1.8, 0.52, -9.5);
       player.vel.set(0, 0, 0);
       player.heading = -0.52;
@@ -9010,6 +9131,7 @@
     }
 
     function openModal(id) {
+      if (sound) sound.playMenuClick();
       document.querySelectorAll('.game-modal').forEach(m => m.classList.remove('active'));
       const el = document.getElementById(id);
       if (el) el.classList.add('active');
@@ -9019,6 +9141,7 @@
     }
 
     function closeModal(id) {
+      if (sound) sound.playMenuClick();
       const el = document.getElementById(id);
       if (el) el.classList.remove('active');
     }
@@ -11272,7 +11395,8 @@
       renderGarageCards();
       updateMenuLoadoutWidget();
       showStatBadge('EQUIPPED ' + item.name.toUpperCase(), 0, '🔧');
-      sound.playHit(1.3);
+      if (sound && sound.playEquipSound) sound.playEquipSound();
+      else if (sound) sound.playHit(1.3);
 
       // Trigger visual response on turntable preview
       if (category === 'boost') {
@@ -13654,6 +13778,17 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
       resizeGaragePreview();
     });
+
+    function attachMenuSoundListeners() {
+      const interactiveEls = document.querySelectorAll(
+        '.rl-menu-btn, .rl-mode-card, .filter-chip, .garage-tab-btn, .close-btn, .rl-loadout-badge, .preview-mini-btn, .map-card, .btn-action, .rl-loadout-edit-btn'
+      );
+      interactiveEls.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          if (sound && sound.playMenuHover) sound.playMenuHover();
+        });
+      });
+    }
 
     // Start game in Authentic Rocket League Main Menu
     // Initialize Progression, Customization Garage, and Default Teams
