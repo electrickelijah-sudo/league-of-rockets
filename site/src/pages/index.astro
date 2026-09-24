@@ -1,0 +1,29 @@
+---
+// index.astro — League of Rockets splash / landing page
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import ConceptGallery from '../components/ConceptGallery.astro';
+import CarShowcase from '../components/CarShowcase.astro';
+import CTABanner from '../components/CTABanner.astro';
+import Footer from '../components/Footer.astro';
+import MotionInit from '../components/MotionInit.js';
+---
+
+<Layout title="League of Rockets — Concept">
+  <Nav />
+
+  <main>
+    <Hero />
+    <ConceptGallery />
+    <CarShowcase />
+    <CTABanner />
+  </main>
+
+  <Footer />
+
+  <!-- GSAP motion init (runs on client, cheap) -->
+  <script client:only="js">
+    import '../components/MotionInit.js';
+  </script>
+</Layout>

@@ -1,0 +1,111 @@
+/**
+ * League of Rockets — GSAP Motion Init
+ * Cinematic reveals, parallax, staggered entrances.
+ * Loaded after DOM ready; no animation if JS disabled.
+ */
+(function () {
+  'use strict';
+
+  // Bail gracefully if GSAP or ScrollTrigger didn't load
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  // Register ScrollTrigger
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── Reveal-on-scroll (IntersectionObserver-backed) ──
+  // Cards, sections, and text blocks with .reveal get animated in.
+  const revealEls = document.querySelectorAll('.reveal');
+
+  if (revealEls.length) {
+    // Set initial state
+    gsap.set(revealEls, { opacity: 0, y: 40 });
+
+    // Each element gets its own scroll trigger
+    revealEls.forEach((el) => {
+      const delay = parseFloat(el.getAttribute('data-reveal-delay') || '0');
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 88%',
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: delay,
+        onEnter: () => {
+          gsap.to(el, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: delay });
+        },
+      });
+    });
+  }
+
+  // ── Hero: slow parallax on stadium image ──
+  const heroStadium = document.querySelector('.hero-stadium');
+  if (heroStadium && window.innerWidth > 768) {
+    gsap.to(heroStadium, {
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.2,
+      },
+      y: '-=40',
+      scale: 1.14,
+      ease: 'none',
+    });
+  }
+
+  // ── Hero text: subtle entrance ──
+  const heroContent = document.querySelector('.hero-content');
+  if (heroContent) {
+    gsap.from(heroContent, {
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top 60%',
+        toggleActions: 'play none none reverse',
+      },
+      opacity: 0,
+      y: 30,
+      duration: 1.1,
+      ease: 'power3.out',
+    });
+  }
+
+  // ── Stat numbers: count-up (simple) ──
+  const statValues = document.querySelectorAll('.stat-value');
+  if (statValues.length) {
+    statValues.forEach((el) => {
+      const raw = el.getAttribute('data-end') || '0';
+      const end = parseFloat(raw);
+      const prefix = el.getAttribute('data-prefix') || '';
+      const suffix = el.getAttribute('data-suffix') || '';
+      if (isNaN(end)) return;
+
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 85%',
+        onEnter: () => {
+          gsap.to(el, {
+            innerHTML: () => {
+              // animate numeric; keep prefix/suffix outside the <span>
+              const result = prefix + Math.round(end) + suffix;
+              return result;
+            },
+            duration: 1.4,
+            ease: 'power2.out',
+            snap: { innerHTML: 1 },
+          });
+        },
+      });
+    });
+  }
+
+  // ── Smooth anchor scrolling (if browser doesn't handle it) ──
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();

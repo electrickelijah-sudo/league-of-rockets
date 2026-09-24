@@ -1,0 +1,77 @@
+# League of Rockets — Steam Store Page Copy
+
+## Tagline
+A Rocket League–inspired vehicular sports game. Full 3D physics, aerial combat, rocket boost — zero install, runs in any browser.
+
+## Short Description (Steam "About This Game" lead)
+League of Rockets is a fast, physics-driven vehicular sports game built in the spirit of Rocket League. Pick from a roster of battle cars, drop into regulation arenas, and fight for the ball with boost, aerials, and precision drives. Play instantly in your browser — no download required.
+
+## About This Game
+
+### WHAT IS LEAGUE OF ROCKETS?
+League of Rockets is a free-to-play, browser-based vehicular sports game that captures the adrenaline of Rocket League–style gameplay. You pilot a battle car across a regulation pitch, using boost, air rolls, and aerial precision to smash a glowing ball into the opponent's goal.
+
+Built with Three.js for 3D rendering and Cannon.js for real-time physics, the game runs instantly in any modern browser with no install, no launcher, and no friction.
+
+### CORE GAMEPLAY
+- **Drive & steer** with WASD or arrow keys
+- **Rocket boost** (Space / Shift) for supersonic aerials and speed bursts
+- **Jump & double jump** to launch off the ground and walls
+- **Air roll & pitch** while airborne to line up impossible shots
+- **Ball cam / car cam** toggle with C
+- **Powerslide & handbrake** (Shift) for tight cornering
+- **Full physics** — collisions, ball bounces, and car contact feel real
+
+### CARS
+League of Rockets ships with an authentic 1:1 Octane battle car modeled in Blender, matching the look and proportions of the Rocket League Octane. Additional car variants — Dominus, Fennec, and Breakout — are in active development, each with a distinct stance, silhouette, and racing character.
+
+### ARENAS
+- **Sunset Championship** — an open-air hillside stadium with neon hex goals, curved ramp walls, and dramatic dusk lighting
+- **Forbidden Temple** — a dense, atmospheric temple arena with layered geometry and dramatic sightlines
+- More arenas in development, built in Blender and ported to the web
+
+### PHYSICS & CONTROLS
+The game uses Cannon.js for rigid-body physics and Three.js for rendering. Every car is a single rigid body with friction, restitution, and boost forces tuned for accessible but skill-expressive gameplay. The ball responds to car impact with realistic deflection and spin.
+
+### WHO IT'S FOR
+- Rocket League fans who want a fast, free, no-install alternative
+- Players who prefer browser games and hate large downloads
+- Anyone who likes vehicular combat, aerial mechanics, and physics-driven sports
+
+### FREE & OPEN
+League of Rockets is free to play. The source code and Blender assets are open on GitHub — contributions, car variants, and arena models are welcome.
+
+## Features (Steam feature bullets)
+- Free, browser-based vehicular sports game — no download, no install
+- Authentic 1:1 Octane battle car, modeled in Blender
+- Full real-time physics with Cannon.js — driving, aerials, collisions, ball bounce
+- Rocket boost, jump, air roll, powerslide, and ball cam
+- Sunset Championship and Forbidden Temple arenas, with more in development
+- WASD / arrow key controls, designed for keyboard and controller
+- Open-source project — car variants and arenas contributed by the community
+
+## Technical
+- Engine: Three.js (3D rendering) + Cannon.js (physics)
+- Assets: Blender 5.x models (FBX / GLB pipeline)
+- Platform: Web (Chrome, Firefox, Safari, Edge)
+- Input: Keyboard (WASD + Space/Shift) and gamepad
+
+## Developer
+League of Rockets is developed by Elijah Johnson and Josh Johnson. Collaborators and contributors are welcome — see the GitHub repository for details.
+
+---
+# Steam Capsule Specs (for the art team)
+
+Steam capsule (website hero): **1920 × 620 px**, safe zone for key art in the center.
+- Use `sunset_stadium_render.png` or `forbidden_temple_render.png` as the full-bleed background
+- Title "LEAGUE OF ROCKETS" in Syne (or equivalent bold sans) centered over the arena
+- Subtitle: "A Rocket League–inspired vehicular sports game"
+- Keep the bottom 120px and top 80px clear of critical text (Steam UI overlays)
+
+Steam capsule (widescreen store): same 1920 × 620, optimized for the store header.
+
+Store banner: **1920 × 1080 px** — wider aspect, can show a car + arena action shot.
+
+Square key art (featured image): **1024 × 1024 px** — car hero shot or arena + title.
+
+Screenshot set (recommend 5–8): gameplay stills with HUD visible, car close-ups, arena wide shots, boost/airrial action.

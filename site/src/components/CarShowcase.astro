@@ -1,0 +1,328 @@
+---
+// CarShowcase.astro — Battle car variants
+const cars = [
+  {
+    name: 'Octane',
+    accent: 'var(--color-primary)',
+    type: 'Box · Tall · Baseline',
+    render: '/blueprint_car_render.png',
+    specs: { L: '4.2m', W: '2.1m', Boost: 'Standard' },
+    ready: true,
+    desc: '1:1 authentic Rocket League Octane. Dual Alpine White racing stripes over Cobalt Blue metallic paint.',
+  },
+  {
+    name: 'Dominus',
+    accent: 'var(--color-secondary)',
+    type: 'Long Hood · Low · Muscle',
+    render: null,
+    specs: { L: '—', W: '—', Boost: '—' },
+    ready: false,
+    desc: 'Long hood, low stance, wide muscle-car proportions. Sharp front grille and wide rear fenders.',
+  },
+  {
+    name: 'Fennec',
+    accent: 'var(--color-primary)',
+    type: 'Box · Van · Flat Front',
+    render: null,
+    specs: { L: '—', W: '—', Boost: '—' },
+    ready: false,
+    desc: 'Boxy van silhouette with a flat front face. Wide, upright, and built for tight corners.',
+  },
+  {
+    name: 'Breakout',
+    accent: 'var(--color-secondary)',
+    type: 'Long · Low · Sharp Wedge',
+    render: null,
+    specs: { L: '—', W: '—', Boost: '—' },
+    ready: false,
+    desc: 'Long, low, aggressive wedge profile. Sharp character lines and a forward-biased cockpit.',
+  },
+];
+---
+
+<section class="section cars-section" id="cars">
+  <div class="container">
+    <div class="cars-eyebrow reveal">
+      <span class="section-label">Phase 1 · Car Concepts</span>
+    </div>
+
+    <div class="cars-header reveal reveal-delay-1">
+      <h2 class="section-title">Battle Car Variants</h2>
+      <p class="section-sub">
+        Four distinct vehicular designs — each with its own stance, proportions, and racing character.
+        Octane is the 1:1 authentic baseline built from the repo's <code>rocket_league_car.blend</code>.
+      </p>
+    </div>
+
+    <div class="cars-grid">
+      {cars.map((car, i) => (
+        <article class={`car-card ${car.ready ? 'car-card--ready' : 'car-card--coming'} reveal reveal-delay-${Math.min(i + 1, 4)}`}>
+          <div class="car-visual">
+            <div class="car-glow" style="background: radial-gradient(circle, ${car.accent}33, transparent 70%);"></div>
+            {car.ready ? (
+              <img src={car.render} alt={`${car.name} battle car concept`} loading="lazy" decoding="async" class="car-img" />
+            ) : (
+              <div class="car-placeholder">
+                <div class="car-placeholder-icon">⏺</div>
+                <div class="car-placeholder-text">
+                  <div class="car-placeholder-name" style="color: {car.accent}">{car.name}</div>
+                  <div class="car-placeholder-sub">Concept Art Needed</div>
+                </div>
+              </div>
+            )}
+            <div class="car-tag" style="color: {car.accent}">{car.type}</div>
+          </div>
+          <div class="car-body">
+            <h3 class="car-name text-display" style="color: {car.accent}">{car.name}</h3>
+            <p class="car-desc">{car.desc}</p>
+            <dl class="car-specs">
+              <div class="spec"><dt class="spec-key">Length</dt><dd class="spec-val">{car.specs.L}</dd></div>
+              <div class="spec"><dt class="spec-key">Width</dt><dd class="spec-val">{car.specs.W}</dd></div>
+              <div class="spec"><dt class="spec-key">Boost</dt><dd class="spec-val">{car.specs.Boost}</dd></div>
+            </dl>
+            {!car.ready && (
+              <a href="/League_of_Rockets.html" class="btn btn-secondary btn-sm">
+                <span class="btn-icon">▶</span> Preview Octane
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Steam / Epic hook -->
+    <div class="steam-hook reveal reveal-delay-3">
+      <div class="steam-hook-inner">
+        <div class="steam-hook-badge">COMING TO STEAM</div>
+        <p class="steam-hook-text">
+          More cars, more arenas, more chaos — built for the browser, heading to Steam.
+          <a href="#contact" class="steam-hook-link">Get on the list →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cars-section { padding: var(--space-24) 0; }
+
+  .cars-eyebrow { margin-bottom: var(--space-4); }
+
+  .cars-header { margin-bottom: var(--space-10); max-width: 620px; }
+
+  .cars-header :global(.section-sub) {
+    font-size: var(--text-md);
+    color: var(--color-text-mute);
+  }
+
+  .cars-header :global(code) {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.85em;
+    color: var(--color-primary);
+    background: rgba(34,211,238,0.08);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  .cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-5);
+    margin-bottom: var(--space-16);
+  }
+
+  .car-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: transform var(--dur-base) var(--ease-out),
+                border-color var(--dur-base) var(--ease-out),
+                box-shadow var(--dur-base) var(--ease-out);
+  }
+
+  .car-card--ready:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-border-soft);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .car-visual {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: linear-gradient(180deg, #0c0c18, var(--color-base));
+  }
+
+  .car-glow {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .car-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .car-card--ready:hover .car-img {
+    transform: scale(1.04);
+  }
+
+  .car-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    color: var(--color-text-dim);
+  }
+
+  .car-placeholder-icon {
+    font-size: 2.4rem;
+    opacity: 0.4;
+  }
+
+  .car-placeholder-text {
+    text-align: center;
+  }
+
+  .car-placeholder-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--text-xl);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .car-placeholder-sub {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-top: var(--space-2);
+    color: var(--color-text-dim);
+  }
+
+  .car-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    background: rgba(7,7,13,0.7);
+    backdrop-filter: blur(6px);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .car-body {
+    padding: var(--space-4) var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .car-name {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .car-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-mute);
+    line-height: 1.55;
+    margin-bottom: var(--space-4);
+  }
+
+  .car-specs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    padding: var(--space-3) 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .spec { display: flex; flex-direction: column; gap: 2px; }
+
+  .spec-key {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-dim);
+    font-weight: 600;
+  }
+
+  .spec-val {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-base);
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+  }
+
+  .btn-sm { font-size: var(--text-xs); padding: 0.5rem 1.1rem; }
+
+  /* Steam hook */
+  .steam-hook {
+    background: linear-gradient(135deg, rgba(34,211,238,0.06), rgba(251,146,60,0.05));
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-6) var(--space-8);
+  }
+
+  .steam-hook-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .steam-hook-badge {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--color-secondary);
+    background: rgba(251,146,60,0.1);
+    border: 1px solid rgba(251,146,60,0.2);
+    padding: 5px 14px;
+    border-radius: var(--radius-full);
+    display: inline-block;
+    margin-bottom: var(--space-4);
+  }
+
+  .steam-hook-text {
+    font-size: var(--text-md);
+    color: var(--color-text-mute);
+    line-height: 1.6;
+  }
+
+  .steam-hook-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .steam-hook-link:hover { color: var(--color-text); }
+
+  @media (max-width: 640px) {
+    .cars-grid { grid-template-columns: 1fr; }
+    .car-specs { grid-template-columns: repeat(3, 1fr); }
+    .steam-hook { padding: var(--space-5) var(--space-4); }
+  }
+</style>

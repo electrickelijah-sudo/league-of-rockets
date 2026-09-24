@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'League of Rockets', description = 'A vehicular sports game — 3D, physics, aerial combat.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description" content={description}>
+  <meta name="theme-color" content="#07070d">
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content="/preview.jpg">
+  <meta property="og:type" content="website">
+  <title>{title}</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Analytics placeholder — add your tag here -->
+  <!-- Google Analytics / Plausible / etc. -->
+</head>
+<body>
+  <slot />
+  <!-- GSAP + ScrollTrigger (loaded async, cheap) -->
+  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" async defer></script>
+  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" async defer></script>
+</body>
+</html>

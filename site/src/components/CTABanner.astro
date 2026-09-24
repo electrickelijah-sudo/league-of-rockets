@@ -1,0 +1,109 @@
+---
+// CTABanner.astro — the "Launch Game" call-to-action
+---
+
+<section class="cta-section" id="play">
+  <div class="container">
+    <div class="cta reveal">
+      <div class="cta-eyebrow">
+        <span class="section-label" style="text-align:center; display:block;">Ready to Drive?</span>
+      </div>
+      <h2 class="cta-title text-display">Drop Into the Arena</h2>
+      <p class="cta-sub">
+        Full physics-based driving, aerial combat, and boost mechanics.
+        No install — runs in any modern browser, right now.
+      </p>
+      <div class="cta-actions">
+        <a href="/League_of_Rockets.html" class="btn btn-primary cta-btn">
+          <span class="btn-icon">▶</span> LAUNCH GAME
+        </a>
+        <a href="#concept-art" class="btn btn-secondary cta-btn">
+          <span class="btn-icon">⏺</span> EXPLORE CONCEPT
+        </a>
+      </div>
+      <div class="cta-meta">
+        <span class="meta-item"><span class="meta-dot meta-dot--cyan"></span> 3D Physics</span>
+        <span class="meta-item"><span class="meta-dot meta-dot--orange"></span> Aerial Combat</span>
+        <span class="meta-item"><span class="meta-dot meta-dot--cyan"></span> Rocket Boost</span>
+        <span class="meta-item"><span class="meta-dot meta-dot--orange"></span> Zero Install</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section { padding: var(--space-20) 0 var(--space-24); }
+
+  .cta {
+    background: linear-gradient(135deg, rgba(34,211,238,0.07), rgba(251,146,60,0.05)),
+                linear-gradient(180deg, var(--color-surface), var(--color-base));
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-12) var(--space-10);
+    text-align: center;
+    max-width: 860px;
+    margin: 0 auto;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cta-eyebrow { margin-bottom: var(--space-4); }
+
+  .cta-title {
+    font-size: var(--text-hero);
+    margin-bottom: var(--space-5);
+  }
+
+  .cta-sub {
+    font-size: var(--text-md);
+    color: var(--color-text-mute);
+    max-width: 480px;
+    margin: 0 auto var(--space-8);
+    line-height: 1.6;
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-8);
+  }
+
+  .cta-btn {
+    min-width: 200px;
+  }
+
+  .cta-meta {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  .meta-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
+
+  .meta-dot--cyan  { background: var(--color-primary); box-shadow: 0 0 8px var(--color-primary); }
+  .meta-dot--orange { background: var(--color-secondary); box-shadow: 0 0 8px var(--color-secondary); }
+
+  @media (max-width: 640px) {
+    .cta { padding: var(--space-8) var(--space-4); }
+    .cta-btn { min-width: unset; width: 100%; }
+    .cta-actions { flex-direction: column; align-items: center; }
+    .cta-meta { gap: var(--space-3); }
+  }
+</style>

@@ -1,0 +1,231 @@
+---
+// Hero.astro — full-viewport cinematic hero
+---
+
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-orb hero-orb--cyan"></div>
+    <div class="hero-orb hero-orb--orange"></div>
+    <div class="hero-orb hero-orb--soft"></div>
+  </div>
+
+  <img
+    class="hero-stadium"
+    src="/sunset_stadium_render.png"
+    alt="Sunset Championship Arena — League of Rockets"
+    fetchpriority="high"
+    decoding="async"
+  />
+
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="hero-content reveal">
+    <div class="hero-badge">Season 1 · Championship Edition</div>
+    <h1 class="hero-title text-display">
+      <span class="hero-line hero-line--cyan">LEAGUE</span>
+      <span class="hero-line hero-line--mid">OF</span>
+      <span class="hero-line hero-line--orange">ROCKETS</span>
+    </h1>
+    <p class="hero-sub">A vehicular sports game — 3D physics, aerial combat, rocket boost.</p>
+    <div class="hero-actions">
+      <a href="/League_of_Rockets.html" class="btn btn-primary">
+        <span class="btn-icon">▶</span> PLAY NOW
+      </a>
+      <a href="#concept-art" class="btn btn-secondary">
+        <span class="btn-icon">⏺</span> SEE CONCEPT
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span class="scroll-cue-label">Scroll</span>
+    <div class="scroll-cue-track">
+      <div class="scroll-cue-dot"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+  }
+
+  .hero-orb--cyan {
+    top: 10%;
+    left: 5%;
+    width: 60vw;
+    height: 60vw;
+    max-width: 700px;
+    max-height: 700px;
+    background: radial-gradient(circle, rgba(34,211,238,0.35), transparent 70%);
+  }
+
+  .hero-orb--orange {
+    bottom: 0;
+    right: 0;
+    width: 50vw;
+    height: 50vw;
+    max-width: 600px;
+    max-height: 600px;
+    background: radial-gradient(circle, rgba(251,146,60,0.25), transparent 70%);
+  }
+
+  .hero-orb--soft {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vw;
+    max-width: 1200px;
+    max-height: 1200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.03), transparent 60%);
+  }
+
+  .hero-stadium {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.1);
+    width: min(90vw, 1280px);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    filter: brightness(0.32) saturate(1.35);
+    z-index: 1;
+    will-change: transform;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at center, rgba(7,7,13,0) 25%, rgba(7,7,13,0.88) 100%),
+      linear-gradient(180deg, rgba(7,7,13,0.2) 0%, rgba(7,7,13,0.9) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 0 clamp(1rem, 5vw, 3rem);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary);
+    border: 1px solid rgba(34,211,238,0.25);
+    padding: 5px 14px;
+    border-radius: var(--radius-full);
+    background: rgba(34,211,238,0.06);
+    margin-bottom: var(--space-5);
+  }
+
+  .hero-title {
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+    text-shadow: 0 0 60px rgba(255,255,255,0.06);
+  }
+
+  .hero-line {
+    display: block;
+    line-height: 0.9;
+  }
+
+  .hero-line--cyan  { color: var(--color-primary); }
+  .hero-line--mid   { color: var(--color-text-mute); font-size: 0.42em; letter-spacing: 0.4em; margin: 0.1em 0; }
+  .hero-line--orange { color: var(--color-secondary); }
+
+  .hero-sub {
+    font-size: var(--text-md);
+    color: rgba(241,245,249,0.7);
+    letter-spacing: 0.02em;
+    margin-bottom: var(--space-8);
+    font-weight: 400;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: var(--space-8);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    color: rgba(241,245,249,0.35);
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+
+  .scroll-cue-track {
+    width: 1px;
+    height: 42px;
+    background: linear-gradient(180deg, rgba(241,245,249,0.4), transparent);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-cue-dot {
+    position: absolute;
+    top: -4px;
+    left: -3px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 10px var(--color-primary);
+    animation: scrollCueBounce 2.2s infinite ease-in-out;
+  }
+
+  @keyframes scrollCueBounce {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50%       { transform: translateY(16px); opacity: 0.3; }
+  }
+
+  @media (max-width: 768px) {
+    .hero-stadium { filter: brightness(0.28) saturate(1.2); }
+    .hero-sub { font-size: var(--text-base); }
+    .hero-actions { gap: var(--space-3); }
+    .btn-primary, .btn-secondary { padding: 0.75rem 1.5rem; font-size: var(--text-xs); }
+  }
+</style>
