@@ -3295,6 +3295,7 @@
     const hw = PITCH_W / 2;  // 40 m
     const hl = PITCH_L / 2;  // 50 m
 
+
     // Estadio Vida Warm Twilight Lighting (Soft Dusk Hues Without Harsh White Washout)
     const ambientLight = new THREE.AmbientLight(0x48324f, 0.58);
     scene.add(ambientLight);
@@ -3590,38 +3591,7 @@
     turfCanvas.width = 2048; turfCanvas.height = 2560;
     const tCtx = turfCanvas.getContext('2d');
 
-    // 1. Champions Field Honeycomb Hexagonal Pitch Tiles (Image 4 Parity)
-    const pitchHexRadius = 36;
-    const pitchHexH = Math.sqrt(3) * pitchHexRadius;
-    for (let hy = -pitchHexRadius; hy < 2560 + pitchHexRadius * 2; hy += pitchHexH) {
-      for (let hx = -pitchHexRadius; hx < 2048 + pitchHexRadius * 2; hx += pitchHexRadius * 3) {
-        [0, 1].forEach(rowShift => {
-          const cx = hx + (rowShift ? pitchHexRadius * 1.5 : 0);
-          const cy = hy + (rowShift ? pitchHexH * 0.5 : 0);
-          const isBlueSide = (cy < 1280);
-
-          // Subtle honeycomb cell fill
-          tCtx.fillStyle = isBlueSide ? 'rgba(0, 180, 255, 0.04)' : 'rgba(255, 100, 0, 0.04)';
-          tCtx.beginPath();
-          for (let i = 0; i < 6; i++) {
-            const ang = i * Math.PI / 3;
-            const px = cx + (pitchHexRadius - 2) * Math.cos(ang);
-            const py = cy + (pitchHexRadius - 2) * Math.sin(ang);
-            if (i === 0) tCtx.moveTo(px, py);
-            else tCtx.lineTo(px, py);
-          }
-          tCtx.closePath();
-          tCtx.fill();
-
-          // Emissive neon border line
-          tCtx.strokeStyle = isBlueSide ? 'rgba(0, 240, 255, 0.22)' : 'rgba(255, 120, 0, 0.22)';
-          tCtx.lineWidth = 2.0;
-          tCtx.stroke();
-        });
-      }
-    }
-
-    // Base Rich Emerald Lawn with Diagonal Cross-Cut Mowing Striping
+    // 1. Base Rich Emerald Lawn with Diagonal Cross-Cut Mowing Striping
     tCtx.fillStyle = '#0f4f24';
     tCtx.fillRect(0, 0, 2048, 2560);
 
@@ -3959,11 +3929,11 @@
         const rx = bx * rootOffset;
         const rz = bz * rootOffset;
 
-        // Professional low-profile manicured sports turf blade levels (Height: 0.14m)
+        // Broad overlapping blade dimensions with arching outward curve
         const levels = [
-          { y: 0.00, w: 0.16, bend: 0.00, col: rootColor },
-          { y: 0.06, w: 0.11, bend: 0.03, col: midColor },
-          { y: 0.13, w: 0.03, bend: 0.08, col: tipColor }
+          { y: 0.00, w: 0.34, bend: 0.00, col: rootColor },
+          { y: 0.40, w: 0.24, bend: 0.22, col: midColor },
+          { y: 0.78, w: 0.08, bend: 0.54, col: tipColor }
         ];
 
         for (let l = 0; l < levels.length; l++) {
@@ -3992,7 +3962,7 @@
         }
       }
 
-      // 2. 4 Low Ground-Covering Thatch Leaves
+      // 2. 4 Low Ground-Covering Thatch Leaves (Physically blankets the floor under tufts)
       const groundCount = 4;
       for (let g = 0; g < groundCount; g++) {
         const gAngle = (g / groundCount) * Math.PI * 2 + Math.PI / 4;
@@ -4004,22 +3974,22 @@
         const bx = cosG;
         const bz = sinG;
 
-        const w = 0.18;
-        const len = 0.25;
+        const w = 0.42;
+        const len = 0.90;
 
-        positions.push(-nx * (w * 0.5), 0.02, -nz * (w * 0.5));
+        positions.push(-nx * (w * 0.5), 0.03, -nz * (w * 0.5));
         normals.push(0, 1, 0);
         colors.push(groundColor[0], groundColor[1], groundColor[2]);
 
-        positions.push(nx * (w * 0.5), 0.02, nz * (w * 0.5));
+        positions.push(nx * (w * 0.5), 0.03, nz * (w * 0.5));
         normals.push(0, 1, 0);
         colors.push(groundColor[0], groundColor[1], groundColor[2]);
 
-        positions.push(-nx * (w * 0.2) + bx * len, 0.04, -nz * (w * 0.2) + bz * len);
+        positions.push(-nx * (w * 0.3) + bx * len, 0.08, -nz * (w * 0.3) + bz * len);
         normals.push(0, 1, 0);
         colors.push(midColor[0], midColor[1], midColor[2]);
 
-        positions.push(nx * (w * 0.2) + bx * len, 0.04, nz * (w * 0.2) + bz * len);
+        positions.push(nx * (w * 0.3) + bx * len, 0.08, nz * (w * 0.3) + bz * len);
         normals.push(0, 1, 0);
         colors.push(midColor[0], midColor[1], midColor[2]);
 
@@ -4083,9 +4053,9 @@
 
       const py = 0.01;
       const ry = Math.random() * Math.PI * 2;
-      const sx = 0.32 + Math.random() * 0.15;
-      const sy = 0.22 + Math.random() * 0.10;
-      const sz = 0.32 + Math.random() * 0.15;
+      const sx = 0.45 + Math.random() * 0.25;
+      const sy = 0.36 + Math.random() * 0.22;
+      const sz = 0.45 + Math.random() * 0.25;
 
       dummyTuft.position.set(px, py, pz);
       dummyTuft.rotation.set(0, ry, 0);
@@ -4619,57 +4589,6 @@
       group.add(goalSpot);
       group.add(goalSpot.target);
 
-      if (!isOrange) {
-        // Own Goal: Luminous Holographic Blue Team Shield in Net Mouth (Image 4 Parity)
-        const shieldMesh = createHolographicGoalShield(true);
-        shieldMesh.position.set(0, GOAL_H * 0.52, -2.4);
-        shieldMesh.scale.set(0.68, 0.68, 0.68);
-        group.add(shieldMesh);
-        group.ownShield = shieldMesh;
-      } else {
-        // Opponent's Goal: Inward-pointing Neon Chevron Directional Arrows (Image 4 Parity)
-        const arrowGroup = new THREE.Group();
-        const arrowMat = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
-        [-GOAL_W * 0.38, 0, GOAL_W * 0.38].forEach(ax => {
-          const arrowShape = new THREE.Shape();
-          arrowShape.moveTo(0, 0.55);
-          arrowShape.lineTo(0.38, 0);
-          arrowShape.lineTo(0.16, 0);
-          arrowShape.lineTo(0.16, -0.55);
-          arrowShape.lineTo(-0.16, -0.55);
-          arrowShape.lineTo(-0.16, 0);
-          arrowShape.lineTo(-0.38, 0);
-          arrowShape.closePath();
-
-          const arrowMesh = new THREE.Mesh(new THREE.ShapeGeometry(arrowShape), arrowMat);
-          arrowMesh.rotation.x = -Math.PI / 2;
-          arrowMesh.position.set(ax, GOAL_H - 0.20, 2.6);
-          arrowGroup.add(arrowMesh);
-        });
-
-        [-GOAL_W * 0.48, GOAL_W * 0.48].forEach(wx => {
-          const sign = wx > 0 ? 1 : -1;
-          const arrowShape = new THREE.Shape();
-          arrowShape.moveTo(0, 0.50);
-          arrowShape.lineTo(0.34, 0);
-          arrowShape.lineTo(0.14, 0);
-          arrowShape.lineTo(0.14, -0.50);
-          arrowShape.lineTo(-0.14, -0.50);
-          arrowShape.lineTo(-0.14, 0);
-          arrowShape.lineTo(-0.34, 0);
-          arrowShape.closePath();
-
-          const arrowMesh = new THREE.Mesh(new THREE.ShapeGeometry(arrowShape), arrowMat);
-          arrowMesh.rotation.y = sign * Math.PI / 2;
-          arrowMesh.rotation.z = -Math.PI / 2;
-          arrowMesh.position.set(wx, GOAL_H * 0.48, 2.4);
-          arrowGroup.add(arrowMesh);
-        });
-
-        group.add(arrowGroup);
-        group.chevronArrows = arrowGroup;
-      }
-
       group.position.set(0, 0, zPos);
       scene.add(group);
       return group;
@@ -4934,241 +4853,246 @@
 
     scene.add(mountainGroup);
 
-    // 3. CHAMPIONS FIELD ARENA SUPERSTRUCTURE & HOLOGRAPHIC SPECTACLE
-    const superstructureGroup = new THREE.Group();
-    const neonCyanMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
-    const neonOrangeMat = new THREE.MeshBasicMaterial({ color: 0xff6600 });
-    const superArchTrussMat = new THREE.MeshStandardMaterial({ color: 0x1a2232, metalness: 0.85, roughness: 0.35 });
+    // 3. STACKED COLORFUL HILLSIDE FAVELA VILLAGE (Estadio Vida Signature Architecture)
+    const cityGroup = new THREE.Group();
 
-    // 1. Four Massive Illuminated Space-Truss Super-Arches bridging across the arena
-    const archZCoords = [-34, -11, 11, 34];
-    const archWidth = hw + 5.5; // reaches from sideline to sideline (~27.5m half-width)
-    const archHeight = 26.5;    // rises 26.5m overhead
+    // Procedural Facade Canvas Texture with Cozy Lit Windows & Stucco Panels
+    const favelaCanvas = document.createElement("canvas");
+    favelaCanvas.width = 512; favelaCanvas.height = 512;
+    const fCtx = favelaCanvas.getContext("2d");
+    fCtx.fillStyle = "#e0d8cc";
+    fCtx.fillRect(0, 0, 512, 512);
 
-    archZCoords.forEach((az, archIdx) => {
-      const isBlueSide = az < 0;
-      const glowMat = isBlueSide ? neonCyanMat : neonOrangeMat;
-      const archMeshGroup = new THREE.Group();
-      archMeshGroup.position.set(0, 0, az);
-
-      const segments = 28;
-      const ptsUpper = [];
-      const ptsLower = [];
-
-      for (let s = 0; s <= segments; s++) {
-        const t = (s / segments) * 2 - 1; // -1 to +1
-        const x = t * archWidth;
-        const y = Math.max(0, (1 - t * t) * archHeight);
-        ptsUpper.push(new THREE.Vector3(x, y + 0.6, 0));
-        ptsLower.push(new THREE.Vector3(x, y, 0));
-      }
-
-      // Upper and lower tubular steel rails
-      for (let s = 0; s < segments; s++) {
-        const p1 = ptsUpper[s];
-        const p2 = ptsUpper[s + 1];
-        const dir = new THREE.Vector3().subVectors(p2, p1);
-        const len = dir.length();
-        const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
-
-        const railGeo = new THREE.CylinderGeometry(0.22, 0.22, len, 6);
-        const rail = new THREE.Mesh(railGeo, superArchTrussMat);
-        rail.position.copy(mid);
-        rail.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
-        archMeshGroup.add(rail);
-
-        // Lower rail
-        const lp1 = ptsLower[s];
-        const lp2 = ptsLower[s + 1];
-        const ldir = new THREE.Vector3().subVectors(lp2, lp1);
-        const llen = ldir.length();
-        const lmid = new THREE.Vector3().addVectors(lp1, lp2).multiplyScalar(0.5);
-
-        const lrailGeo = new THREE.CylinderGeometry(0.18, 0.18, llen, 6);
-        const lrail = new THREE.Mesh(lrailGeo, superArchTrussMat);
-        lrail.position.copy(lmid);
-        lrail.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), ldir.clone().normalize());
-        archMeshGroup.add(lrail);
-
-        // Neon LED runner strip along lower edge
-        const neonStrip = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, llen, 4), glowMat);
-        neonStrip.position.copy(lmid);
-        neonStrip.position.y -= 0.14;
-        neonStrip.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), ldir.clone().normalize());
-        archMeshGroup.add(neonStrip);
-
-        // Diagonal cross-truss struts
-        if (s % 2 === 0) {
-          const crossDir = new THREE.Vector3().subVectors(p2, lp1);
-          const crossLen = crossDir.length();
-          const crossMid = new THREE.Vector3().addVectors(p1, lp2).multiplyScalar(0.5);
-          const strut = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, crossLen, 4), superArchTrussMat);
-          strut.position.copy(crossMid);
-          strut.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), crossDir.clone().normalize());
-          archMeshGroup.add(strut);
-        }
-      }
-
-      // Arch Downward Spotlights
-      [-12, 0, 12].forEach(fx => {
-        const fy = (1 - (fx / archWidth) * (fx / archWidth)) * archHeight;
-        const spotHousing = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.6, 0.8, 8), superArchTrussMat);
-        spotHousing.position.set(fx, fy - 0.4, 0);
-        spotHousing.rotation.x = Math.PI;
-        archMeshGroup.add(spotHousing);
-
-        const bulb = new THREE.Mesh(new THREE.CircleGeometry(0.35, 8), glowMat);
-        bulb.position.set(fx, fy - 0.82, 0);
-        bulb.rotation.x = Math.PI / 2;
-        archMeshGroup.add(bulb);
-      });
-
-      superstructureGroup.add(archMeshGroup);
-    });
-
-    // 2. Floating 3D Holographic Team Goal Shields
-    function createHolographicGoalShield(isBlueSide) {
-      const shieldGroup = new THREE.Group();
-      const colHex = isBlueSide ? 0x00f0ff : 0xff6600;
-      const shieldGlowMat = new THREE.MeshBasicMaterial({
-        color: colHex,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.85
-      });
-      const solidHoloMat = new THREE.MeshBasicMaterial({
-        color: colHex,
-        transparent: true,
-        opacity: 0.35,
-        side: THREE.DoubleSide
-      });
-
-      // Outer hexagonal shield outline
-      const hexShape = new THREE.Shape();
-      for (let i = 0; i < 6; i++) {
-        const ang = (i / 6) * Math.PI * 2 + Math.PI / 6;
-        const rx = Math.cos(ang) * 3.8;
-        const ry = Math.sin(ang) * 4.4;
-        if (i === 0) hexShape.moveTo(rx, ry);
-        else hexShape.lineTo(rx, ry);
-      }
-      hexShape.closePath();
-
-      const shieldMesh = new THREE.Mesh(new THREE.ShapeGeometry(hexShape), solidHoloMat);
-      shieldGroup.add(shieldMesh);
-
-      // Rotating Energy Rings
-      const ring1 = new THREE.Mesh(new THREE.TorusGeometry(3.0, 0.08, 6, 24), shieldGlowMat);
-      shieldGroup.add(ring1);
-      shieldGroup.ring1 = ring1;
-
-      const ring2 = new THREE.Mesh(new THREE.TorusGeometry(2.1, 0.06, 6, 20), shieldGlowMat);
-      ring2.rotation.x = 0.5;
-      shieldGroup.add(ring2);
-      shieldGroup.ring2 = ring2;
-
-      // Stylized Team Insignia
-      const crestGroup = new THREE.Group();
-      [-1, 1].forEach(side => {
-        const wingGeo = new THREE.BufferGeometry();
-        const pts = new Float32Array([
-          0, 0, 0.05,
-          side * 2.6, 1.8, 0.05,
-          side * 1.8, -0.6, 0.05
-        ]);
-        wingGeo.setAttribute('position', new THREE.BufferAttribute(pts, 3));
-        const wing = new THREE.Mesh(wingGeo, shieldGlowMat);
-        crestGroup.add(wing);
-      });
-      shieldGroup.add(crestGroup);
-      shieldGroup.crest = crestGroup;
-
-      return shieldGroup;
+    // Plaster / brick mortar lines
+    fCtx.strokeStyle = "rgba(0,0,0,0.12)";
+    fCtx.lineWidth = 2;
+    for (let py = 0; py < 512; py += 32) {
+      fCtx.beginPath(); fCtx.moveTo(0, py); fCtx.lineTo(512, py); fCtx.stroke();
+    }
+    for (let px = 0; px < 512; px += 32) {
+      fCtx.beginPath(); fCtx.moveTo(px, 0); fCtx.lineTo(px, 512); fCtx.stroke();
     }
 
-    const holoShieldBlue = createHolographicGoalShield(true);
-    holoShieldBlue.position.set(0, 11.5, -hl - 0.8);
-    superstructureGroup.add(holoShieldBlue);
+    // Warm glowing twilight interior windows
+    for (let wy = 8; wy < 512; wy += 32) {
+      for (let wx = 8; wx < 512; wx += 32) {
+        const rand = Math.random();
+        if (rand > 0.38) {
+          if (rand > 0.82) {
+            fCtx.fillStyle = "#fff2aa"; // Warm bright incandescent light
+          } else if (rand > 0.58) {
+            fCtx.fillStyle = "#ffaa44"; // Cozy twilight amber window
+          } else {
+            fCtx.fillStyle = "#66d4ff"; // Cool interior cyan TV glow
+          }
+          fCtx.fillRect(wx + 2, wy + 2, 18, 22);
 
-    const holoShieldOrange = createHolographicGoalShield(false);
-    holoShieldOrange.position.set(0, 11.5, hl + 0.8);
-    holoShieldOrange.rotation.y = Math.PI;
-    superstructureGroup.add(holoShieldOrange);
+          // Window frame crossbars
+          fCtx.fillStyle = "rgba(30,30,30,0.45)";
+          fCtx.fillRect(wx + 10, wy + 2, 2, 22);
+          fCtx.fillRect(wx + 2, wy + 12, 18, 2);
+        } else {
+          // Closed wooden shutter
+          fCtx.fillStyle = "#4a3525";
+          fCtx.fillRect(wx + 2, wy + 4, 18, 20);
+        }
+      }
+    }
 
-    // 3. Sweeping Volumetric Stadium Searchlights
-    const stadiumSearchlights = [];
-    const searchlightCoords = [
-      { x: -hw - 12, z: -hl - 6, baseRot: Math.PI / 4 },
-      { x: hw + 12, z: -hl - 6, baseRot: -Math.PI / 4 },
-      { x: -hw - 12, z: hl + 6, baseRot: (3 * Math.PI) / 4 },
-      { x: hw + 12, z: hl + 6, baseRot: -(3 * Math.PI) / 4 }
+    const favelaTex = new THREE.CanvasTexture(favelaCanvas);
+    favelaTex.wrapS = THREE.RepeatWrapping;
+    favelaTex.wrapT = THREE.RepeatWrapping;
+
+    // Authentic Estadio Vida Vibrant Color Palette
+    const favelaPalette = [
+      0xf5c542, // Sunny warm yellow
+      0x26a69a, // Tropical turquoise / teal
+      0xef5350, // Vibrant coral pink / red
+      0xd84315, // Terracotta / burnt orange
+      0x1e88e5, // Cobalt blue
+      0x42a5f5, // Sky blue
+      0xede7f6, // Crisp stucco cream
+      0x8e24aa, // Dusk lilac purple
+      0x7cb342  // Bright palm lime
     ];
 
-    searchlightCoords.forEach((sc, sidx) => {
-      const slGroup = new THREE.Group();
-      slGroup.position.set(sc.x, 24, sc.z);
-
-      const slBase = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.5, 2.0, 8), superArchTrussMat);
-      slGroup.add(slBase);
-
-      const slHead = new THREE.Group();
-      slHead.position.y = 1.6;
-      slGroup.add(slHead);
-
-      const barrelMat = new THREE.MeshStandardMaterial({ color: 0x111620, metalness: 0.9, roughness: 0.2 });
-      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.7, 2.2, 12), barrelMat);
-      barrel.rotation.x = Math.PI / 2;
-      slHead.add(barrel);
-
-      // Volumetric Sweeping Light Cone (Soft additive beam)
-      const beamMat = new THREE.MeshBasicMaterial({
-        color: sidx < 2 ? 0x66d4ff : 0xffaa44,
-        transparent: true,
-        opacity: 0.28,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending,
-        side: THREE.DoubleSide
-      });
-      const beamGeo = new THREE.ConeGeometry(5.8, 90, 16, 1, true);
-      beamGeo.translate(0, 45, 0);
-      beamGeo.rotateX(Math.PI / 2);
-      const beam = new THREE.Mesh(beamGeo, beamMat);
-      slHead.add(beam);
-
-      superstructureGroup.add(slGroup);
-      stadiumSearchlights.push({ head: slHead, baseRot: sc.baseRot, phase: sidx * 1.57 });
-    });
-
-    // 4. Glowing Neon Pitch Seam Runners & Kickoff Ring
-    const pitchRunnerBlue = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonCyanMat);
-    pitchRunnerBlue.position.set(-hw, 0.10, -hl / 2);
-    superstructureGroup.add(pitchRunnerBlue);
-
-    const pitchRunnerBlueR = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonCyanMat);
-    pitchRunnerBlueR.position.set(hw, 0.10, -hl / 2);
-    superstructureGroup.add(pitchRunnerBlueR);
-
-    const pitchRunnerOrange = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonOrangeMat);
-    pitchRunnerOrange.position.set(-hw, 0.10, hl / 2);
-    superstructureGroup.add(pitchRunnerOrange);
-
-    const pitchRunnerOrangeR = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonOrangeMat);
-    pitchRunnerOrangeR.position.set(hw, 0.10, hl / 2);
-    superstructureGroup.add(pitchRunnerOrangeR);
-
-    // Center Field Neon Kickoff Ring
-    const kickoffRingGeo = new THREE.RingGeometry(8.9, 9.2, 48);
-    const kickoffRing = new THREE.Mesh(kickoffRingGeo, new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.65
+    const favelaMaterials = favelaPalette.map(col => new THREE.MeshStandardMaterial({
+      color: col,
+      map: favelaTex,
+      roughness: 0.65,
+      metalness: 0.15
     }));
-    kickoffRing.rotation.x = -Math.PI / 2;
-    kickoffRing.position.set(0, 0.04, 0);
-    superstructureGroup.add(kickoffRing);
 
-    scene.add(superstructureGroup);
+    const stiltMat = new THREE.MeshStandardMaterial({ color: 0x3e3a36, roughness: 0.9, metalness: 0.2 });
+    const roofTinMat = new THREE.MeshStandardMaterial({ color: 0x546e7a, roughness: 0.6, metalness: 0.5 });
+    const waterTankMat = new THREE.MeshStandardMaterial({ color: 0x0277bd, roughness: 0.4, metalness: 0.3 });
+    const antennaMat = new THREE.MeshBasicMaterial({ color: 0x8899a6 });
+    const palmTrunkMat = new THREE.MeshStandardMaterial({ color: 0x5d4037, roughness: 0.9 });
+    const palmFrondMat = new THREE.MeshStandardMaterial({ color: 0x2e7d32, roughness: 0.7 });
+
+    // Procedural Hillside Favela Houses stacked safely on the mountain slopes OUTSIDE the stadium (Estadio Vida 1:1 Parity)
+    // CRITICAL: Guaranteed clearance perimeter completely outside arena boundaries and stadium bleachers!
+    const favelaCount = 210;
+    const X_clear = 64.0; // Clear of sideline bleachers (which end at x = ±52)
+    const Z_clear = 78.0; // Clear of endzone bleachers and goals (which end at z = ±66)
+
+    for (let f = 0; f < favelaCount; f++) {
+      const angle = (f / favelaCount) * Math.PI * 2 + ((f % 7) * 0.04);
+      const tier = f % 6;
+
+      const bW = 8 + ((f * 13) % 9);
+      const bD = 8 + ((f * 17) % 9);
+      const bH = 6.5 + ((f * 19) % 9);
+
+      const cosA = Math.abs(Math.cos(angle));
+      const sinA = Math.abs(Math.sin(angle));
+
+      // Raycast to stadium bounding perimeter to prevent corner clipping into arena
+      const tx = (X_clear + bW * 0.6) / Math.max(0.0001, cosA);
+      const tz = (Z_clear + bD * 0.6) / Math.max(0.0001, sinA);
+      const t_base = Math.min(tx, tz);
+
+      // Concentric hillside tiers cascading up the mountainside
+      const dist = t_base + tier * 15.0 + ((f * 17) % 12);
+      const fx = Math.cos(angle) * dist;
+      const fz = Math.sin(angle) * dist;
+
+      // Natural terraced slope elevation rising above the bleacher parapet (y >= 4.5m)
+      const fy = 4.5 + tier * 5.2 + tier * tier * 1.3 + ((f * 7) % 5);
+
+      const houseGroup = new THREE.Group();
+      const houseMat = favelaMaterials[f % favelaMaterials.length];
+
+      // Concrete stilt / slope foundation
+      const foundationH = 3 + (tier * 1.4);
+      const stilt = new THREE.Mesh(new THREE.BoxGeometry(bW * 1.02, foundationH, bD * 1.02), stiltMat);
+      stilt.position.y = foundationH / 2 - foundationH;
+      houseGroup.add(stilt);
+
+      // Main vibrant colored house block
+      const houseBody = new THREE.Mesh(new THREE.BoxGeometry(bW, bH, bD), houseMat);
+      houseBody.position.y = bH / 2;
+      houseGroup.add(houseBody);
+
+      // Overhanging corrugated tin roof slab
+      const roofSlab = new THREE.Mesh(new THREE.BoxGeometry(bW + 1.2, 0.45, bD + 1.2), roofTinMat);
+      roofSlab.position.y = bH + 0.22;
+      houseGroup.add(roofSlab);
+
+      // Rooftop Blue Cylindrical Water Storage Tank (Signature favela detail)
+      if (f % 2 === 0) {
+        const tank = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 1.6, 8), waterTankMat);
+        tank.position.set((f % 3 - 1) * 2.0, bH + 1.2, (f % 2 === 0 ? 1 : -1) * 1.8);
+        houseGroup.add(tank);
+      }
+
+      // Rooftop TV Aerial / Antenna
+      if (f % 3 === 0) {
+        const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 3.8, 4), antennaMat);
+        antenna.position.set(((f + 1) % 3 - 1) * 2.2, bH + 2.3, 0);
+        houseGroup.add(antenna);
+      }
+
+      // Stacked 2nd story room for hillside tier stepped look
+      if (f % 3 === 1) {
+        const uW = bW * 0.65;
+        const uD = bD * 0.65;
+        const uH = bH * 0.75;
+        const upperMat = favelaMaterials[(f + 3) % favelaMaterials.length];
+        const upperStory = new THREE.Mesh(new THREE.BoxGeometry(uW, uH, uD), upperMat);
+        upperStory.position.set((f % 2 === 0 ? 1 : -1) * (bW * 0.15), bH + uH / 2 + 0.45, 0);
+        houseGroup.add(upperStory);
+
+        const upperRoof = new THREE.Mesh(new THREE.BoxGeometry(uW + 0.8, 0.4, uD + 0.8), roofTinMat);
+        upperRoof.position.set(upperStory.position.x, bH + uH + 0.65, 0);
+        houseGroup.add(upperRoof);
+      }
+
+      // Tropical Palm Trees nestled between houses
+      if (f % 4 === 0) {
+        const palm = new THREE.Group();
+        const trunkH = 9 + (f % 5);
+        const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.5, trunkH, 5), palmTrunkMat);
+        trunk.position.y = trunkH / 2;
+        trunk.rotation.z = (Math.random() - 0.5) * 0.2;
+        palm.add(trunk);
+
+        // Radiating palm fronds canopy
+        for (let fr = 0; fr < 6; fr++) {
+          const frondAng = (fr / 6) * Math.PI * 2;
+          const frond = new THREE.Mesh(new THREE.ConeGeometry(2.2, 0.8, 4), palmFrondMat);
+          frond.position.set(Math.cos(frondAng) * 2.0, trunkH + 0.3, Math.sin(frondAng) * 2.0);
+          frond.rotation.y = frondAng;
+          frond.rotation.z = 0.55;
+          palm.add(frond);
+        }
+        palm.position.set((Math.random() - 0.5) * 10, 0, (Math.random() - 0.5) * 10);
+        houseGroup.add(palm);
+      }
+
+      houseGroup.position.set(fx, fy, fz);
+      houseGroup.lookAt(0, fy, 0);
+      cityGroup.add(houseGroup);
+    }
+
+    // Prominent Hero Favela House on the Left Hillside (Exact match to reference photo)
+    const heroHouseGroup = new THREE.Group();
+    const heroMat = favelaMaterials[3]; // Terracotta / vibrant burnt orange
+    const hero1 = new THREE.Mesh(new THREE.BoxGeometry(14, 9, 12), heroMat);
+    hero1.position.y = 4.5;
+    heroHouseGroup.add(hero1);
+
+    const heroRoof1 = new THREE.Mesh(new THREE.BoxGeometry(15.2, 0.5, 13.2), roofTinMat);
+    heroRoof1.position.y = 9.25;
+    heroHouseGroup.add(heroRoof1);
+
+    const hero2 = new THREE.Mesh(new THREE.BoxGeometry(10, 7.5, 9), favelaMaterials[2]); // Coral pink 2nd story
+    hero2.position.set(-1.5, 13.0, 0);
+    heroHouseGroup.add(hero2);
+
+    const heroRoof2 = new THREE.Mesh(new THREE.BoxGeometry(11, 0.5, 10), roofTinMat);
+    heroRoof2.position.set(-1.5, 17.0, 0);
+    heroHouseGroup.add(heroRoof2);
+
+    const hero3 = new THREE.Mesh(new THREE.BoxGeometry(6.5, 6, 6), favelaMaterials[0]); // Sunny yellow 3rd story
+    hero3.position.set(-2.5, 20.2, 0);
+    heroHouseGroup.add(hero3);
+
+    const heroTank = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 2.0, 10), waterTankMat);
+    heroTank.position.set(2.8, 18.0, 2.0);
+    heroHouseGroup.add(heroTank);
+
+    const heroPalm = new THREE.Group();
+    const heroTrunk = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.65, 18, 6), palmTrunkMat);
+    heroTrunk.position.y = 9;
+    heroTrunk.rotation.z = -0.15;
+    heroPalm.add(heroTrunk);
+    for (let fr = 0; fr < 8; fr++) {
+      const frondAng = (fr / 8) * Math.PI * 2;
+      const frond = new THREE.Mesh(new THREE.ConeGeometry(3.2, 1.1, 4), palmFrondMat);
+      frond.position.set(Math.cos(frondAng) * 2.8, 18.2, Math.sin(frondAng) * 2.8);
+      frond.rotation.y = frondAng;
+      frond.rotation.z = 0.55;
+      heroPalm.add(frond);
+    }
+    heroPalm.position.set(9.0, 0, 4.0);
+    heroHouseGroup.add(heroPalm);
+
+    heroHouseGroup.position.set(-68.0, 5.0, -14.0);
+    heroHouseGroup.rotation.y = 0.35;
+    cityGroup.add(heroHouseGroup);
+
+    // Disable matrix auto-update on static city meshes for max FPS
+    if (typeof cityGroup.traverse === "function") {
+      cityGroup.traverse(c => {
+        if (c.isMesh) {
+          c.matrixAutoUpdate = false;
+          c.updateMatrix();
+        }
+      });
+    }
+
+    scene.add(cityGroup);
 
     // 4. OPEN-AIR STADIUM PERIMETER & SAFETY NETTING (Estadio Vida Open Sky Parity)
     // No heavy roof arches or catwalk dome! The sky remains completely open.
@@ -5602,6 +5526,7 @@
     buildFloodlightTower(-hw - 42, hl + 15, (2.6 * Math.PI) / 3.6);
     buildFloodlightTower(hw + 42, hl + 15, -(2.6 * Math.PI) / 3.6);
 
+    /* =========================================================================
     /* =========================================================================
        AUTHENTIC ROCKET LEAGUE BOOST PADS (FULL 3X EXPANDED ARENA NETWORK)
        ========================================================================= */
@@ -11737,7 +11662,13 @@
         setupTeamsForMode(mode);
         resetKickoff();
 
-        startCinematicIntro(mode);
+        if (mode === 'training') {
+          isKickoffCountdown = false;
+          countdownBanner.style.display = 'none';
+          showStatBadge('FREE PLAY ACTIVE', 0, '🎯');
+        } else {
+          startKickoffCountdown();
+        }
       }, 220);
     }
 
