@@ -691,6 +691,92 @@
       font-weight: 800;
     }
 
+    /* Active Loadout Banner in Header */
+    .rl-loadout-badge {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(135deg, rgba(16, 24, 42, 0.92) 0%, rgba(8, 14, 26, 0.96) 100%);
+      border: 1.5px solid rgba(0, 240, 255, 0.4);
+      border-radius: 12px;
+      padding: 8px 18px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 240, 255, 0.2);
+      backdrop-filter: blur(12px);
+      pointer-events: auto;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .rl-loadout-badge:hover {
+      border-color: #00f0ff;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 35px rgba(0, 240, 255, 0.35);
+    }
+    .rl-loadout-icon-wrap {
+      font-size: 26px;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rl-loadout-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .rl-loadout-tag {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #00f0ff;
+      text-transform: uppercase;
+    }
+    .rl-loadout-name {
+      font-family: 'Teko', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: 1px;
+    }
+    .rl-loadout-sub {
+      font-size: 11px;
+      color: #8899aa;
+      letter-spacing: 1px;
+    }
+    .rl-loadout-edit-btn {
+      background: rgba(0, 240, 255, 0.2);
+      border: 1px solid #00f0ff;
+      color: #00f0ff;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: all 0.15s ease;
+    }
+    .rl-loadout-edit-btn:hover {
+      background: #00f0ff;
+      color: #080d14;
+      box-shadow: 0 0 14px #00f0ff;
+    }
+
+    .rl-mode-pop {
+      font-size: 10px;
+      font-weight: 700;
+      color: #00ffaa;
+      letter-spacing: 1px;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
     /* Left-hand Angled Menu Sidebar */
     .rl-menu-sidebar {
       display: flex;
@@ -1531,6 +1617,17 @@
           <div class="rl-season-tag">SEASON 1 • CHAMPIONSHIP EDITION</div>
         </div>
 
+        <!-- Center Active Loadout Showcase Widget -->
+        <div class="rl-loadout-badge" onclick="openModal('garage-modal')" style="cursor: pointer;" title="Open Vehicle Customizer">
+          <div class="rl-loadout-icon-wrap" id="menu-loadout-icon">⚡</div>
+          <div class="rl-loadout-details">
+            <div class="rl-loadout-tag">EQUIPPED BATTLE-CAR</div>
+            <div class="rl-loadout-name" id="menu-loadout-name">OCTANE APEX</div>
+            <div class="rl-loadout-sub" id="menu-loadout-sub">1:1 BLUEPRINT • COBALT SAPPHIRE</div>
+          </div>
+          <button class="rl-loadout-edit-btn">CUSTOMIZE 🔧</button>
+        </div>
+
         <div class="rl-profile-widget" onclick="openModal('garage-modal')" style="cursor: pointer;">
           <div class="rl-profile-avatar">🏎️</div>
           <div class="rl-profile-info">
@@ -1555,7 +1652,7 @@
 
         <button class="rl-menu-btn" onclick="openModal('garage-modal')">
           <span class="rl-btn-text">🚗 GARAGE</span>
-          <span class="rl-btn-sub">CUSTOMIZE CAR & DECALS</span>
+          <span class="rl-btn-sub" id="sidebar-garage-sub">CUSTOMIZE CAR & DECALS</span>
         </button>
 
         <button class="rl-menu-btn" onclick="openModal('maps-modal')">
@@ -1585,21 +1682,25 @@
             <div class="rl-mode-badge">COMPETITIVE</div>
             <div class="rl-mode-name">⚔️ 1v1 DUEL</div>
             <div class="rl-mode-desc">High-intensity 1-on-1 aerial showdown. Pure skill & ball control.</div>
+            <div class="rl-mode-pop">🔥 4,280 PLAYERS IN PLAYLIST</div>
           </div>
           <div class="rl-mode-card" onclick="startMatchmaking('2v2')">
-            <div class="rl-mode-badge">MOST POPULAR</div>
+            <div class="rl-mode-badge" style="background:#00e5ff; color:#060d17;">MOST POPULAR</div>
             <div class="rl-mode-name">⚡ 2v2 DOUBLES</div>
             <div class="rl-mode-desc">Dynamic 2v2 team aerial rotation, centers, and passes.</div>
+            <div class="rl-mode-pop">🔥 9,150 PLAYERS IN PLAYLIST</div>
           </div>
           <div class="rl-mode-card" onclick="startMatchmaking('3v3')">
-            <div class="rl-mode-badge">CHAMPIONSHIP</div>
+            <div class="rl-mode-badge" style="background:#ffbb00; color:#060d17;">CHAMPIONSHIP</div>
             <div class="rl-mode-name">🏆 3v3 STANDARD</div>
             <div class="rl-mode-desc">The official Rocket League tournament format with 6 hypercars.</div>
+            <div class="rl-mode-pop">🔥 14,820 PLAYERS IN PLAYLIST</div>
           </div>
           <div class="rl-mode-card" onclick="startMatchmaking('training')">
-            <div class="rl-mode-badge">FREE PLAY</div>
+            <div class="rl-mode-badge" style="background:#00ff88; color:#060d17;">FREE PLAY</div>
             <div class="rl-mode-name">🎯 TRAINING / FREE PLAY</div>
             <div class="rl-mode-desc">Unlimited boost, open stadium, zero clock. Master your mechanics.</div>
+            <div class="rl-mode-pop">⚡ WARMUP & MECHANICS</div>
           </div>
         </div>
       </div>
@@ -5775,24 +5876,778 @@
     }
 
     /* =========================================================================
-       UNIFIED 1:1 BLUEPRINT VEHICLE SYSTEM (ELIMINATING OBSOLETE BULKY CARS)
+       2. DOMINUS VIPER GT: MUSCULAR AMERICAN WIDEBODY MUSCLE COUPE
        ========================================================================= */
-    function createMasterDominus(addToScene = true) {
-      const car = createMasterOctane(addToScene, true, 'orange');
-      car.bodyId = 'viper';
+    function createMasterDominus(addToScene = true, isTitaniumWhite = true, teamTheme = 'orange') {
+      const car = new THREE.Group();
+      const model = new THREE.Group();
+      model.position.y = -0.50;
+      car.add(model);
+
+      const isOrangeTeam = (teamTheme === 'orange' || teamTheme === 0xff5500);
+      const primaryColor = isOrangeTeam ? 0xff4800 : 0x0052f5;
+
+      const mats = {
+        paint: new THREE.MeshStandardMaterial({ color: primaryColor, metalness: 0.65, roughness: 0.18, envMapIntensity: 2.4, side: THREE.DoubleSide }),
+        white_trim: new THREE.MeshStandardMaterial({ color: 0xf5f5fa, metalness: 0.18, roughness: 0.22, envMapIntensity: 2.0, side: THREE.DoubleSide }),
+        racing_stripe: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.08, roughness: 0.14, envMapIntensity: 2.2, side: THREE.DoubleSide }),
+        glass: new THREE.MeshStandardMaterial({ color: 0x080b12, roughness: 0.04, metalness: 0.96, envMapIntensity: 3.5, side: THREE.DoubleSide }),
+        carbon: new THREE.MeshStandardMaterial({ color: 0x12141a, roughness: 0.50, metalness: 0.45, envMapIntensity: 1.6 }),
+        chassis: new THREE.MeshStandardMaterial({ color: 0x161820, roughness: 0.40, metalness: 0.85, envMapIntensity: 1.8 }),
+        chrome: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.02, envMapIntensity: 3.5 }),
+        neon_cyan: new THREE.MeshBasicMaterial({ color: 0x00f0ff }),
+        headlight_white: new THREE.MeshBasicMaterial({ color: 0xffffff }),
+        neon_red: new THREE.MeshBasicMaterial({ color: 0xff1525 })
+      };
+
+      car.paintMat = mats.paint;
+      car.secondaryMat = mats.racing_stripe;
+
+      const addMesh = (geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => {
+        const m = new THREE.Mesh(geo, mat);
+        m.position.set(x, y, z);
+        if (rx || ry || rz) m.rotation.set(rx, ry, rz);
+        m.castShadow = true;
+        m.receiveShadow = true;
+        model.add(m);
+        return m;
+      };
+
+      // 1. Full-Length Underbody Pan & Aero Splitter
+      addMesh(new THREE.BoxGeometry(1.50, 0.08, 3.55), mats.chassis, 0, 0.16, 0.00);
+      addMesh(new THREE.BoxGeometry(1.58, 0.05, 0.44), mats.carbon, 0, 0.12, 1.76);
+      [-0.79, 0.79].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.12, 0.40), mats.carbon, sx, 0.17, 1.76);
+      });
+      // Side Skirt Blades
+      [-0.78, 0.78].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.12, 0.06, 1.95), mats.carbon, sx, 0.14, 0.00);
+      });
+      // Rear Multi-Fin Diffuser
+      addMesh(new THREE.BoxGeometry(1.46, 0.06, 0.52), mats.carbon, 0, 0.18, -1.68, -0.12, 0, 0);
+      [-0.50, -0.17, 0.17, 0.50].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.03, 0.14, 0.48), mats.carbon, sx, 0.20, -1.68, -0.12, 0, 0);
+      });
+
+      // 2. Main Muscle Body Monocoque Tub
+      addMesh(new THREE.BoxGeometry(1.42, 0.36, 2.35), mats.chassis, 0, 0.34, 0.00);
+
+      // 3. Elongated Muscular Hood & Front Fascia
+      addMesh(new THREE.BoxGeometry(1.18, 0.20, 1.45), mats.paint, 0, 0.46, 0.98, 0.04, 0, 0);
+      addMesh(new THREE.BoxGeometry(1.30, 0.28, 0.42), mats.paint, 0, 0.34, 1.66);
+      addMesh(new THREE.BoxGeometry(0.96, 0.16, 0.12), mats.carbon, 0, 0.30, 1.85);
+
+      // Dual Bold Muscle Racing Stripes
+      [-0.14, 0.14].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.11, 0.02, 1.48), mats.racing_stripe, sx, 0.565, 0.98, 0.04, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.11, 0.02, 0.40), mats.racing_stripe, sx, 0.485, 1.66);
+        addMesh(new THREE.BoxGeometry(0.11, 0.02, 0.95), mats.racing_stripe, sx, 0.885, -0.12);
+      });
+
+      // Chrome Supercharger Blower Scoop (Signature Dominus Feature)
+      addMesh(new THREE.BoxGeometry(0.38, 0.16, 0.48), mats.chrome, 0, 0.64, 0.88);
+      [-0.10, 0, 0.10].forEach(vx => {
+        addMesh(new THREE.CylinderGeometry(0.035, 0.035, 0.02, 12), mats.white_trim, vx, 0.64, 1.12, Math.PI / 2, 0, 0);
+      });
+
+      // Quad Rectangular Retro Muscle Headlights
+      [-0.52, -0.38, 0.38, 0.52].forEach(hx => {
+        addMesh(new THREE.BoxGeometry(0.11, 0.065, 0.04), mats.headlight_white, hx, 0.42, 1.74);
+      });
+
+      // 4. Muscular Front Fenders (Dominus Widebody)
+      [-0.73, 0.73].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.32, 0.16, 0.84), mats.paint, sx, 0.56, 0.95);
+        addMesh(new THREE.BoxGeometry(0.07, 0.20, 0.82), mats.white_trim, sx + sign * 0.12, 0.49, 0.95, 0, 0, sign * 0.18);
+        addMesh(new THREE.BoxGeometry(0.28, 0.12, 0.32), mats.paint, sx, 0.44, 1.36, 0.22, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.04, 0.34, 0.74), mats.carbon, sx - sign * 0.14, 0.38, 0.95);
+      });
+
+      // 5. Solid Doors & Chrome Side-Exit Exhausts
+      [-0.70, 0.70].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.18, 0.30, 1.05), mats.paint, sx, 0.40, 0.00);
+        addMesh(new THREE.CylinderGeometry(0.04, 0.04, 0.50, 12), mats.chrome, sx + sign * 0.08, 0.20, -0.25, 0, 0, Math.PI / 2);
+      });
+
+      // 6. Muscular Wide-Body Rear Haunches
+      [-0.74, 0.74].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.42, 0.30, 1.15), mats.paint, sx, 0.60, -0.95);
+        addMesh(new THREE.BoxGeometry(0.07, 0.24, 1.10), mats.white_trim, sx + sign * 0.14, 0.51, -0.95, 0, 0, sign * 0.18);
+        addMesh(new THREE.BoxGeometry(0.38, 0.14, 0.34), mats.paint, sx, 0.48, -1.50, -0.20, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.04, 0.36, 0.86), mats.carbon, sx - sign * 0.14, 0.40, -0.95);
+      });
+
+      // 7. Low-Slung Muscle Coupe Cabin (Raked Fastback)
+      addMesh(new THREE.BoxGeometry(0.96, 0.28, 1.05), mats.glass, 0, 0.72, -0.15);
+      addMesh(new THREE.BoxGeometry(0.94, 0.30, 0.46), mats.glass, 0, 0.68, 0.30, 0.45, 0, 0);
+      addMesh(new THREE.BoxGeometry(0.92, 0.28, 0.42), mats.glass, 0, 0.70, -0.58, -0.38, 0, 0);
+      addMesh(new THREE.BoxGeometry(0.94, 0.06, 0.95), mats.paint, 0, 0.86, -0.12);
+      [-0.47, 0.47].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.05, 0.06, 0.52), mats.white_trim, sx, 0.68, 0.30, 0.45, 0, 0);
+      });
+
+      // 8. Integrated Muscle Ducktail Drag Spoiler
+      addMesh(new THREE.BoxGeometry(1.64, 0.14, 0.18), mats.carbon, 0, 0.76, -1.66, 0.22, 0, 0);
+      [-0.82, 0.82].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.16, 0.20), mats.white_trim, sx, 0.76, -1.66);
+      });
+
+      // 9. Split LED Muscle Taillight Bars
+      [-0.36, 0.36].forEach(tx => {
+        addMesh(new THREE.BoxGeometry(0.54, 0.065, 0.04), mats.neon_red, tx, 0.54, -1.70);
+      });
+
+      // 10. Heavy-Duty Dual Rocket Thrusters
+      [-0.28, 0.28].forEach(sx => {
+        addMesh(new THREE.CylinderGeometry(0.12, 0.09, 0.24, 16), mats.chassis, sx, 0.44, -1.65, Math.PI / 2, 0, 0);
+        addMesh(new THREE.TorusGeometry(0.08, 0.018, 8, 16), mats.neon_cyan, sx, 0.44, -1.67);
+      });
+
+      // Wheels
+      const underglowColor = isOrangeTeam ? 0xff5500 : 0x00f0ff;
+      const wheels = [
+        createDetailedWheel(true, underglowColor, true, 0.34, 0.26),
+        createDetailedWheel(false, underglowColor, true, 0.34, 0.26),
+        createDetailedWheel(true, underglowColor, true, 0.36, 0.30),
+        createDetailedWheel(false, underglowColor, true, 0.36, 0.30)
+      ];
+      wheels[0].position.set(-0.74, 0.34, 0.95);
+      wheels[1].position.set(0.74, 0.34, 0.95);
+      wheels[2].position.set(-0.76, 0.36, -0.95);
+      wheels[3].position.set(0.76, 0.36, -0.95);
+      wheels.forEach(w => model.add(w));
+      car.wheels = wheels;
+
+      // Flame & Boost Light
+      const flameMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.92 });
+      const flame = new THREE.Mesh(new THREE.ConeGeometry(0.40, 2.6, 14), flameMat);
+      flame.rotation.x = -Math.PI / 2;
+      flame.position.set(0, 0.44, -2.45);
+      flame.visible = false;
+      car.add(flame);
+      car.flame = flame;
+
+      const boostLight = new THREE.PointLight(0x00f0ff, 0, 18);
+      boostLight.position.set(0, 0.44, -1.65);
+      car.add(boostLight);
+      car.boostLight = boostLight;
+
+      // Underglow & Glow Pad
+      const underglow = new THREE.PointLight(underglowColor, 3.2, 9);
+      underglow.position.set(0, 0.15, 0);
+      car.add(underglow);
+      car.underglow = underglow;
+
+      const glowPadGeo = new THREE.PlaneGeometry(2.0, 3.3);
+      const glowPadMat = new THREE.MeshBasicMaterial({ color: underglowColor, transparent: true, opacity: 0.42, blending: THREE.AdditiveBlending, depthWrite: false });
+      const glowPad = new THREE.Mesh(glowPadGeo, glowPadMat);
+      glowPad.rotation.x = -Math.PI / 2;
+      glowPad.position.set(0, 0.04, 0);
+      car.add(glowPad);
+      car.glowPad = glowPad;
+
+      // Headlight Spotlights & Beams
+      [-0.46, 0.46].forEach(hx => {
+        const spot = new THREE.SpotLight(0xdff4ff, 1.8, 38, Math.PI / 5.2, 0.45);
+        spot.position.set(hx, 0.44, 1.6);
+        spot.target.position.set(hx, 0.05, 18);
+        car.add(spot);
+        car.add(spot.target);
+
+        const beam = new THREE.Mesh(new THREE.ConeGeometry(2.2, 16, 12, 1, true), new THREE.MeshBasicMaterial({ color: 0xc4eeff, transparent: true, opacity: 0.045, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+        beam.position.set(hx, 0.42, 9.6);
+        beam.rotation.x = Math.PI / 2;
+        car.add(beam);
+      });
+
+      car.model = model;
+      car.bodyId = 'dominus';
+      car.scale.set(1.0, 1.0, 1.0);
+      if (addToScene) scene.add(car);
       return car;
     }
 
-    function createMasterFennec(addToScene = true) {
-      const car = createMasterOctane(addToScene, true, 'blue');
+    /* =========================================================================
+       3. FENNEC TITAN: HEAVYWEIGHT RALLY HATCHBACK & ARMORED STRIKER
+       ========================================================================= */
+    function createMasterFennec(addToScene = true, isTitaniumWhite = true, teamTheme = 'blue') {
+      const car = new THREE.Group();
+      const model = new THREE.Group();
+      model.position.y = -0.50;
+      car.add(model);
+
+      const isOrangeTeam = (teamTheme === 'orange' || teamTheme === 0xff5500);
+      const primaryColor = isOrangeTeam ? 0xff4800 : 0x0052f5;
+
+      const mats = {
+        paint: new THREE.MeshStandardMaterial({ color: primaryColor, metalness: 0.65, roughness: 0.18, envMapIntensity: 2.4, side: THREE.DoubleSide }),
+        white_trim: new THREE.MeshStandardMaterial({ color: 0xf5f5fa, metalness: 0.18, roughness: 0.22, envMapIntensity: 2.0, side: THREE.DoubleSide }),
+        racing_stripe: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.08, roughness: 0.14, envMapIntensity: 2.2, side: THREE.DoubleSide }),
+        glass: new THREE.MeshStandardMaterial({ color: 0x080b12, roughness: 0.04, metalness: 0.96, envMapIntensity: 3.5, side: THREE.DoubleSide }),
+        carbon: new THREE.MeshStandardMaterial({ color: 0x12141a, roughness: 0.50, metalness: 0.45, envMapIntensity: 1.6 }),
+        chassis: new THREE.MeshStandardMaterial({ color: 0x161820, roughness: 0.40, metalness: 0.85, envMapIntensity: 1.8 }),
+        chrome: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.02, envMapIntensity: 3.5 }),
+        neon_cyan: new THREE.MeshBasicMaterial({ color: 0x00f0ff }),
+        headlight_white: new THREE.MeshBasicMaterial({ color: 0xffffff }),
+        fog_amber: new THREE.MeshBasicMaterial({ color: 0xffb300 }),
+        neon_red: new THREE.MeshBasicMaterial({ color: 0xff1525 })
+      };
+
+      car.paintMat = mats.paint;
+      car.secondaryMat = mats.racing_stripe;
+
+      const addMesh = (geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => {
+        const m = new THREE.Mesh(geo, mat);
+        m.position.set(x, y, z);
+        if (rx || ry || rz) m.rotation.set(rx, ry, rz);
+        m.castShadow = true;
+        m.receiveShadow = true;
+        model.add(m);
+        return m;
+      };
+
+      // 1. Underbody & Skidplate
+      addMesh(new THREE.BoxGeometry(1.48, 0.08, 3.32), mats.chassis, 0, 0.16, 0.00);
+      addMesh(new THREE.BoxGeometry(1.52, 0.06, 0.38), mats.carbon, 0, 0.13, 1.62);
+
+      // Heavy Front Bullbar / Brush Guard
+      addMesh(new THREE.BoxGeometry(1.02, 0.06, 0.06), mats.chassis, 0, 0.36, 1.76);
+      [-0.32, 0.32].forEach(bx => {
+        addMesh(new THREE.BoxGeometry(0.06, 0.28, 0.06), mats.chassis, bx, 0.42, 1.76);
+      });
+      // Twin Amber Rally Fog Lamps
+      [-0.18, 0.18].forEach(fx => {
+        addMesh(new THREE.CylinderGeometry(0.065, 0.065, 0.04, 16), mats.fog_amber, fx, 0.42, 1.79, Math.PI / 2, 0, 0);
+      });
+
+      // 2. Main Boxy Body Tub
+      addMesh(new THREE.BoxGeometry(1.40, 0.42, 2.20), mats.chassis, 0, 0.36, 0.00);
+
+      // 3. Compact Vented Rally Hood
+      addMesh(new THREE.BoxGeometry(1.14, 0.24, 1.10), mats.paint, 0, 0.52, 0.90, 0.08, 0, 0);
+      addMesh(new THREE.BoxGeometry(1.28, 0.28, 0.38), mats.paint, 0, 0.38, 1.55);
+      // Dual Stripes on Hood
+      [-0.13, 0.13].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.09, 0.02, 1.12), mats.racing_stripe, sx, 0.645, 0.90, 0.08, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.09, 0.02, 0.36), mats.racing_stripe, sx, 0.525, 1.55);
+        addMesh(new THREE.BoxGeometry(0.09, 0.02, 1.18), mats.racing_stripe, sx, 1.085, -0.15);
+      });
+
+      // Square LED Rally Headlights
+      [-0.48, 0.48].forEach(hx => {
+        addMesh(new THREE.BoxGeometry(0.20, 0.11, 0.08), mats.headlight_white, hx, 0.48, 1.66);
+      });
+
+      // 4. Box-Flared Front Rally Fenders
+      [-0.72, 0.72].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.34, 0.22, 0.84), mats.paint, sx, 0.58, 0.95);
+        addMesh(new THREE.BoxGeometry(0.07, 0.24, 0.82), mats.white_trim, sx + sign * 0.13, 0.50, 0.95);
+        addMesh(new THREE.BoxGeometry(0.28, 0.14, 0.30), mats.paint, sx, 0.46, 1.34, 0.25, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.04, 0.36, 0.76), mats.carbon, sx - sign * 0.14, 0.40, 0.95);
+      });
+
+      // 5. Solid Doors & Armored Rocker Panels
+      [-0.69, 0.69].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.18, 0.34, 0.96), mats.paint, sx, 0.44, 0.00);
+        addMesh(new THREE.BoxGeometry(0.03, 0.08, 0.88), mats.white_trim, sx + sign * 0.09, 0.44, 0.00);
+      });
+
+      // 6. Box-Flared Rear Haunches
+      [-0.73, 0.73].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.40, 0.32, 1.02), mats.paint, sx, 0.64, -0.95);
+        addMesh(new THREE.BoxGeometry(0.07, 0.28, 1.00), mats.white_trim, sx + sign * 0.14, 0.54, -0.95);
+        addMesh(new THREE.BoxGeometry(0.36, 0.16, 0.32), mats.paint, sx, 0.52, -1.44, -0.22, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.04, 0.38, 0.88), mats.carbon, sx - sign * 0.14, 0.42, -0.95);
+      });
+
+      // 7. Boxy Hatchback Cabin & Upright Greenhouse
+      addMesh(new THREE.BoxGeometry(0.96, 0.44, 1.20), mats.glass, 0, 0.84, -0.15);
+      addMesh(new THREE.BoxGeometry(0.94, 0.40, 0.40), mats.glass, 0, 0.78, 0.28, 0.42, 0, 0);
+      addMesh(new THREE.BoxGeometry(0.90, 0.36, 0.24), mats.glass, 0, 0.82, -0.74, -0.12, 0, 0);
+      addMesh(new THREE.BoxGeometry(0.98, 0.06, 1.22), mats.paint, 0, 1.06, -0.15);
+      // Roof Rack Rails (Rugged Utility)
+      [-0.45, 0.45].forEach(rx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.04, 1.10), mats.carbon, rx, 1.10, -0.15);
+      });
+
+      // 8. Rally Roof Spoiler Wing
+      addMesh(new THREE.BoxGeometry(1.46, 0.06, 0.28), mats.carbon, 0, 1.10, -0.85, -0.12, 0, 0);
+      [-0.73, 0.73].forEach(wx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.16, 0.30), mats.white_trim, wx, 1.10, -0.85);
+      });
+
+      // 9. Vertical Rally LED Taillight Pillars
+      [-0.60, 0.60].forEach(tx => {
+        addMesh(new THREE.BoxGeometry(0.06, 0.32, 0.04), mats.neon_red, tx, 0.70, -1.52);
+      });
+
+      // 10. Center Dual Rocket Thrusters
+      [-0.22, 0.22].forEach(sx => {
+        addMesh(new THREE.CylinderGeometry(0.11, 0.085, 0.22, 16), mats.chassis, sx, 0.44, -1.56, Math.PI / 2, 0, 0);
+        addMesh(new THREE.TorusGeometry(0.075, 0.016, 8, 16), mats.neon_cyan, sx, 0.44, -1.58);
+      });
+
+      // Wheels
+      const underglowColor = isOrangeTeam ? 0xff5500 : 0x00f0ff;
+      const wheels = [
+        createDetailedWheel(true, underglowColor, true, 0.34, 0.26),
+        createDetailedWheel(false, underglowColor, true, 0.34, 0.26),
+        createDetailedWheel(true, underglowColor, true, 0.36, 0.30),
+        createDetailedWheel(false, underglowColor, true, 0.36, 0.30)
+      ];
+      wheels[0].position.set(-0.74, 0.34, 0.95);
+      wheels[1].position.set(0.74, 0.34, 0.95);
+      wheels[2].position.set(-0.76, 0.36, -0.95);
+      wheels[3].position.set(0.76, 0.36, -0.95);
+      wheels.forEach(w => model.add(w));
+      car.wheels = wheels;
+
+      const flameMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.92 });
+      const flame = new THREE.Mesh(new THREE.ConeGeometry(0.38, 2.4, 14), flameMat);
+      flame.rotation.x = -Math.PI / 2;
+      flame.position.set(0, 0.44, -2.4);
+      flame.visible = false;
+      car.add(flame);
+      car.flame = flame;
+
+      const boostLight = new THREE.PointLight(0x00f0ff, 0, 18);
+      boostLight.position.set(0, 0.44, -1.6);
+      car.add(boostLight);
+      car.boostLight = boostLight;
+
+      const underglow = new THREE.PointLight(underglowColor, 3.2, 9);
+      underglow.position.set(0, 0.15, 0);
+      car.add(underglow);
+      car.underglow = underglow;
+
+      const glowPadGeo = new THREE.PlaneGeometry(2.0, 3.2);
+      const glowPadMat = new THREE.MeshBasicMaterial({ color: underglowColor, transparent: true, opacity: 0.42, blending: THREE.AdditiveBlending, depthWrite: false });
+      const glowPad = new THREE.Mesh(glowPadGeo, glowPadMat);
+      glowPad.rotation.x = -Math.PI / 2;
+      glowPad.position.set(0, 0.04, 0);
+      car.add(glowPad);
+      car.glowPad = glowPad;
+
+      [-0.46, 0.46].forEach(hx => {
+        const spot = new THREE.SpotLight(0xdff4ff, 1.8, 38, Math.PI / 5.2, 0.45);
+        spot.position.set(hx, 0.46, 1.6);
+        spot.target.position.set(hx, 0.05, 18);
+        car.add(spot);
+        car.add(spot.target);
+
+        const beam = new THREE.Mesh(new THREE.ConeGeometry(2.2, 16, 12, 1, true), new THREE.MeshBasicMaterial({ color: 0xc4eeff, transparent: true, opacity: 0.045, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+        beam.position.set(hx, 0.44, 9.6);
+        beam.rotation.x = Math.PI / 2;
+        car.add(beam);
+      });
+
+      car.model = model;
       car.bodyId = 'fennec';
+      car.scale.set(1.0, 1.0, 1.0);
+      if (addToScene) scene.add(car);
       return car;
     }
 
-    let playerCarMesh = createMasterOctane();
-    playerCarMesh.bodyId = 'octane';
-    const botCarMesh = createMasterOctane(true, true, 'orange');
-    botCarMesh.bodyId = 'octane';
+    /* =========================================================================
+       4. BREAKOUT SPECTER RS: EXOTIC WEDGE HYPERCAR (SCISSOR-STANCE AERO)
+       ========================================================================= */
+    function createMasterBreakout(addToScene = true, isTitaniumWhite = true, teamTheme = 'blue') {
+      const car = new THREE.Group();
+      const model = new THREE.Group();
+      model.position.y = -0.50;
+      car.add(model);
+
+      const isOrangeTeam = (teamTheme === 'orange' || teamTheme === 0xff5500);
+      const primaryColor = isOrangeTeam ? 0xff4800 : 0x0052f5;
+
+      const mats = {
+        paint: new THREE.MeshStandardMaterial({ color: primaryColor, metalness: 0.68, roughness: 0.16, envMapIntensity: 2.6, side: THREE.DoubleSide }),
+        white_trim: new THREE.MeshStandardMaterial({ color: 0xf5f5fa, metalness: 0.18, roughness: 0.22, envMapIntensity: 2.0, side: THREE.DoubleSide }),
+        racing_stripe: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.08, roughness: 0.14, envMapIntensity: 2.2, side: THREE.DoubleSide }),
+        glass: new THREE.MeshStandardMaterial({ color: 0x080b12, roughness: 0.04, metalness: 0.96, envMapIntensity: 3.5, side: THREE.DoubleSide }),
+        carbon: new THREE.MeshStandardMaterial({ color: 0x12141a, roughness: 0.50, metalness: 0.45, envMapIntensity: 1.6 }),
+        chassis: new THREE.MeshStandardMaterial({ color: 0x161820, roughness: 0.40, metalness: 0.85, envMapIntensity: 1.8 }),
+        chrome: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.02, envMapIntensity: 3.5 }),
+        neon_cyan: new THREE.MeshBasicMaterial({ color: 0x00f0ff }),
+        headlight_white: new THREE.MeshBasicMaterial({ color: 0xffffff }),
+        neon_red: new THREE.MeshBasicMaterial({ color: 0xff1525 })
+      };
+
+      car.paintMat = mats.paint;
+      car.secondaryMat = mats.racing_stripe;
+
+      const addMesh = (geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => {
+        const m = new THREE.Mesh(geo, mat);
+        m.position.set(x, y, z);
+        if (rx || ry || rz) m.rotation.set(rx, ry, rz);
+        m.castShadow = true;
+        m.receiveShadow = true;
+        model.add(m);
+        return m;
+      };
+
+      // 1. Ultra-Low Underfloor & Knife-Edge Front Splitter
+      addMesh(new THREE.BoxGeometry(1.50, 0.08, 3.65), mats.chassis, 0, 0.16, 0.00);
+      addMesh(new THREE.BoxGeometry(1.62, 0.04, 0.48), mats.carbon, 0, 0.11, 1.82);
+      [-0.81, 0.81].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.14, 0.44), mats.carbon, sx, 0.16, 1.82);
+      });
+      [-0.78, 0.78].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.12, 0.05, 2.05), mats.carbon, sx, 0.13, 0.00);
+      });
+      addMesh(new THREE.BoxGeometry(1.48, 0.06, 0.55), mats.carbon, 0, 0.18, -1.72, -0.16, 0, 0);
+
+      // 2. Monocoque Hypercar Tub
+      addMesh(new THREE.BoxGeometry(1.40, 0.32, 2.30), mats.chassis, 0, 0.32, 0.00);
+
+      // 3. Sharp Aerodynamic Wedge Nose & Canards
+      addMesh(new THREE.BoxGeometry(1.16, 0.16, 1.40), mats.paint, 0, 0.40, 1.05, 0.13, 0, 0);
+      addMesh(new THREE.BoxGeometry(1.28, 0.22, 0.40), mats.paint, 0, 0.30, 1.72);
+      [-0.66, 0.66].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.24, 0.02, 0.18), mats.carbon, sx, 0.34, 1.72, 0, 0, sign * 0.22);
+      });
+      // Central White Aero Spear Stripe
+      addMesh(new THREE.BoxGeometry(0.16, 0.02, 1.42), mats.racing_stripe, 0, 0.49, 1.05, 0.13, 0, 0);
+      addMesh(new THREE.BoxGeometry(0.16, 0.02, 0.38), mats.racing_stripe, 0, 0.42, 1.72);
+      addMesh(new THREE.BoxGeometry(0.16, 0.02, 0.95), mats.racing_stripe, 0, 0.81, -0.05);
+
+      // Slender Horizontal LED Matrix Headlights
+      [-0.48, 0.48].forEach(hx => {
+        addMesh(new THREE.BoxGeometry(0.24, 0.035, 0.06), mats.headlight_white, hx, 0.38, 1.78);
+      });
+
+      // 4. Low-Profile Front Fenders
+      [-0.73, 0.73].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.32, 0.13, 0.84), mats.paint, sx, 0.52, 0.95);
+        addMesh(new THREE.BoxGeometry(0.06, 0.16, 0.82), mats.white_trim, sx + sign * 0.12, 0.46, 0.95, 0, 0, sign * 0.18);
+        addMesh(new THREE.BoxGeometry(0.28, 0.10, 0.32), mats.paint, sx, 0.40, 1.36, 0.25, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.04, 0.32, 0.74), mats.carbon, sx - sign * 0.14, 0.36, 0.95);
+      });
+
+      // 5. Swept-Back Side Air Pontoons
+      [-0.68, 0.68].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.18, 0.26, 1.05), mats.paint, sx, 0.38, 0.00);
+      });
+
+      // 6. Low Rear Haunches
+      [-0.74, 0.74].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.40, 0.24, 1.12), mats.paint, sx, 0.56, -0.95);
+        addMesh(new THREE.BoxGeometry(0.06, 0.20, 1.08), mats.white_trim, sx + sign * 0.14, 0.48, -0.95, 0, 0, sign * 0.18);
+        addMesh(new THREE.BoxGeometry(0.36, 0.12, 0.34), mats.paint, sx, 0.46, -1.52, -0.18, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.04, 0.34, 0.86), mats.carbon, sx - sign * 0.14, 0.38, -0.95);
+      });
+
+      // 7. Fighter-Jet Teardrop Bubble Cockpit
+      addMesh(new THREE.BoxGeometry(0.82, 0.28, 1.00), mats.glass, 0, 0.68, -0.05);
+      addMesh(new THREE.BoxGeometry(0.80, 0.28, 0.44), mats.glass, 0, 0.62, 0.35, 0.58, 0, 0);
+      addMesh(new THREE.BoxGeometry(0.76, 0.24, 0.40), mats.glass, 0, 0.64, -0.45, -0.45, 0, 0);
+      addMesh(new THREE.BoxGeometry(0.80, 0.05, 0.95), mats.paint, 0, 0.80, -0.05);
+
+      // 8. Twin Active Aerodynamic Rear Wing Blades
+      [-0.30, 0.30].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.03, 0.38, 0.16), mats.carbon, sx, 0.82, -1.46, -0.25, 0, 0);
+      });
+      addMesh(new THREE.BoxGeometry(1.64, 0.035, 0.22), mats.carbon, 0, 0.94, -1.50, -0.08, 0, 0);
+      addMesh(new THREE.BoxGeometry(1.58, 0.030, 0.18), mats.carbon, 0, 1.02, -1.54, -0.12, 0, 0);
+      [-0.82, 0.82].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.20, 0.28), mats.white_trim, sx, 0.98, -1.52);
+      });
+
+      // 9. Central Triple Rocket Thruster Cluster (Triangular Formation)
+      [-0.18, 0.18].forEach(sx => {
+        addMesh(new THREE.CylinderGeometry(0.09, 0.07, 0.22, 16), mats.chassis, sx, 0.40, -1.68, Math.PI / 2, 0, 0);
+        addMesh(new THREE.TorusGeometry(0.065, 0.014, 8, 16), mats.neon_cyan, sx, 0.40, -1.70);
+      });
+      addMesh(new THREE.CylinderGeometry(0.10, 0.08, 0.22, 16), mats.chassis, 0, 0.54, -1.68, Math.PI / 2, 0, 0);
+      addMesh(new THREE.TorusGeometry(0.075, 0.016, 8, 16), mats.neon_cyan, 0, 0.54, -1.70);
+
+      // 10. Horizontal Laser Taillight Ribbon
+      addMesh(new THREE.BoxGeometry(1.25, 0.03, 0.04), mats.neon_red, 0, 0.49, -1.70);
+
+      // Wheels
+      const underglowColor = isOrangeTeam ? 0xff5500 : 0x00f0ff;
+      const wheels = [
+        createDetailedWheel(true, underglowColor, true, 0.34, 0.26),
+        createDetailedWheel(false, underglowColor, true, 0.34, 0.26),
+        createDetailedWheel(true, underglowColor, true, 0.36, 0.30),
+        createDetailedWheel(false, underglowColor, true, 0.36, 0.30)
+      ];
+      wheels[0].position.set(-0.74, 0.34, 0.95);
+      wheels[1].position.set(0.74, 0.34, 0.95);
+      wheels[2].position.set(-0.76, 0.36, -0.95);
+      wheels[3].position.set(0.76, 0.36, -0.95);
+      wheels.forEach(w => model.add(w));
+      car.wheels = wheels;
+
+      const flameMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.92 });
+      const flame = new THREE.Mesh(new THREE.ConeGeometry(0.38, 2.5, 14), flameMat);
+      flame.rotation.x = -Math.PI / 2;
+      flame.position.set(0, 0.46, -2.4);
+      flame.visible = false;
+      car.add(flame);
+      car.flame = flame;
+
+      const boostLight = new THREE.PointLight(0x00f0ff, 0, 18);
+      boostLight.position.set(0, 0.46, -1.6);
+      car.add(boostLight);
+      car.boostLight = boostLight;
+
+      const underglow = new THREE.PointLight(underglowColor, 3.2, 9);
+      underglow.position.set(0, 0.15, 0);
+      car.add(underglow);
+      car.underglow = underglow;
+
+      const glowPadGeo = new THREE.PlaneGeometry(2.0, 3.3);
+      const glowPadMat = new THREE.MeshBasicMaterial({ color: underglowColor, transparent: true, opacity: 0.42, blending: THREE.AdditiveBlending, depthWrite: false });
+      const glowPad = new THREE.Mesh(glowPadGeo, glowPadMat);
+      glowPad.rotation.x = -Math.PI / 2;
+      glowPad.position.set(0, 0.04, 0);
+      car.add(glowPad);
+      car.glowPad = glowPad;
+
+      [-0.48, 0.48].forEach(hx => {
+        const spot = new THREE.SpotLight(0xdff4ff, 1.8, 38, Math.PI / 5.2, 0.45);
+        spot.position.set(hx, 0.40, 1.6);
+        spot.target.position.set(hx, 0.05, 18);
+        car.add(spot);
+        car.add(spot.target);
+
+        const beam = new THREE.Mesh(new THREE.ConeGeometry(2.2, 16, 12, 1, true), new THREE.MeshBasicMaterial({ color: 0xc4eeff, transparent: true, opacity: 0.045, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+        beam.position.set(hx, 0.38, 9.6);
+        beam.rotation.x = Math.PI / 2;
+        car.add(beam);
+      });
+
+      car.model = model;
+      car.bodyId = 'breakout';
+      car.scale.set(1.0, 1.0, 1.0);
+      if (addToScene) scene.add(car);
+      return car;
+    }
+
+    /* =========================================================================
+       5. TAKUMI ION PHANTOM: CYBERNETIC JDM STREET INTERCEPTOR & DRIFT COUPE
+       ========================================================================= */
+    function createMasterTakumi(addToScene = true, isTitaniumWhite = true, teamTheme = 'blue') {
+      const car = new THREE.Group();
+      const model = new THREE.Group();
+      model.position.y = -0.50;
+      car.add(model);
+
+      const isOrangeTeam = (teamTheme === 'orange' || teamTheme === 0xff5500);
+      const primaryColor = isOrangeTeam ? 0xff4800 : 0x0052f5;
+
+      const mats = {
+        paint: new THREE.MeshStandardMaterial({ color: primaryColor, metalness: 0.66, roughness: 0.18, envMapIntensity: 2.4, side: THREE.DoubleSide }),
+        white_trim: new THREE.MeshStandardMaterial({ color: 0xf5f5fa, metalness: 0.18, roughness: 0.22, envMapIntensity: 2.0, side: THREE.DoubleSide }),
+        racing_stripe: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.08, roughness: 0.14, envMapIntensity: 2.2, side: THREE.DoubleSide }),
+        glass: new THREE.MeshStandardMaterial({ color: 0x080b12, roughness: 0.04, metalness: 0.96, envMapIntensity: 3.5, side: THREE.DoubleSide }),
+        carbon: new THREE.MeshStandardMaterial({ color: 0x12141a, roughness: 0.50, metalness: 0.45, envMapIntensity: 1.6 }),
+        chassis: new THREE.MeshStandardMaterial({ color: 0x161820, roughness: 0.40, metalness: 0.85, envMapIntensity: 1.8 }),
+        chrome: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.02, envMapIntensity: 3.5 }),
+        neon_cyan: new THREE.MeshBasicMaterial({ color: 0x00f0ff }),
+        headlight_white: new THREE.MeshBasicMaterial({ color: 0xffffff }),
+        neon_red: new THREE.MeshBasicMaterial({ color: 0xff1525 })
+      };
+
+      car.paintMat = mats.paint;
+      car.secondaryMat = mats.racing_stripe;
+
+      const addMesh = (geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => {
+        const m = new THREE.Mesh(geo, mat);
+        m.position.set(x, y, z);
+        if (rx || ry || rz) m.rotation.set(rx, ry, rz);
+        m.castShadow = true;
+        m.receiveShadow = true;
+        model.add(m);
+        return m;
+      };
+
+      // 1. Underbody & Tuner Aero Splitter
+      addMesh(new THREE.BoxGeometry(1.46, 0.08, 3.45), mats.chassis, 0, 0.16, 0.00);
+      addMesh(new THREE.BoxGeometry(1.54, 0.04, 0.42), mats.carbon, 0, 0.12, 1.70);
+      [-0.77, 0.77].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.12, 0.38), mats.carbon, sx, 0.17, 1.70);
+      });
+      // Drift Rocker Blades with Cyan Cyber Accent Lines
+      [-0.76, 0.76].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.12, 0.06, 1.88), mats.carbon, sx, 0.14, 0.00);
+        addMesh(new THREE.BoxGeometry(0.02, 0.02, 1.80), mats.neon_cyan, sx + (sx > 0 ? 0.06 : -0.06), 0.14, 0.00);
+      });
+      // Rear Multi-Strake Diffuser
+      addMesh(new THREE.BoxGeometry(1.42, 0.06, 0.50), mats.carbon, 0, 0.18, -1.64, -0.14, 0, 0);
+
+      // 2. Main Tuner Tub
+      addMesh(new THREE.BoxGeometry(1.38, 0.36, 2.26), mats.chassis, 0, 0.34, 0.00);
+
+      // 3. Faceted JDM Nose & Vented Carbon Hood
+      addMesh(new THREE.BoxGeometry(1.12, 0.18, 1.22), mats.paint, 0, 0.46, 0.94, 0.10, 0, 0);
+      addMesh(new THREE.BoxGeometry(1.26, 0.25, 0.42), mats.paint, 0, 0.34, 1.62);
+      // Center NACA Duct / Scoop on Hood
+      addMesh(new THREE.BoxGeometry(0.22, 0.05, 0.34), mats.carbon, 0, 0.54, 0.96, 0.10, 0, 0);
+      // Twin Dual Pinstripes
+      [-0.10, 0.10].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.05, 0.02, 1.25), mats.racing_stripe, sx, 0.555, 0.94, 0.10, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.05, 0.02, 0.40), mats.racing_stripe, sx, 0.465, 1.62);
+        addMesh(new THREE.BoxGeometry(0.05, 0.02, 0.90), mats.racing_stripe, sx, 0.925, -0.08);
+      });
+
+      // Angled JDM Cat-Eye Projector Headlights
+      [-0.46, 0.46].forEach(hx => {
+        const sign = hx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.20, 0.08, 0.12), mats.headlight_white, hx, 0.44, 1.68, 0, sign * 0.15, 0);
+        addMesh(new THREE.BoxGeometry(0.18, 0.02, 0.04), mats.neon_cyan, hx, 0.49, 1.73, 0, sign * 0.15, 0);
+      });
+
+      // 4. Bolt-On Widebody Drift Front Fenders (With Titanium White Rivet Trim)
+      [-0.72, 0.72].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.32, 0.15, 0.84), mats.paint, sx, 0.56, 0.95);
+        addMesh(new THREE.BoxGeometry(0.07, 0.18, 0.82), mats.white_trim, sx + sign * 0.12, 0.49, 0.95, 0, 0, sign * 0.18);
+        addMesh(new THREE.BoxGeometry(0.28, 0.11, 0.30), mats.paint, sx, 0.44, 1.34, 0.26, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.04, 0.34, 0.74), mats.carbon, sx - sign * 0.14, 0.38, 0.95);
+      });
+
+      // 5. Solid Doors & Side Air Extraction Ducts
+      [-0.68, 0.68].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.18, 0.30, 0.98), mats.paint, sx, 0.40, 0.00);
+        addMesh(new THREE.BoxGeometry(0.04, 0.20, 0.20), mats.carbon, sx + sign * 0.08, 0.40, 0.35);
+      });
+
+      // 6. Bolt-On Widebody Rear Haunches
+      [-0.73, 0.73].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.BoxGeometry(0.40, 0.28, 1.08), mats.paint, sx, 0.60, -0.95);
+        addMesh(new THREE.BoxGeometry(0.07, 0.22, 1.05), mats.white_trim, sx + sign * 0.14, 0.51, -0.95, 0, 0, sign * 0.18);
+        addMesh(new THREE.BoxGeometry(0.36, 0.13, 0.32), mats.paint, sx, 0.48, -1.46, -0.20, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.04, 0.36, 0.86), mats.carbon, sx - sign * 0.14, 0.40, -0.95);
+      });
+
+      // 7. Sleek Tuner Fastback Coupe Cabin
+      addMesh(new THREE.BoxGeometry(0.88, 0.32, 0.90), mats.glass, 0, 0.74, -0.08);
+      addMesh(new THREE.BoxGeometry(0.86, 0.32, 0.44), mats.glass, 0, 0.68, 0.25, 0.50, 0, 0);
+      addMesh(new THREE.BoxGeometry(0.82, 0.28, 0.42), mats.glass, 0, 0.70, -0.42, -0.40, 0, 0);
+      addMesh(new THREE.BoxGeometry(0.86, 0.06, 0.90), mats.paint, 0, 0.90, -0.08);
+      // Carbon Roof Vortex Generators (5 aerodynamic micro-fins across roof rear)
+      [-0.30, -0.15, 0, 0.15, 0.30].forEach(vx => {
+        addMesh(new THREE.BoxGeometry(0.02, 0.04, 0.10), mats.carbon, vx, 0.94, -0.48, 0.25, 0, 0);
+      });
+
+      // 8. High-Mount Dual-Deck Drift Wing
+      [-0.42, 0.42].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.42, 0.16), mats.carbon, sx, 0.86, -1.48, -0.22, 0, 0);
+      });
+      addMesh(new THREE.BoxGeometry(1.60, 0.035, 0.26), mats.carbon, 0, 1.04, -1.54, -0.10, 0, 0);
+      addMesh(new THREE.BoxGeometry(1.48, 0.025, 0.16), mats.carbon, 0, 1.12, -1.56, -0.14, 0, 0);
+      [-0.80, 0.80].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.22, 0.32), mats.white_trim, sx, 1.06, -1.54);
+      });
+
+      // 9. Twin Angled Chrome Rocket Cannons
+      [-0.26, 0.26].forEach(sx => {
+        const sign = sx > 0 ? 1 : -1;
+        addMesh(new THREE.CylinderGeometry(0.10, 0.08, 0.24, 16), mats.chrome, sx, 0.42, -1.62, Math.PI / 2, sign * 0.08, 0);
+        addMesh(new THREE.TorusGeometry(0.07, 0.016, 8, 16), mats.neon_cyan, sx, 0.42, -1.64);
+      });
+
+      // 10. Quad Round Skyline-Style Halo Taillights
+      [-0.46, -0.32, 0.32, 0.46].forEach(tx => {
+        addMesh(new THREE.TorusGeometry(0.045, 0.014, 8, 16), mats.neon_red, tx, 0.54, -1.66);
+      });
+
+      // Wheels
+      const underglowColor = isOrangeTeam ? 0xff5500 : 0x00f0ff;
+      const wheels = [
+        createDetailedWheel(true, underglowColor, true, 0.34, 0.26),
+        createDetailedWheel(false, underglowColor, true, 0.34, 0.26),
+        createDetailedWheel(true, underglowColor, true, 0.36, 0.30),
+        createDetailedWheel(false, underglowColor, true, 0.36, 0.30)
+      ];
+      wheels[0].position.set(-0.74, 0.34, 0.95);
+      wheels[1].position.set(0.74, 0.34, 0.95);
+      wheels[2].position.set(-0.76, 0.36, -0.95);
+      wheels[3].position.set(0.76, 0.36, -0.95);
+      wheels.forEach(w => model.add(w));
+      car.wheels = wheels;
+
+      const flameMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.92 });
+      const flame = new THREE.Mesh(new THREE.ConeGeometry(0.38, 2.4, 14), flameMat);
+      flame.rotation.x = -Math.PI / 2;
+      flame.position.set(0, 0.42, -2.4);
+      flame.visible = false;
+      car.add(flame);
+      car.flame = flame;
+
+      const boostLight = new THREE.PointLight(0x00f0ff, 0, 18);
+      boostLight.position.set(0, 0.42, -1.6);
+      car.add(boostLight);
+      car.boostLight = boostLight;
+
+      const underglow = new THREE.PointLight(underglowColor, 3.2, 9);
+      underglow.position.set(0, 0.15, 0);
+      car.add(underglow);
+      car.underglow = underglow;
+
+      const glowPadGeo = new THREE.PlaneGeometry(2.0, 3.2);
+      const glowPadMat = new THREE.MeshBasicMaterial({ color: underglowColor, transparent: true, opacity: 0.42, blending: THREE.AdditiveBlending, depthWrite: false });
+      const glowPad = new THREE.Mesh(glowPadGeo, glowPadMat);
+      glowPad.rotation.x = -Math.PI / 2;
+      glowPad.position.set(0, 0.04, 0);
+      car.add(glowPad);
+      car.glowPad = glowPad;
+
+      [-0.46, 0.46].forEach(hx => {
+        const spot = new THREE.SpotLight(0xdff4ff, 1.8, 38, Math.PI / 5.2, 0.45);
+        spot.position.set(hx, 0.44, 1.6);
+        spot.target.position.set(hx, 0.05, 18);
+        car.add(spot);
+        car.add(spot.target);
+
+        const beam = new THREE.Mesh(new THREE.ConeGeometry(2.2, 16, 12, 1, true), new THREE.MeshBasicMaterial({ color: 0xc4eeff, transparent: true, opacity: 0.045, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+        beam.position.set(hx, 0.42, 9.6);
+        beam.rotation.x = Math.PI / 2;
+        car.add(beam);
+      });
+
+      car.model = model;
+      car.bodyId = 'takumi';
+      car.scale.set(1.0, 1.0, 1.0);
+      if (addToScene) scene.add(car);
+      return car;
+    }
+
+    /* =========================================================================
+       MASTER VEHICLE FACTORY ENGINE (DISPATCHES ALL 5 ICONIC VEHICLES)
+       ========================================================================= */
+    function createVehicleMesh(bodyId = 'octane', addToScene = true, isTitaniumWhite = true, teamTheme = 'blue') {
+      const b = (bodyId || '').toLowerCase();
+      if (b === 'dominus' || b === 'viper') {
+        return createMasterDominus(addToScene, isTitaniumWhite, teamTheme);
+      } else if (b === 'fennec' || b === 'titan') {
+        return createMasterFennec(addToScene, isTitaniumWhite, teamTheme);
+      } else if (b === 'breakout' || b === 'specter') {
+        return createMasterBreakout(addToScene, isTitaniumWhite, teamTheme);
+      } else if (b === 'takumi' || b === 'phantom') {
+        return createMasterTakumi(addToScene, isTitaniumWhite, teamTheme);
+      } else {
+        return createMasterOctane(addToScene, isTitaniumWhite, teamTheme);
+      }
+    }
+
+    let playerCarMesh = createVehicleMesh(equippedLoadout.body || 'octane');
+    playerCarMesh.bodyId = equippedLoadout.body || 'octane';
+    const botCarMesh = createMasterDominus(true, true, 'orange');
+    botCarMesh.bodyId = 'dominus';
     if (botCarMesh.paintMat) botCarMesh.paintMat.color.setHex(0xff4800); // rich Blaze Orange
     if (botCarMesh.secondaryMat) botCarMesh.secondaryMat.color.setHex(0xffffff);
     if (botCarMesh.underglow) botCarMesh.underglow.color.setHex(0xff5500);
@@ -5853,9 +6708,9 @@
     const bots = [bot]; // bot 0 is the primary opponent
 
     function createAdditionalBots() {
-      // Blue Teammate 1 (Cobalt Apex Octane)
-      const blueBotMesh1 = createMasterOctane();
-      blueBotMesh1.bodyId = 'octane';
+      // Blue Teammate 1 (Cobalt Fennec Titan)
+      const blueBotMesh1 = createMasterFennec(true, true, 'blue');
+      blueBotMesh1.bodyId = 'fennec';
       const blueBot1 = {
         mesh: blueBotMesh1,
         pos: new THREE.Vector3(-18, 0.52, -28),
@@ -5876,12 +6731,12 @@
         kickoffDelay: 0.45,
         state: 'KICKOFF_RUSH',
         stateTimer: 0,
-        name: 'COBALT APEX'
+        name: 'COBALT FENNEC'
       };
 
-      // Orange Opponent 2 (Amber Titan Octane)
-      const orangeBotMesh2 = createMasterOctane(true, true, 'orange');
-      orangeBotMesh2.bodyId = 'octane';
+      // Orange Opponent 2 (Amber Breakout Specter)
+      const orangeBotMesh2 = createMasterBreakout(true, true, 'orange');
+      orangeBotMesh2.bodyId = 'breakout';
       if (orangeBotMesh2.paintMat) orangeBotMesh2.paintMat.color.setHex(0xff4800);
       if (orangeBotMesh2.secondaryMat) orangeBotMesh2.secondaryMat.color.setHex(0xffffff);
       const orangeBot2 = {
@@ -5904,12 +6759,12 @@
         kickoffDelay: 0.45,
         state: 'KICKOFF_RUSH',
         stateTimer: 0,
-        name: 'AMBER TITAN'
+        name: 'AMBER BREAKOUT'
       };
 
-      // Blue Teammate 2 (Cobalt Phantom Octane)
-      const blueBotMesh2 = createMasterOctane(true, true, 'blue');
-      blueBotMesh2.bodyId = 'octane';
+      // Blue Teammate 2 (Cobalt Takumi Phantom)
+      const blueBotMesh2 = createMasterTakumi(true, true, 'blue');
+      blueBotMesh2.bodyId = 'takumi';
       const blueBot2 = {
         mesh: blueBotMesh2,
         pos: new THREE.Vector3(18, 0.52, -28),
@@ -5930,10 +6785,10 @@
         kickoffDelay: 0.45,
         state: 'KICKOFF_RUSH',
         stateTimer: 0,
-        name: 'COBALT PHANTOM'
+        name: 'COBALT TAKUMI'
       };
 
-      // Orange Opponent 3 (Amber Fury Octane)
+      // Orange Opponent 3 (Amber Apex Octane)
       const orangeBotMesh3 = createMasterOctane(true, true, 'orange');
       orangeBotMesh3.bodyId = 'octane';
       if (orangeBotMesh3.paintMat) orangeBotMesh3.paintMat.color.setHex(0xff4800);
@@ -5958,7 +6813,7 @@
         kickoffDelay: 0.45,
         state: 'KICKOFF_RUSH',
         stateTimer: 0,
-        name: 'AMBER FURY'
+        name: 'AMBER OCTANE'
       };
 
       return [blueBot1, orangeBot2, blueBot2, orangeBot3];
@@ -7394,6 +8249,7 @@
       ball.vel.set(0, 0, 0);
 
       updateProgressionUI();
+      updateMenuLoadoutWidget();
       if (sound && sound.playMenuSelect) sound.playMenuSelect();
     }
 
@@ -7564,7 +8420,11 @@
     // 7-Category Original Fictional Customization Database
     const garageCatalog = {
       body: [
-        { id: 'octane', name: 'Apex Championship Octane', icon: '⚡', desc: '1:1 Blueprint Edition: Cobalt Blue Metallic, Dual White Racing Stripes, Titanium White Trim, Exposed V8 Engine', color: '#0052f5' }
+        { id: 'octane', name: 'Apex Championship Octane', icon: '⚡', desc: '1:1 Blueprint Edition: Cobalt Blue Metallic, Dual White Racing Stripes, Titanium White Trim, Exposed V8 Engine', color: '#0052f5', class: 'OCTANE', badge: '1:1 BLUEPRINT' },
+        { id: 'dominus', name: 'Dominus Viper GT', icon: '🏎️', desc: 'Muscular American Muscle: Low Rake, Chrome Blower Scoop, Dual Side Exhausts, Ducktail Lip Spoiler', color: '#ff4800', class: 'DOMINUS', badge: 'MUSCLE GT' },
+        { id: 'fennec', name: 'Fennec Titan', icon: '🚙', desc: 'Heavyweight Rally Hatchback: Boxy Stance, Heavy Front Bullbar, Roof Spoiler, Rugged Armor Panels', color: '#00e5ff', class: 'OCTANE', badge: 'RALLY STRIKER' },
+        { id: 'breakout', name: 'Breakout Specter RS', icon: '🚀', desc: 'Exotic Wedge Hypercar: Knife-Edge Nose, Jet Bubble Canopy, Twin Active Aero Wings, Scissor Stance', color: '#ff1a35', class: 'BREAKOUT', badge: 'HYPERCAR' },
+        { id: 'takumi', name: 'Takumi Ion Phantom', icon: '🔰', desc: 'Cyberpunk JDM Interceptor: Faceted Stealth Nose, Drift Over-Fenders, Dual-Deck Wing, Chrome Cannons', color: '#8e24aa', class: 'HYBRID', badge: 'CYBER TUNER' }
       ],
       primary_paint: [
         { id: 'cobalt', name: 'Cobalt Blue', color: '#0066FF', desc: 'High-gloss sapphire metallic' },
@@ -7624,6 +8484,25 @@
       return item ? parseInt(item.color.replace('#', '0x'), 16) : 0x00d0ff;
     }
 
+    function updateMenuLoadoutWidget() {
+      const bodyId = equippedLoadout.body || 'octane';
+      const bodyItem = garageCatalog.body.find(b => b.id === bodyId) || garageCatalog.body[0];
+      const primId = equippedLoadout.primary_paint || 'cobalt';
+      const primItem = garageCatalog.primary_paint.find(p => p.id === primId) || garageCatalog.primary_paint[0];
+      const iconEl = document.getElementById('menu-loadout-icon');
+      const nameEl = document.getElementById('menu-loadout-name');
+      const subEl = document.getElementById('menu-loadout-sub');
+      if (iconEl && bodyItem) iconEl.innerText = bodyItem.icon || '🏎️';
+      if (nameEl && bodyItem) nameEl.innerText = bodyItem.name.toUpperCase();
+      if (subEl && bodyItem && primItem) {
+        subEl.innerText = `${bodyItem.badge || 'CHASSIS'} • ${primItem.name.toUpperCase()}`;
+      }
+      const sideSub = document.getElementById('sidebar-garage-sub');
+      if (sideSub && bodyItem) {
+        sideSub.innerText = `${bodyItem.name.toUpperCase()}`;
+      }
+    }
+
     let currentGarageCategory = 'body';
     function switchGarageCategory(cat) {
       currentGarageCategory = cat;
@@ -7659,7 +8538,15 @@
 
         let previewStyle = 'background: rgba(255,255,255,0.06);';
         let previewContent = item.icon || '';
-        if (currentGarageCategory === 'primary_paint' || currentGarageCategory === 'secondary_paint') {
+        let extraCardHtml = '';
+
+        if (currentGarageCategory === 'body') {
+          previewStyle = `background: radial-gradient(circle, ${item.color}44 0%, rgba(12,18,28,0.92) 100%); border: 1.5px solid ${item.color}88;`;
+          extraCardHtml = `
+            <div style="color: ${item.color}; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; margin: 3px 0 1px 0; text-transform: uppercase;">${item.badge || 'CHASSIS'}</div>
+            <div style="font-size: 8px; color: #8899aa; letter-spacing: 0.5px;">HITBOX: ${item.class || 'OCTANE'}</div>
+          `;
+        } else if (currentGarageCategory === 'primary_paint' || currentGarageCategory === 'secondary_paint') {
           previewStyle = `background: ${item.color}; border: 1px solid rgba(255,255,255,0.3);`;
           previewContent = '';
         } else if (item.color) {
@@ -7669,9 +8556,10 @@
         card.innerHTML = `
           ${isEquipped ? '<div class="item-card-badge">EQUIPPED</div>' : ''}
           <div class="item-card-preview" style="${previewStyle}">
-            ${previewContent}
+            <span style="font-size: 26px; ${item.color ? `filter: drop-shadow(0 0 8px ${item.color});` : ''}">${previewContent}</span>
           </div>
           <div class="item-card-name" title="${item.name}">${item.name}</div>
+          ${extraCardHtml}
           <div class="item-card-desc" title="${item.desc}">${item.desc}</div>
         `;
 
@@ -7694,6 +8582,7 @@
 
       applyEquippedLoadout();
       renderGarageCards();
+      updateMenuLoadoutWidget();
       showStatBadge('EQUIPPED ' + item.name.toUpperCase(), 0, '🔧');
       sound.playHit(1.3);
 
@@ -7719,14 +8608,7 @@
         const curRoll = player.roll;
         scene.remove(playerCarMesh);
 
-        if (targetBody === 'viper' || targetBody === 'dominus') {
-          playerCarMesh = createMasterDominus();
-        } else if (targetBody === 'vanguard' || targetBody === 'octane') {
-          playerCarMesh = createMasterOctane();
-        } else {
-          playerCarMesh = createMasterFennec();
-        }
-
+        playerCarMesh = createVehicleMesh(targetBody, true, true, 'blue');
         playerCarMesh.bodyId = targetBody;
         playerCarMesh.position.copy(curPos);
         playerCarMesh.rotation.set(curPitch, curHeading, curRoll, 'YXZ');
@@ -7923,8 +8805,9 @@
       if (previewCarMesh) {
         previewTurntable.remove(previewCarMesh);
       }
-      previewCarMesh = createMasterOctane(false);
-      previewCarMesh.bodyId = equippedLoadout.body || 'octane';
+      const bodyId = equippedLoadout.body || 'octane';
+      previewCarMesh = createVehicleMesh(bodyId, false, true, 'blue');
+      previewCarMesh.bodyId = bodyId;
       previewTurntable.add(previewCarMesh);
       updatePreviewCarColors();
     }
@@ -10041,6 +10924,7 @@
     updateProgressionUI();
     renderGarageCards();
     applyEquippedLoadout();
+    updateMenuLoadoutWidget();
     setupTeamsForMode('1v1');
     player.pos.set(0, 0.52, -10);
     player.heading = 0;
