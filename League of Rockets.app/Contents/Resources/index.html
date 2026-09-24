@@ -38,18 +38,20 @@
     /* Top Tournament Scoreboard */
     .scoreboard {
       position: absolute;
-      top: 24px;
+      top: 18px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       align-items: center;
-      background: linear-gradient(180deg, rgba(20, 24, 40, 0.92) 0%, rgba(8, 10, 18, 0.95) 100%);
-      border: 2px solid rgba(255, 255, 255, 0.15);
-      border-radius: 14px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 170, 255, 0.25);
-      backdrop-filter: blur(12px);
-      padding: 6px 24px;
-      gap: 20px;
+      background: linear-gradient(180deg, rgba(14, 18, 30, 0.95) 0%, rgba(6, 8, 14, 0.98) 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      border-radius: 12px;
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.75), 0 0 24px rgba(0, 240, 255, 0.20);
+      backdrop-filter: blur(14px);
+      padding: 4px 22px;
+      gap: 18px;
+      z-index: 22;
+      user-select: none;
     }
     .team-score {
       display: flex;
@@ -98,27 +100,31 @@
       text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
     }
 
-    /* Controls Overlay */
+    /* Controls Overlay: Sleek, non-intrusive bottom-docked or toggleable with [H] */
     #controls-hint {
       position: absolute;
-      top: 90px;
+      bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(10, 14, 25, 0.82);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(0, 240, 255, 0.25);
-      border-radius: 10px;
-      padding: 8px 22px;
-      font-size: 13px;
+      background: rgba(8, 12, 22, 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 240, 255, 0.30);
+      border-radius: 8px;
+      padding: 6px 18px;
+      font-size: 11px;
       font-weight: 700;
-      color: #ccc;
-      display: flex;
-      gap: 18px;
-      letter-spacing: 1px;
+      color: #94a3b8;
+      display: none; /* Toggled on/off with [H] or shown briefly on kickoff */
+      gap: 14px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.65);
       user-select: none;
       z-index: 20;
+      transition: opacity 0.3s ease;
+    }
+    #controls-hint.visible {
+      display: flex !important;
     }
     .key-badge {
       background: rgba(255, 255, 255, 0.16);
@@ -422,32 +428,36 @@
     /* Off-Screen Ball Indicator Arrow */
     #ball-arrow {
       position: absolute;
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       pointer-events: none;
       display: none;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 35;
-      color: #00f0ff;
+      color: #ffaa00;
       font-family: 'Teko', sans-serif;
-      text-shadow: 0 0 14px #00f0ff;
+      text-shadow: 0 0 16px #ff8800;
       transform: translate(-50%, -50%);
     }
     .arrow-icon {
-      font-size: 32px;
+      font-size: 36px;
       line-height: 1;
-      filter: drop-shadow(0 0 10px #00f0ff);
-      transition: transform 0.05s linear;
+      filter: drop-shadow(0 0 12px #ff8800);
+      transition: transform 0.04s linear;
     }
     .arrow-dist {
-      position: absolute;
-      bottom: -16px;
-      font-size: 14px;
+      margin-top: 2px;
+      font-size: 15px;
       font-weight: 800;
       color: #fff;
       letter-spacing: 1px;
-      text-shadow: 0 2px 4px #000;
+      text-shadow: 0 2px 6px #000;
+      background: rgba(0, 0, 0, 0.75);
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 170, 0, 0.4);
     }
 
     @keyframes pulse {
@@ -507,10 +517,43 @@
       position: absolute;
       top: 24px;
       right: 30px;
-      display: flex;
+      display: none; /* Hidden during matches to keep the field clean; use Pause (ESC) for menus */
       gap: 10px;
       z-index: 30;
       pointer-events: auto;
+    }
+    .in-main-menu .top-action-bar {
+      display: none; /* Sidebar already handles navigation in menu */
+    }
+    /* Sleek top-right in-game pause and controls buttons */
+    .btn-pause-quick {
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      z-index: 25;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #cbd5e1;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      border-radius: 8px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      pointer-events: auto !important;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-pause-quick:hover {
+      background: rgba(0, 240, 255, 0.25);
+      border-color: #00f0ff;
+      color: #fff;
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.4);
+    }
+    .in-main-menu .btn-pause-quick {
+      display: none !important;
     }
     .btn-hud {
       background: rgba(15, 20, 35, 0.85);
@@ -2149,6 +2192,10 @@
       </div>
     </div>
 
+    <!-- In-Game Quick Pause & Help Buttons -->
+    <button class="btn-pause-quick hud-match-only" onclick="openModal('pause-modal')">⏸️ ESC</button>
+    <button class="btn-pause-quick hud-match-only" style="right: 104px;" onclick="toggleControlsHint()" title="Toggle Controls Overlay [H]">⌨️ H</button>
+
     <!-- Top Action Bar (Mode, Garage, Maps, Pause/Settings) -->
     <div class="top-action-bar hud-match-only">
       <button id="btn-mode-toggle" class="btn-hud" onclick="cycleGameMode()">🎮 1v1 DUEL</button>
@@ -3296,13 +3343,13 @@
     const hl = PITCH_L / 2;  // 50 m
 
 
-    // Estadio Vida Warm Twilight Lighting (Soft Dusk Hues Without Harsh White Washout)
-    const ambientLight = new THREE.AmbientLight(0x48324f, 0.58);
+    // Balanced Stadium Twilight Lighting: Crisp white floodlights reveal true car colors
+    const ambientLight = new THREE.AmbientLight(0x6e7e9a, 0.75);
     scene.add(ambientLight);
 
-    // Warm Low-Angle Sunset Directional Light from the Horizon with Soft Shadows
-    const sunLight = new THREE.DirectionalLight(0xff9955, 0.88);
-    sunLight.position.set(65, 45, -145);
+    // Warm Sunset Directional Key Light with Soft Shadows
+    const sunLight = new THREE.DirectionalLight(0xffc288, 0.82);
+    sunLight.position.set(65, 48, -145);
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 2048;
     sunLight.shadow.mapSize.height = 2048;
@@ -3313,15 +3360,28 @@
     sunLight.shadow.bias = -0.0003;
     scene.add(sunLight);
 
-    // Skyward Warm Sunset / Tropical Hillside Bounce Fill Light
-    const skyFill = new THREE.HemisphereLight(0xff7744, 0x181e28, 0.38);
+    // Neutral Sky/Turf Hemisphere Fill (Preserves Cobalt Blue and Blaze Orange fidelity)
+    const skyFill = new THREE.HemisphereLight(0xb0d0ff, 0x1a3822, 0.52);
     scene.add(skyFill);
 
-    const blueStadiumLight = new THREE.PointLight(0x00c8ff, 0.50, 60);
+    // 4 High-Intensity Stadium Floodlight Banks (Pylon Towers at the 4 Corners)
+    const stadiumCornerFloodlights = [
+      { x: -hw + 4, y: 28, z: -hl + 8 },
+      { x: hw - 4,  y: 28, z: -hl + 8 },
+      { x: -hw + 4, y: 28, z: hl - 8 },
+      { x: hw - 4,  y: 28, z: hl - 8 }
+    ];
+    stadiumCornerFloodlights.forEach(fl => {
+      const flood = new THREE.DirectionalLight(0xf2f7ff, 0.65);
+      flood.position.set(fl.x, fl.y, fl.z);
+      scene.add(flood);
+    });
+
+    const blueStadiumLight = new THREE.PointLight(0x00d8ff, 0.85, 75);
     blueStadiumLight.position.set(0, 14, -hl + 5);
     scene.add(blueStadiumLight);
 
-    const orangeStadiumLight = new THREE.PointLight(0xff6600, 0.50, 60);
+    const orangeStadiumLight = new THREE.PointLight(0xff8800, 0.85, 75);
     orangeStadiumLight.position.set(0, 14, hl - 5);
     scene.add(orangeStadiumLight);
 
@@ -3929,11 +3989,11 @@
         const rx = bx * rootOffset;
         const rz = bz * rootOffset;
 
-        // Broad overlapping blade dimensions with arching outward curve
+        // Authentic manicured sports turf blade levels (Height: 0.09m, Width: 0.06m)
         const levels = [
-          { y: 0.00, w: 0.34, bend: 0.00, col: rootColor },
-          { y: 0.40, w: 0.24, bend: 0.22, col: midColor },
-          { y: 0.78, w: 0.08, bend: 0.54, col: tipColor }
+          { y: 0.00, w: 0.06, bend: 0.00, col: rootColor },
+          { y: 0.04, w: 0.04, bend: 0.015, col: midColor },
+          { y: 0.09, w: 0.015, bend: 0.035, col: tipColor }
         ];
 
         for (let l = 0; l < levels.length; l++) {
@@ -3962,7 +4022,7 @@
         }
       }
 
-      // 2. 4 Low Ground-Covering Thatch Leaves (Physically blankets the floor under tufts)
+      // 2. Delicate ground-covering thatch fibers
       const groundCount = 4;
       for (let g = 0; g < groundCount; g++) {
         const gAngle = (g / groundCount) * Math.PI * 2 + Math.PI / 4;
@@ -3974,8 +4034,8 @@
         const bx = cosG;
         const bz = sinG;
 
-        const w = 0.42;
-        const len = 0.90;
+        const w = 0.06;
+        const len = 0.12;
 
         positions.push(-nx * (w * 0.5), 0.03, -nz * (w * 0.5));
         normals.push(0, 1, 0);
@@ -4053,9 +4113,9 @@
 
       const py = 0.01;
       const ry = Math.random() * Math.PI * 2;
-      const sx = 0.45 + Math.random() * 0.25;
-      const sy = 0.36 + Math.random() * 0.22;
-      const sz = 0.45 + Math.random() * 0.25;
+      const sx = 0.22 + Math.random() * 0.08;
+      const sy = 0.18 + Math.random() * 0.06;
+      const sz = 0.22 + Math.random() * 0.08;
 
       dummyTuft.position.set(px, py, pz);
       dummyTuft.rotation.set(0, ry, 0);
@@ -4070,12 +4130,12 @@
 
       if (i < 54000) {
         if (isLight) {
-          tuftBaseColor.setHex(0x289e3f); // Sunlit championship turf
+          tuftBaseColor.setHex(0x1f7a36); // Sunlit rich emerald
         } else {
-          tuftBaseColor.setHex(0x186b29); // Manicured deep emerald stripe
+          tuftBaseColor.setHex(0x124d22); // Deep velvety sports turf
         }
       } else {
-        tuftBaseColor.setHex(0x1e7832); // Natural perimeter lawn
+        tuftBaseColor.setHex(0x185627); // Natural perimeter turf
       }
 
       const jitter = (Math.random() - 0.5) * 0.06;
@@ -4873,28 +4933,25 @@
       fCtx.beginPath(); fCtx.moveTo(px, 0); fCtx.lineTo(px, 512); fCtx.stroke();
     }
 
-    // Warm glowing twilight interior windows
-    for (let wy = 8; wy < 512; wy += 32) {
-      for (let wx = 8; wx < 512; wx += 32) {
+    // Architectural facade with realistic spaced windows and doors (no loud polka-dot grid)
+    for (let wy = 32; wy < 512; wy += 128) {
+      for (let wx = 32; wx < 512; wx += 96) {
         const rand = Math.random();
-        if (rand > 0.38) {
-          if (rand > 0.82) {
-            fCtx.fillStyle = "#fff2aa"; // Warm bright incandescent light
-          } else if (rand > 0.58) {
-            fCtx.fillStyle = "#ffaa44"; // Cozy twilight amber window
-          } else {
-            fCtx.fillStyle = "#66d4ff"; // Cool interior cyan TV glow
-          }
-          fCtx.fillRect(wx + 2, wy + 2, 18, 22);
+        if (rand > 0.35) {
+          // Window recess with warm soft twilight glow
+          fCtx.fillStyle = "#1e1e24";
+          fCtx.fillRect(wx, wy, 38, 48);
+          fCtx.fillStyle = rand > 0.65 ? "#ffeaa7" : "#ffb142";
+          fCtx.fillRect(wx + 4, wy + 4, 30, 40);
 
-          // Window frame crossbars
-          fCtx.fillStyle = "rgba(30,30,30,0.45)";
-          fCtx.fillRect(wx + 10, wy + 2, 2, 22);
-          fCtx.fillRect(wx + 2, wy + 12, 18, 2);
+          // Dark wooden window sash
+          fCtx.fillStyle = "#2d3436";
+          fCtx.fillRect(wx + 18, wy + 4, 2, 40);
+          fCtx.fillRect(wx + 4, wy + 22, 30, 2);
         } else {
-          // Closed wooden shutter
-          fCtx.fillStyle = "#4a3525";
-          fCtx.fillRect(wx + 2, wy + 4, 18, 20);
+          // Weathered wooden door
+          fCtx.fillStyle = "#3d2a1d";
+          fCtx.fillRect(wx + 4, wy + 8, 32, 52);
         }
       }
     }
@@ -10351,35 +10408,35 @@
       }
     }
 
-    // 3. Supersonic Plasma Wheel Trails (Ribbons)
+    // 3. Supersonic Glowing Wheel Plasma Sparks & Burn Streaks
     const supersonicRibbons = [];
-    for (let r = 0; r < 40; r++) {
+    for (let r = 0; r < 48; r++) {
       const rib = new THREE.Mesh(
-        new THREE.PlaneGeometry(0.32, 0.8),
-        new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.8, side: THREE.DoubleSide })
+        new THREE.SphereGeometry(0.16, 6, 6),
+        new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending })
       );
-      rib.rotation.x = -Math.PI / 2;
       rib.visible = false;
       scene.add(rib);
-      supersonicRibbons.push({ mesh: rib, life: 0 });
+      supersonicRibbons.push({ mesh: rib, vel: new THREE.Vector3(), life: 0 });
     }
     let ribIdx = 0;
     function spawnSupersonicRibbons(carPos, heading, colorHex = 0x00f0ff) {
-      [-0.9, 0.9].forEach(sideOffset => {
+      [-0.78, 0.78].forEach(sideOffset => {
         const rib = supersonicRibbons[ribIdx % supersonicRibbons.length];
         ribIdx++;
         const cosH = Math.cos(heading);
         const sinH = Math.sin(heading);
         const rPos = carPos.clone().add(new THREE.Vector3(
-          cosH * sideOffset - sinH * 1.15,
-          0.12,
-          -sinH * sideOffset - cosH * 1.15
+          cosH * sideOffset - sinH * 1.25,
+          0.14,
+          -sinH * sideOffset - cosH * 1.25
         ));
         rib.mesh.position.copy(rPos);
-        rib.mesh.rotation.z = -heading;
+        rib.mesh.scale.set(1.4, 0.6, 2.2);
+        rib.mesh.rotation.set(0, heading, 0);
         rib.mesh.material.color.setHex(colorHex);
         rib.mesh.visible = true;
-        rib.life = 0.35;
+        rib.life = 0.28;
       });
     }
 
@@ -11414,6 +11471,11 @@
     function startKickoffCountdown() {
       resetKickoff();
       isKickoffCountdown = true;
+      const hint = document.getElementById('controls-hint');
+      if (hint) {
+        hint.classList.add('visible');
+        setTimeout(() => { if (hint) hint.classList.remove('visible'); }, 3500);
+      }
       countdownBanner.style.display = 'block';
       let count = 3;
       countdownBanner.innerText = count;
@@ -11708,6 +11770,11 @@
       if (sound && sound.playMenuSelect) sound.playMenuSelect();
     }
 
+    function toggleControlsHint() {
+      const hint = document.getElementById('controls-hint');
+      if (hint) hint.classList.toggle('visible');
+    }
+
     function resumeMatch() {
       closeModal('pause-modal');
       if (sound && sound.playMenuSelect) sound.playMenuSelect();
@@ -11857,6 +11924,11 @@
 
     // Close modal / Toggle In-Game Pause on Escape
     window.addEventListener('keydown', e => {
+      if (e.key === 'h' || e.key === 'H') {
+        if (!isInMainMenu) {
+          toggleControlsHint();
+        }
+      }
       if (e.key === 'Escape') {
         const activeModal = document.querySelector('.game-modal.active');
         const playDrawer = document.getElementById('rl-play-drawer');
@@ -13155,6 +13227,11 @@
         if (surf && surf.dist <= 1.8) {
           // Snap wheels precisely to surface + 0.52m offset along normal
           player.pos.copy(surf.surfacePos).addScaledVector(surf.normal, 0.52);
+          // GitHub Issue #2 & #3: Speed-dependent wall and ceiling adhesion downforce
+          if (player.onWall) {
+            const adhesionForce = Math.max(8.0, player.speed * 0.45);
+            player.vel.addScaledVector(player.surfaceNormal, -adhesionForce * dt);
+          }
           player.surfaceNormal.lerp(surf.normal, Math.min(1.0, dt * 25.0)).normalize();
           player.onWall = (player.surfaceNormal.y < 0.85);
           player.canDoubleJump = true;
@@ -13789,8 +13866,11 @@
           launchDir.normalize();
 
           ball.vel.copy(launchDir).multiplyScalar(power);
-          ball.rot.x += (Math.random() - 0.5) * 6;
-          ball.rot.z += (Math.random() - 0.5) * 6;
+          // GitHub Issue #2: Calculate angular momentum spin transfer from car velocity and collision normal
+          const spinImpulse = new THREE.Vector3().crossVectors(carObj.vel, worldNorm).multiplyScalar(0.40);
+          ball.rotVel.add(spinImpulse);
+          ball.rot.x += spinImpulse.x * 0.15;
+          ball.rot.z += spinImpulse.z * 0.15;
 
           sound.playHit(power * 0.12);
           spawnBallImpactSparks(ball.pos, launchDir, power);
@@ -14184,8 +14264,9 @@
         // Authentic Rocket League Third-Person Chase Cam:
         // Follows vehicle yaw/heading smoothly behind the car.
         // CRITICAL: NEVER pitch-somersault or loop upside down during dodge flips (front/back flips, barrel rolls)!
-        const chaseDist = 7.6;
-        const camUpH = player.onWall ? 2.0 : 2.6;
+        // Authentic Rocket League Pro Camera Preset (Sweet-spot framing)
+        const chaseDist = 6.4;
+        const camUpH = player.onWall ? 1.8 : 2.05;
 
         let chaseFwd;
         let camUp = new THREE.Vector3(0, 1, 0);
@@ -14214,7 +14295,7 @@
         targetCamPos.y = THREE.MathUtils.clamp(targetCamPos.y, 1.2, CAGE_H - 1.5);
 
         camera.position.lerp(targetCamPos, Math.min(1.0, dt * 10.0));
-        const lookTarget = player.pos.clone().addScaledVector(chaseFwd, 14.0).addScaledVector(camUp, 1.0);
+        const lookTarget = player.pos.clone().addScaledVector(chaseFwd, 12.0).addScaledVector(camUp, 0.75);
         camera.up.lerp(camUp, Math.min(1.0, dt * (player.onWall ? 6.0 : 8.0)));
         camera.lookAt(lookTarget);
       }
@@ -14235,9 +14316,10 @@
 
       if (ballArrow) {
         const pBall = ball.pos.clone().project(camera);
-        const isOffScreen = pBall.z > 1.0 || pBall.x < -0.85 || pBall.x > 0.85 || pBall.y < -0.85 || pBall.y > 0.85;
+        // Only trigger indicator when ball is genuinely off-screen
+        const isOffScreen = pBall.z > 1.0 || pBall.x < -0.88 || pBall.x > 0.88 || pBall.y < -0.88 || pBall.y > 0.88;
 
-        if (!isGoalReplay && (isOffScreen || !isBallCam)) {
+        if (!isGoalReplay && !isInMainMenu && isOffScreen) {
           ballArrow.style.display = 'flex';
           let sx = (pBall.x * 0.5 + 0.5) * window.innerWidth;
           let sy = (-pBall.y * 0.5 + 0.5) * window.innerHeight;
