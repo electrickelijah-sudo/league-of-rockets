@@ -1,14 +1,12 @@
 ---
 // ConceptGallery.astro — Phase 1 concept art gallery
 const images = [
-  { src: '/sunset_stadium_render.png',       alt: 'Sunset Championship Arena',         tag: 'ARENA',  label: 'Sunset Championship' },
-  { src: '/forbidden_temple_render.png',      alt: 'Forbidden Temple Arena',              tag: 'ARENA',  label: 'Forbidden Temple' },
-  { src: '/forbidden_temple_octane_render.png', alt: 'Forbidden Temple — Octane View',     tag: 'ARENA',  label: 'Temple · Octane View' },
-  { src: '/forbidden_temple_action_render.png', alt: 'Forbidden Temple — Action Shot',     tag: 'ARENA',  label: 'Temple · Action' },
-  { src: '/forbidden_temple_overdrive_fullview.png', alt: 'Forbidden Temple — Overdrive',  tag: 'ARENA',  label: 'Temple · Overdrive' },
-  { src: '/octane_ref.png',                  alt: 'Octane concept reference',             tag: 'REF',    label: 'Octane Concept Ref' },
-  { src: '/sunset_arena_ref.png',            alt: 'Sunset Arena reference',               tag: 'REF',    label: 'Sunset Arena Ref' },
-  { src: '/car_livery_blueprint.png',        alt: 'Race car livery blueprint',            tag: 'LIVERY', label: 'Race Car Blueprint' },
+  { src: '/concept-art/concept_arena.png',         alt: 'Sunset Championship Arena',         tag: 'ARENA',  label: 'Arena Concept' },
+  { src: '/concept-art/concept_car_octane.png',    alt: 'Octane battle-car concept sheet',    tag: 'CAR',    label: 'Octane' },
+  { src: '/concept-art/concept_car_dominus.png',   alt: 'Dominus battle-car concept sheet',   tag: 'CAR',    label: 'Dominus' },
+  { src: '/concept-art/concept_car_fennec.png',    alt: 'Fennec battle-car concept sheet',    tag: 'CAR',    label: 'Fennec' },
+  { src: '/concept-art/concept_car_breakout.png',  alt: 'Breakout battle-car concept sheet',  tag: 'CAR',    label: 'Breakout' },
+  { src: '/concept-art/concept_gameplay.png',      alt: 'Gameplay cinematic still',            tag: 'GAME',   label: 'Gameplay' },
 ];
 
 const tagColors: Record<string, string> = {

@@ -24,3 +24,7 @@ UnityProject/MemoryCaptures/
 *.unityproj
 *.sln
 *.userprefs
+
+site/dist/
+site/.astro/
+site/node_modules/
