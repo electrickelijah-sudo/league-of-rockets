@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Octane 1:1 In-Game Render Test</title>
+  <style>
+    body { margin: 0; background: #11141c; overflow: hidden; }
+    canvas { width: 100vw; height: 100vh; display: block; }
+  </style>
+  <script src="three.min.js"></script>
+  <script src="octane_model_data.js"></script>
+</head>
+<body>
+  <script>
+    window.onerror = function(msg, url, line) {
+      const d = document.createElement('div');
+      d.style.cssText = 'position:fixed;top:0;left:0;color:red;background:black;font-size:24px;z-index:99999;padding:10px;';
+      d.innerText = msg + ' at line ' + line;
+      document.body.appendChild(d);
+    };
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x18202c);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(2.4, 1.4, 3.2);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true;
+    document.body.appendChild(renderer.domElement);
+
+    // Lights
+    const ambient = new THREE.AmbientLight(0xffffff, 0.85);
+    scene.add(ambient);
+
+    const dirLight = new THREE.DirectionalLight(0xfff5e6, 2.2);
+    dirLight.position.set(5, 8, 5);
+    dirLight.castShadow = true;
+    scene.add(dirLight);
+
+    const rimLight = new THREE.DirectionalLight(0x00f0ff, 1.4);
+    rimLight.position.set(-5, 4, -5);
+    scene.add(rimLight);
+
+    // Ground plane (turf)
+    const ground = new THREE.Mesh(
+      new THREE.PlaneGeometry(20, 20),
+      new THREE.MeshStandardMaterial({ color: 0x1a4524, roughness: 0.9 })
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    // Materials
+    const mats = {
+      paint: new THREE.MeshStandardMaterial({ color: 0x0052f5, metalness: 0.70, roughness: 0.18, envMapIntensity: 2.2, side: THREE.DoubleSide }),
+      white_trim: new THREE.MeshStandardMaterial({ color: 0xf5f5fa, metalness: 0.15, roughness: 0.20, envMapIntensity: 2.0, side: THREE.DoubleSide }),
+      racing_stripe: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.08, roughness: 0.15, envMapIntensity: 2.0, side: THREE.DoubleSide }),
+      glass: new THREE.MeshStandardMaterial({ color: 0x06080e, roughness: 0.04, metalness: 0.95, envMapIntensity: 3.5, side: THREE.DoubleSide }),
+      chassis: new THREE.MeshStandardMaterial({ color: 0x14161c, roughness: 0.45, metalness: 0.85, envMapIntensity: 1.8 }),
+      chrome: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.02, envMapIntensity: 3.5 }),
+      gunmetal: new THREE.MeshStandardMaterial({ color: 0x222630, metalness: 0.95, roughness: 0.18, envMapIntensity: 2.4 }),
+      rubber: new THREE.MeshStandardMaterial({ color: 0x14161a, roughness: 0.85, metalness: 0.05 }),
+      engine_red: new THREE.MeshStandardMaterial({ color: 0xd32f2f, roughness: 0.22, metalness: 0.45, envMapIntensity: 2.0 }),
+      neon_cyan: new THREE.MeshBasicMaterial({ color: 0x00f0ff }),
+      headlight_white: new THREE.MeshBasicMaterial({ color: 0xffffff }),
+      neon_red: new THREE.MeshBasicMaterial({ color: 0xff1525 })
+    };
+
+    const car = new THREE.Group();
+    // In Blender model, bottom of tire is at Z=0. In Three.js, Y=0.
+    // So tire bottom rests directly on ground plane at Y=0!
+
+    if (typeof OCTANE_BLENDER_MODEL !== 'undefined') {
+      for (const cat in OCTANE_BLENDER_MODEL.body) {
+        const data = OCTANE_BLENDER_MODEL.body[cat];
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.Float32BufferAttribute(data.positions, 3));
+        if (data.normals && data.normals.length > 0) {
+          geo.setAttribute('normal', new THREE.Float32BufferAttribute(data.normals, 3));
+        } else {
+          geo.computeVertexNormals();
+        }
+        const mesh = new THREE.Mesh(geo, mats[cat] || mats.chassis);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        car.add(mesh);
+      }
+
+      for (const wKey in OCTANE_BLENDER_MODEL.wheels) {
+        const wData = OCTANE_BLENDER_MODEL.wheels[wKey];
+        const wGroup = new THREE.Group();
+        wGroup.position.set(wData.center[0], wData.center[1], wData.center[2]);
+
+        for (const cat in wData.spin) {
+          const pData = wData.spin[cat];
+          const geo = new THREE.BufferGeometry();
+          geo.setAttribute('position', new THREE.Float32BufferAttribute(pData.positions, 3));
+          if (pData.normals && pData.normals.length > 0) {
+            geo.setAttribute('normal', new THREE.Float32BufferAttribute(pData.normals, 3));
+          } else {
+            geo.computeVertexNormals();
+          }
+          const mesh = new THREE.Mesh(geo, mats[cat] || mats.rubber);
+          mesh.castShadow = true;
+          wGroup.add(mesh);
+        }
+
+        for (const cat in wData.fixed) {
+          const pData = wData.fixed[cat];
+          const geo = new THREE.BufferGeometry();
+          geo.setAttribute('position', new THREE.Float32BufferAttribute(pData.positions, 3));
+          if (pData.normals && pData.normals.length > 0) {
+            geo.setAttribute('normal', new THREE.Float32BufferAttribute(pData.normals, 3));
+          } else {
+            geo.computeVertexNormals();
+          }
+          const mesh = new THREE.Mesh(geo, mats[cat] || mats.gunmetal);
+          wGroup.add(mesh);
+        }
+        car.add(wGroup);
+      }
+    }
+
+    scene.add(car);
+    camera.lookAt(0, 0.45, 0);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
