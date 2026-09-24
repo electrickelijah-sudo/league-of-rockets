@@ -1,0 +1,1902 @@
+[
+  {
+    "id": "octane",
+    "name": "Apex Championship Octane",
+    "class": "OCTANE",
+    "badge": "1:1 BLUEPRINT",
+    "desc": "1:1 Blueprint Edition: Cobalt Blue Metallic, Dual White Stripes, Exposed V8 Engine, GT Wing",
+    "color": "#0052f5",
+    "icon": "\u26a1",
+    "archetype": "octane",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "wing": "gt",
+    "intake": "v8",
+    "front": "formula",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "octane_zsr",
+    "name": "Octane ZSR",
+    "class": "OCTANE",
+    "badge": "CARBON SPEC",
+    "desc": "Reinforced Carbon Rollcage, Dual Roof Snorkels, Widened Striker Stance, Quad Exhausts",
+    "color": "#0088ff",
+    "icon": "\u26a1",
+    "archetype": "octane",
+    "scale": [
+      1.02,
+      1.05,
+      1.02
+    ],
+    "wing": "gt",
+    "intake": "snorkel",
+    "front": "formula",
+    "exhaust": "quad"
+  },
+  {
+    "id": "fennec",
+    "name": "Fennec Titan",
+    "class": "OCTANE",
+    "badge": "RALLY STRIKER",
+    "desc": "Heavyweight Rally Hatchback: Boxy Stance, Heavy Front Bullbar, Roof Spoiler",
+    "color": "#00e5ff",
+    "icon": "\ud83d\ude99",
+    "archetype": "fennec",
+    "scale": [
+      0.96,
+      1.04,
+      1.06
+    ],
+    "wing": "rally",
+    "intake": "clean",
+    "front": "bullbar",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "dingo",
+    "name": "Dingo Street RS",
+    "class": "OCTANE",
+    "badge": "JDM RALLY",
+    "desc": "Retro Japanese Rally Coupe, Quad Projector Headlamps, Boxed Over-Fenders, Ducktail",
+    "color": "#ffaa00",
+    "icon": "\ud83d\udd30",
+    "archetype": "fennec",
+    "scale": [
+      0.98,
+      1.02,
+      1.02
+    ],
+    "wing": "ducktail",
+    "intake": "scoop",
+    "front": "drift",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "jackal",
+    "name": "Jackal Hatchback",
+    "class": "OCTANE",
+    "badge": "AERO HATCH",
+    "desc": "Compact Aggressive Rally Striker, Front Carbon Splitter, Rear Diffuser",
+    "color": "#00ff88",
+    "icon": "\ud83c\udfce\ufe0f",
+    "archetype": "fennec",
+    "scale": [
+      0.95,
+      1.03,
+      1.04
+    ],
+    "wing": "rally",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "mudcat",
+    "name": "Mudcat GXT",
+    "class": "OCTANE",
+    "badge": "DIRT WARRIOR",
+    "desc": "Widebody Dirt Rally Warrior, Roof LED Lightbar, Massive Air Extractor, GT Wing",
+    "color": "#ff6600",
+    "icon": "\ud83d\udd25",
+    "archetype": "fennec",
+    "scale": [
+      1.02,
+      1.08,
+      1.08
+    ],
+    "wing": "gt",
+    "intake": "scoop",
+    "front": "bullbar",
+    "exhaust": "quad"
+  },
+  {
+    "id": "harbinger",
+    "name": "Harbinger 4x4",
+    "class": "OCTANE",
+    "badge": "BAJA TROPHY",
+    "desc": "Heavy Baja Trophy Truck, Full Undercarriage Skid Plates, Beadlock Wheels, Snorkel",
+    "color": "#e65100",
+    "icon": "\ud83d\udefb",
+    "archetype": "truck",
+    "scale": [
+      1.08,
+      1.1,
+      1.14
+    ],
+    "wing": "none",
+    "intake": "snorkel",
+    "front": "bullbar",
+    "exhaust": "side"
+  },
+  {
+    "id": "twinzer",
+    "name": "Twinzer Buggy",
+    "class": "OCTANE",
+    "badge": "TUBE FRAME",
+    "desc": "Tubular Chrome Rollcage, Exposed Dual Wishbones, Twin Rear Thrusters, V8 Stacks",
+    "color": "#ffcc00",
+    "icon": "\ud83c\udfce\ufe0f",
+    "archetype": "octane",
+    "scale": [
+      0.98,
+      1.04,
+      1.02
+    ],
+    "wing": "gt",
+    "intake": "v8",
+    "front": "stealth",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "marauder",
+    "name": "Marauder Tank",
+    "class": "OCTANE",
+    "badge": "ARMORED",
+    "desc": "Armored Military Brawler, Heavy Front Bumper Ram, Twin Roof Stacks, Side Exhausts",
+    "color": "#4e342e",
+    "icon": "\ud83d\udee1\ufe0f",
+    "archetype": "truck",
+    "scale": [
+      1.1,
+      1.12,
+      1.15
+    ],
+    "wing": "none",
+    "intake": "v8",
+    "front": "bullbar",
+    "exhaust": "side"
+  },
+  {
+    "id": "road_hog",
+    "name": "Road Hog XL",
+    "class": "OCTANE",
+    "badge": "SEMI MUSCLE",
+    "desc": "Heavyweight Semi-Truck Muscle, Chrome Tower Stacks, Quad Rectangular Lights, Blower",
+    "color": "#d32f2f",
+    "icon": "\ud83d\ude9b",
+    "archetype": "truck",
+    "scale": [
+      1.12,
+      1.1,
+      1.12
+    ],
+    "wing": "ducktail",
+    "intake": "blower",
+    "front": "muscle",
+    "exhaust": "side"
+  },
+  {
+    "id": "scarab",
+    "name": "Scarab Ballistic",
+    "class": "OCTANE",
+    "badge": "ORBITAL",
+    "desc": "Spherical Rolling Striker, Bubble Cockpit Canopy, Dual Gyro Antennae, Center Thruster",
+    "color": "#7b1fa2",
+    "icon": "\ud83d\udd2e",
+    "archetype": "octane",
+    "scale": [
+      0.88,
+      1.08,
+      1.12
+    ],
+    "wing": "none",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "center"
+  },
+  {
+    "id": "grog",
+    "name": "Grog Wastelander",
+    "class": "OCTANE",
+    "badge": "MAD MAX",
+    "desc": "Post-Apocalyptic Spiked Raider, Heavy Riveted Armor, Grate Windshield, V8 Block",
+    "color": "#5d4037",
+    "icon": "\u26d3\ufe0f",
+    "archetype": "truck",
+    "scale": [
+      1.04,
+      1.08,
+      1.06
+    ],
+    "wing": "none",
+    "intake": "v8",
+    "front": "bullbar",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "ripper",
+    "name": "Ripper Interceptor",
+    "class": "OCTANE",
+    "badge": "CHOPPER GT",
+    "desc": "Wasteland Blown Muscle Striker, Exposed Massive Blower, Side Exhaust Pipes, Ducktail",
+    "color": "#c2185b",
+    "icon": "\ud83d\udc80",
+    "archetype": "dominus",
+    "scale": [
+      1.04,
+      1.06,
+      0.98
+    ],
+    "wing": "ducktail",
+    "intake": "blower",
+    "front": "muscle",
+    "exhaust": "side"
+  },
+  {
+    "id": "proteus",
+    "name": "Proteus Submersible",
+    "class": "OCTANE",
+    "badge": "AQUATIC",
+    "desc": "Deep Sea Exploration Rover, Twin Hydro Propeller Domes, Pressure Hull, Snorkel",
+    "color": "#0097a7",
+    "icon": "\ud83c\udf0a",
+    "archetype": "octane",
+    "scale": [
+      0.94,
+      1.02,
+      1.08
+    ],
+    "wing": "dual",
+    "intake": "snorkel",
+    "front": "stealth",
+    "exhaust": "center"
+  },
+  {
+    "id": "gizmo",
+    "name": "Gizmo Aero-Wing",
+    "class": "OCTANE",
+    "badge": "RETRO JET",
+    "desc": "Twin Raked Forward Canards, Bubble Jet Canopy, Wingtip Thrusters, Triple Rockets",
+    "color": "#0288d1",
+    "icon": "\ud83d\udef8",
+    "archetype": "octane",
+    "scale": [
+      0.92,
+      1.04,
+      1.04
+    ],
+    "wing": "active",
+    "intake": "jet",
+    "front": "stealth",
+    "exhaust": "triple"
+  },
+  {
+    "id": "fast_4wd",
+    "name": "Fast 4WD Striker",
+    "class": "OCTANE",
+    "badge": "RALLY AWD",
+    "desc": "Aggressive AWD Rally Buggy, Vented Hood Induction, Rear Carbon Ducktail, Cannons",
+    "color": "#388e3c",
+    "icon": "\ud83c\udfc1",
+    "archetype": "fennec",
+    "scale": [
+      0.98,
+      1.04,
+      1.04
+    ],
+    "wing": "ducktail",
+    "intake": "scoop",
+    "front": "wedge",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "chupacabra",
+    "name": "Chupacabra Desert",
+    "class": "OCTANE",
+    "badge": "DESERT SPEC",
+    "desc": "Baja Desert Sand Rail, High Clearance Tubular Suspension, Rear High GT Wing, V8 Stacks",
+    "color": "#f57c00",
+    "icon": "\ud83c\udfdc\ufe0f",
+    "archetype": "octane",
+    "scale": [
+      1.02,
+      1.06,
+      1.06
+    ],
+    "wing": "gt",
+    "intake": "v8",
+    "front": "stealth",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "armadillo",
+    "name": "Armadillo Heavy",
+    "class": "OCTANE",
+    "badge": "TACTICAL",
+    "desc": "Reinforced Armor-Plated Combat Rover, Angular Slanted Ballistic Shell, Quad Exhausts",
+    "color": "#455a64",
+    "icon": "\ud83e\udd94",
+    "archetype": "truck",
+    "scale": [
+      1.06,
+      1.08,
+      1.1
+    ],
+    "wing": "none",
+    "intake": "clean",
+    "front": "bullbar",
+    "exhaust": "quad"
+  },
+  {
+    "id": "bone_shaker",
+    "name": "Bone Shaker Hotrod",
+    "class": "OCTANE",
+    "badge": "HOTROD",
+    "desc": "Chrome Skull Front Grille, Chopped Roofline, 8 Exposed Velocity Stacks, Side Pipes",
+    "color": "#212121",
+    "icon": "\u2620\ufe0f",
+    "archetype": "hotrod",
+    "scale": [
+      1.04,
+      1.05,
+      0.94
+    ],
+    "wing": "ducktail",
+    "intake": "v8",
+    "front": "muscle",
+    "exhaust": "side"
+  },
+  {
+    "id": "twin_mill",
+    "name": "Twin Mill III",
+    "class": "OCTANE",
+    "badge": "TWIN ENGINE",
+    "desc": "Dual Blown Big-Block V8 Engines, Ultra-Low Raked Cockpit, Chrome Whale Fins, Quad Exhaust",
+    "color": "#1565c0",
+    "icon": "\ud83d\ude80",
+    "archetype": "breakout",
+    "scale": [
+      1.08,
+      1.06,
+      0.88
+    ],
+    "wing": "whale",
+    "intake": "blower",
+    "front": "wedge",
+    "exhaust": "quad"
+  },
+  {
+    "id": "jurassic_jeep",
+    "name": "Jurassic 4x4",
+    "class": "OCTANE",
+    "badge": "SAFARI",
+    "desc": "Safari Expedition Rig, Front Heavy Winch, Rollcage Soft-Top Framework, Snorkel Intake",
+    "color": "#c0ca33",
+    "icon": "\ud83e\udd96",
+    "archetype": "truck",
+    "scale": [
+      1.02,
+      1.06,
+      1.14
+    ],
+    "wing": "none",
+    "intake": "snorkel",
+    "front": "bullbar",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "hogsticker",
+    "name": "Hogsticker Striker",
+    "class": "OCTANE",
+    "badge": "MILITARY",
+    "desc": "Military Recon Combat Buggy, Triple Communications Antenna, Heavy Armor, GT Wing",
+    "color": "#558b2f",
+    "icon": "\ud83d\udc17",
+    "archetype": "octane",
+    "scale": [
+      1.04,
+      1.06,
+      1.06
+    ],
+    "wing": "gt",
+    "intake": "snorkel",
+    "front": "bullbar",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "rumble_striker",
+    "name": "Rumble Striker",
+    "class": "OCTANE",
+    "badge": "COMPETITION",
+    "desc": "Competition Aerial Striker, High Lift Suspension, Polyhedral GT Wing, Hood Scoop",
+    "color": "#6a1b9a",
+    "icon": "\ud83c\udfc6",
+    "archetype": "octane",
+    "scale": [
+      1.0,
+      1.02,
+      1.02
+    ],
+    "wing": "gt",
+    "intake": "scoop",
+    "front": "formula",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "veloce_hatch",
+    "name": "Veloce Rally",
+    "class": "OCTANE",
+    "badge": "TOURING",
+    "desc": "European Touring Cup Hatchback, Flared Aero Arches, Rear Roof Spoiler, Dual Cannons",
+    "color": "#00acc1",
+    "icon": "\ud83d\ude97",
+    "archetype": "fennec",
+    "scale": [
+      0.96,
+      1.02,
+      1.02
+    ],
+    "wing": "rally",
+    "intake": "clean",
+    "front": "drift",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "brawler_4x4",
+    "name": "Brawler 4x4",
+    "class": "OCTANE",
+    "badge": "ALL-TERRAIN",
+    "desc": "All-Terrain Mud Monster, Heavy Bullbar, Dual Lightbar Roof Cage, Side Exhaust Stacks",
+    "color": "#6d4c41",
+    "icon": "\ud83e\uddbe",
+    "archetype": "truck",
+    "scale": [
+      1.08,
+      1.1,
+      1.15
+    ],
+    "wing": "none",
+    "intake": "snorkel",
+    "front": "bullbar",
+    "exhaust": "side"
+  },
+  {
+    "id": "outlaw",
+    "name": "Outlaw Rebel",
+    "class": "OCTANE",
+    "badge": "DIRT MODIFIED",
+    "desc": "Dirt Track Modified Oval Racer, Massive Asymmetric Top Wing, Raked Stance, V8 Stacks",
+    "color": "#d84315",
+    "icon": "\ud83e\udd20",
+    "archetype": "octane",
+    "scale": [
+      1.02,
+      1.04,
+      1.02
+    ],
+    "wing": "gt",
+    "intake": "v8",
+    "front": "muscle",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "nomad",
+    "name": "Nomad Express",
+    "class": "OCTANE",
+    "badge": "SPEED VAN",
+    "desc": "Urban Delivery Speed-Van, Carbon Front Splitter, Roof Utility Cargo Rack, Ducktail",
+    "color": "#fdd835",
+    "icon": "\ud83d\udce6",
+    "archetype": "truck",
+    "scale": [
+      1.02,
+      1.06,
+      1.12
+    ],
+    "wing": "ducktail",
+    "intake": "clean",
+    "front": "bullbar",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "vindicator",
+    "name": "Vindicator Apex",
+    "class": "OCTANE",
+    "badge": "ESPORTS",
+    "desc": "Championship Esports Striker, Exposed Rear Differential, Carbon Wing, Quad Exhausts",
+    "color": "#00b0ff",
+    "icon": "\u2b50",
+    "archetype": "octane",
+    "scale": [
+      1.0,
+      1.02,
+      1.0
+    ],
+    "wing": "gt",
+    "intake": "v8",
+    "front": "formula",
+    "exhaust": "quad"
+  },
+  {
+    "id": "rogue_dune",
+    "name": "Rogue Dune Rail",
+    "class": "OCTANE",
+    "badge": "SAND RAIL",
+    "desc": "Sand Rail Buggy, Exposed Tubular Chromoly Chassis, Long-Travel Coil-Overs, V8 Block",
+    "color": "#ff9100",
+    "icon": "\ud83c\udfd6\ufe0f",
+    "archetype": "octane",
+    "scale": [
+      1.04,
+      1.06,
+      1.02
+    ],
+    "wing": "gt",
+    "intake": "v8",
+    "front": "stealth",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "stinger",
+    "name": "Stinger Sprint",
+    "class": "OCTANE",
+    "badge": "SPRINT CAR",
+    "desc": "Winged Outlaw Sprint Car, Giant Overhead Downforce Wing, Exposed Headers, Side Exhaust",
+    "color": "#f44336",
+    "icon": "\ud83d\udc1d",
+    "archetype": "octane",
+    "scale": [
+      1.0,
+      1.02,
+      1.06
+    ],
+    "wing": "gt",
+    "intake": "v8",
+    "front": "stealth",
+    "exhaust": "side"
+  },
+  {
+    "id": "dominus",
+    "name": "Dominus Viper GT",
+    "class": "DOMINUS",
+    "badge": "MUSCLE GT",
+    "desc": "Chiseled American Muscle: Low Rake, Chrome Blower Scoop, Ducktail Spoiler, Side Pipes",
+    "color": "#ff4800",
+    "icon": "\ud83c\udfce\ufe0f",
+    "archetype": "dominus",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "wing": "ducktail",
+    "intake": "blower",
+    "front": "muscle",
+    "exhaust": "side"
+  },
+  {
+    "id": "dominus_gt",
+    "name": "Dominus GT",
+    "class": "DOMINUS",
+    "badge": "TRACK SPEC",
+    "desc": "Modern Factory Track Spec, Carbon Front Splitter, Rear Window Louvers, GT Wing, Quad Pipes",
+    "color": "#d50000",
+    "icon": "\ud83c\udfce\ufe0f",
+    "archetype": "dominus",
+    "scale": [
+      1.02,
+      1.02,
+      0.98
+    ],
+    "wing": "gt",
+    "intake": "blower",
+    "front": "muscle",
+    "exhaust": "quad"
+  },
+  {
+    "id": "imperator",
+    "name": "Imperator DT5",
+    "class": "DOMINUS",
+    "badge": "80S WEDGE",
+    "desc": "80s Wedge Super-Coupe, Retractable Headlights, Slotted Rear Engine Deck, Ducktail",
+    "color": "#e040fb",
+    "icon": "\ud83d\udd79\ufe0f",
+    "archetype": "dominus",
+    "scale": [
+      1.04,
+      1.02,
+      0.94
+    ],
+    "wing": "ducktail",
+    "intake": "scoop",
+    "front": "stealth",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "maverick",
+    "name": "Maverick GXT",
+    "class": "DOMINUS",
+    "badge": "NEON CYBER",
+    "desc": "High-Tech Neon Muscle, Rear Jet Boost Thrusters, Carbon Front Canards, Triple Jet",
+    "color": "#00e5ff",
+    "icon": "\ud83d\ude80",
+    "archetype": "dominus",
+    "scale": [
+      1.05,
+      1.04,
+      0.96
+    ],
+    "wing": "gt",
+    "intake": "scoop",
+    "front": "muscle",
+    "exhaust": "triple"
+  },
+  {
+    "id": "komodo",
+    "name": "Komodo Muscle",
+    "class": "DOMINUS",
+    "badge": "WIDEBODY",
+    "desc": "Widebody Modern Muscle Coupe, Dual Hood Heat Extractors, Quad Rectangular Exhausts",
+    "color": "#c51162",
+    "icon": "\ud83e\udd8e",
+    "archetype": "dominus",
+    "scale": [
+      1.02,
+      1.06,
+      0.98
+    ],
+    "wing": "ducktail",
+    "intake": "scoop",
+    "front": "muscle",
+    "exhaust": "quad"
+  },
+  {
+    "id": "peregrine",
+    "name": "Peregrine TT",
+    "class": "DOMINUS",
+    "badge": "TOURING GT",
+    "desc": "FIA Aero GT Touring Car, Giant Front Carbon Splitter, Swan-Neck Wing, Quad Exhausts",
+    "color": "#00b0ff",
+    "icon": "\ud83e\udd85",
+    "archetype": "dominus",
+    "scale": [
+      1.06,
+      1.04,
+      0.94
+    ],
+    "wing": "gt",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "quad"
+  },
+  {
+    "id": "diestro",
+    "name": "Diestro Italian",
+    "class": "DOMINUS",
+    "badge": "V12 EXOTIC",
+    "desc": "Exotic Italian V12 Wedge, Mid-Engine Louvered Deck, Active Air Brakes, Quad Tips",
+    "color": "#ff1744",
+    "icon": "\ud83c\uddee\ud83c\uddf9",
+    "archetype": "dominus",
+    "scale": [
+      1.04,
+      1.04,
+      0.92
+    ],
+    "wing": "active",
+    "intake": "scoop",
+    "front": "wedge",
+    "exhaust": "quad"
+  },
+  {
+    "id": "tyranno",
+    "name": "Tyranno Apex",
+    "class": "DOMINUS",
+    "badge": "STREET BRAWLER",
+    "desc": "Aggressive Street Fighter, Twin Carbon Hood Scoops, Deep Rear Diffuser, GT Wing",
+    "color": "#ff6d00",
+    "icon": "\ud83e\udd96",
+    "archetype": "dominus",
+    "scale": [
+      1.02,
+      1.04,
+      0.96
+    ],
+    "wing": "gt",
+    "intake": "scoop",
+    "front": "muscle",
+    "exhaust": "quad"
+  },
+  {
+    "id": "mamba",
+    "name": "Mamba GT",
+    "class": "DOMINUS",
+    "badge": "60S COBRA",
+    "desc": "Classic 60s Shelby Coupe Silhouette, Side-Exit Lake Pipes, Dual Racing Stripes, Ducktail",
+    "color": "#2979ff",
+    "icon": "\ud83d\udc0d",
+    "archetype": "dominus",
+    "scale": [
+      1.02,
+      1.02,
+      0.96
+    ],
+    "wing": "ducktail",
+    "intake": "scoop",
+    "front": "muscle",
+    "exhaust": "side"
+  },
+  {
+    "id": "chikara",
+    "name": "Chikara GT",
+    "class": "DOMINUS",
+    "badge": "NEO TOKYO",
+    "desc": "Cyberpunk Super-Coupe, Neon Underglow Channels, Polyhedral Tail Section, Active Wing",
+    "color": "#76ff03",
+    "icon": "\u26a1",
+    "archetype": "dominus",
+    "scale": [
+      1.04,
+      1.04,
+      0.94
+    ],
+    "wing": "active",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "nemesis",
+    "name": "Nemesis Aero",
+    "class": "DOMINUS",
+    "badge": "STEALTH GT",
+    "desc": "Stealth Track Weapon, Carbon Dive Planes, Center Aerodynamic Shark Fin, Center Exhaust",
+    "color": "#212121",
+    "icon": "\ud83c\udf11",
+    "archetype": "dominus",
+    "scale": [
+      1.05,
+      1.04,
+      0.92
+    ],
+    "wing": "shark",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "center"
+  },
+  {
+    "id": "masamune",
+    "name": "Masamune Cyber",
+    "class": "DOMINUS",
+    "badge": "KATANA",
+    "desc": "Futuristic Neo-Tokyo Interceptor, Dual Jet Pods, Katana Aero Fins, Triple Rocket Cluster",
+    "color": "#651fff",
+    "icon": "\ud83d\udde1\ufe0f",
+    "archetype": "dominus",
+    "scale": [
+      1.04,
+      1.02,
+      0.92
+    ],
+    "wing": "dual",
+    "intake": "jet",
+    "front": "stealth",
+    "exhaust": "triple"
+  },
+  {
+    "id": "aftershock",
+    "name": "Aftershock Jet",
+    "class": "DOMINUS",
+    "badge": "SUPERSONIC",
+    "desc": "Supersonic Fighter-Jet Car, Folding Winglets, Twin Afterburner Cannons, Active Aero",
+    "color": "#304ffe",
+    "icon": "\u2708\ufe0f",
+    "archetype": "dominus",
+    "scale": [
+      1.06,
+      1.0,
+      0.92
+    ],
+    "wing": "active",
+    "intake": "jet",
+    "front": "stealth",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "esper",
+    "name": "Esper Wedge",
+    "class": "DOMINUS",
+    "badge": "MAG-LEV",
+    "desc": "Cyber Wedge Striker, Levitating Wheel Arch Rings, Hexagonal Cockpit, Center Rocket",
+    "color": "#00e5ff",
+    "icon": "\ud83d\udd2e",
+    "archetype": "dominus",
+    "scale": [
+      1.02,
+      1.04,
+      0.92
+    ],
+    "wing": "whale",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "center"
+  },
+  {
+    "id": "hotshot",
+    "name": "Hotshot Dragster",
+    "class": "DOMINUS",
+    "badge": "DRAGSTER",
+    "desc": "Low-Slung Dragster Coupe, High-Rise Wheelie Stance, Giant Rear Slicks, Side Pipes",
+    "color": "#ff9100",
+    "icon": "\ud83d\udd25",
+    "archetype": "dominus",
+    "scale": [
+      1.06,
+      1.04,
+      0.92
+    ],
+    "wing": "ducktail",
+    "intake": "blower",
+    "front": "muscle",
+    "exhaust": "side"
+  },
+  {
+    "id": "paladin",
+    "name": "Paladin Blade",
+    "class": "DOMINUS",
+    "badge": "AERO BLADE",
+    "desc": "Aero Blade Concept Car, Forward-Swept Side Winglets, Chrome Nose Cone, Quad Exhausts",
+    "color": "#eceff1",
+    "icon": "\u2694\ufe0f",
+    "archetype": "dominus",
+    "scale": [
+      1.06,
+      1.02,
+      0.9
+    ],
+    "wing": "dual",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "quad"
+  },
+  {
+    "id": "venom",
+    "name": "Venom Fang",
+    "class": "DOMINUS",
+    "badge": "STINGRAY",
+    "desc": "Exotic Stingray Silhouette, Dual Tail Strikers, Sculpted Side Air Pods, Dual Cannons",
+    "color": "#00c853",
+    "icon": "\ud83e\udd82",
+    "archetype": "dominus",
+    "scale": [
+      1.04,
+      1.04,
+      0.92
+    ],
+    "wing": "dual",
+    "intake": "scoop",
+    "front": "wedge",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "x_devil",
+    "name": "X-Devil Mk2",
+    "class": "DOMINUS",
+    "badge": "BLOWN V8",
+    "desc": "Twin Blower V8 Monster, Quad Chrome Velocity Stacks, High Rake Stance, GT Wing",
+    "color": "#ff3d00",
+    "icon": "\ud83d\ude08",
+    "archetype": "dominus",
+    "scale": [
+      1.02,
+      1.04,
+      0.96
+    ],
+    "wing": "gt",
+    "intake": "v8",
+    "front": "muscle",
+    "exhaust": "quad"
+  },
+  {
+    "id": "mustang_mach1",
+    "name": "Mustang Mach 1",
+    "class": "DOMINUS",
+    "badge": "1969 FASTBACK",
+    "desc": "1969 Classic Fastback, Shaker Hood Scoop, Rear Window Sport Slats, Ducktail Lip",
+    "color": "#ffb300",
+    "icon": "\ud83d\udc0e",
+    "archetype": "dominus",
+    "scale": [
+      1.04,
+      1.02,
+      0.98
+    ],
+    "wing": "ducktail",
+    "intake": "scoop",
+    "front": "muscle",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "charger_rt",
+    "name": "Charger 1970 R/T",
+    "class": "DOMINUS",
+    "badge": "HEMI BRAWLER",
+    "desc": "Blacked-Out Street Brawler, Blown 426 Hemi, Heavy Steel Bumper Trim, Side Pipes",
+    "color": "#1a1a1a",
+    "icon": "\ud83d\udcaa",
+    "archetype": "dominus",
+    "scale": [
+      1.06,
+      1.04,
+      0.98
+    ],
+    "wing": "ducktail",
+    "intake": "blower",
+    "front": "muscle",
+    "exhaust": "side"
+  },
+  {
+    "id": "firebird_ta",
+    "name": "Firebird Trans Am",
+    "class": "DOMINUS",
+    "badge": "SCREAMING CHICKEN",
+    "desc": "Gold Firebird Hood Livery, T-Top Roof Panels, Integrated Ducktail, Dual Pipes",
+    "color": "#ff6f00",
+    "icon": "\ud83e\udd85",
+    "archetype": "dominus",
+    "scale": [
+      1.04,
+      1.02,
+      0.96
+    ],
+    "wing": "ducktail",
+    "intake": "scoop",
+    "front": "muscle",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "viper_srt",
+    "name": "Viper SRT-10",
+    "class": "DOMINUS",
+    "badge": "V10 COUPE",
+    "desc": "8.4L V10 American Exotic, Double-Bubble Roof, Side Exhaust Cannons, GT Wing",
+    "color": "#0044ff",
+    "icon": "\ud83d\udc0d",
+    "archetype": "dominus",
+    "scale": [
+      1.02,
+      1.05,
+      0.94
+    ],
+    "wing": "gt",
+    "intake": "scoop",
+    "front": "muscle",
+    "exhaust": "side"
+  },
+  {
+    "id": "corvette_c8",
+    "name": "Corvette C8 Stingray",
+    "class": "DOMINUS",
+    "badge": "MID-ENGINE",
+    "desc": "Mid-Engine Exotic, Sculpted Side Boomerang Intakes, Quad Center Exhaust, Carbon Wing",
+    "color": "#e53935",
+    "icon": "\ud83c\udfc1",
+    "archetype": "dominus",
+    "scale": [
+      1.04,
+      1.05,
+      0.92
+    ],
+    "wing": "gt",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "quad"
+  },
+  {
+    "id": "hellcat_wide",
+    "name": "Hellcat Widebody",
+    "class": "DOMINUS",
+    "badge": "SUPERCHARGED",
+    "desc": "Supercharged Widebody Beast, Dual Snorkel Hood, Massive 315 Rear Tires, Quad Exhausts",
+    "color": "#311b92",
+    "icon": "\ud83d\udc31",
+    "archetype": "dominus",
+    "scale": [
+      1.03,
+      1.06,
+      0.98
+    ],
+    "wing": "ducktail",
+    "intake": "blower",
+    "front": "muscle",
+    "exhaust": "quad"
+  },
+  {
+    "id": "shelby_gt500",
+    "name": "Shelby GT500",
+    "class": "DOMINUS",
+    "badge": "SUPER SNAKE",
+    "desc": "Cobra Super Snake Track Pack, Carbon GT Wing, High-Flow Grille Aperture, Quad Tips",
+    "color": "#01579b",
+    "icon": "\ud83d\udc0d",
+    "archetype": "dominus",
+    "scale": [
+      1.04,
+      1.04,
+      0.98
+    ],
+    "wing": "gt",
+    "intake": "scoop",
+    "front": "muscle",
+    "exhaust": "quad"
+  },
+  {
+    "id": "breakout",
+    "name": "Breakout Specter RS",
+    "class": "BREAKOUT",
+    "badge": "AERO WEDGE",
+    "desc": "Exotic Wedge Hypercar: Knife-Edge Nose, Jet Bubble Canopy, Twin Active Aero Wings",
+    "color": "#ff1a35",
+    "icon": "\ud83d\ude80",
+    "archetype": "breakout",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "wing": "active",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "triple"
+  },
+  {
+    "id": "breakout_s",
+    "name": "Breakout Type-S",
+    "class": "BREAKOUT",
+    "badge": "FACTORY SPEC",
+    "desc": "High-Performance Factory Spec, Carbon Front Splitter, Tuned Active Wing, Quad Tips",
+    "color": "#d50000",
+    "icon": "\ud83d\ude80",
+    "archetype": "breakout",
+    "scale": [
+      1.02,
+      1.02,
+      0.96
+    ],
+    "wing": "gt",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "quad"
+  },
+  {
+    "id": "samurai",
+    "name": "Samurai Cyber",
+    "class": "BREAKOUT",
+    "badge": "SHOGUN",
+    "desc": "Neo-Tokyo Track Speedster, Angled Over-Fenders, Carbon Diffuser Blades, GT Wing",
+    "color": "#00e5ff",
+    "icon": "\ud83d\udde1\ufe0f",
+    "archetype": "breakout",
+    "scale": [
+      1.04,
+      1.04,
+      0.94
+    ],
+    "wing": "gt",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "cyclone",
+    "name": "Cyclone Hypercar",
+    "class": "BREAKOUT",
+    "badge": "QUAD TURBO",
+    "desc": "Quad-Turbo Track Weapon, Center Dorsal Aerodynamic Fin, Active Winglets, Quad Tips",
+    "color": "#ff007f",
+    "icon": "\ud83c\udf00",
+    "archetype": "breakout",
+    "scale": [
+      1.06,
+      1.04,
+      0.92
+    ],
+    "wing": "shark",
+    "intake": "turbo",
+    "front": "wedge",
+    "exhaust": "quad"
+  },
+  {
+    "id": "centio",
+    "name": "Centio V17",
+    "class": "BREAKOUT",
+    "badge": "F1 PROTOTYPE",
+    "desc": "Formula-1 Inspired Track Prototype, Ground-Hugging Nose, Center Monocoque, Formula Wing",
+    "color": "#ffea00",
+    "icon": "\ud83c\udfce\ufe0f",
+    "archetype": "formula",
+    "scale": [
+      1.06,
+      1.02,
+      0.88
+    ],
+    "wing": "formula",
+    "intake": "clean",
+    "front": "formula",
+    "exhaust": "center"
+  },
+  {
+    "id": "animus_gp",
+    "name": "Animus GP",
+    "class": "BREAKOUT",
+    "badge": "GRAND PRIX",
+    "desc": "Open-Cockpit Grand Prix Racer, Triple-Tier Rear Wing, Front Bargeboards, Center Thruster",
+    "color": "#00e676",
+    "icon": "\ud83c\udfc1",
+    "archetype": "formula",
+    "scale": [
+      1.08,
+      1.02,
+      0.86
+    ],
+    "wing": "formula",
+    "intake": "clean",
+    "front": "formula",
+    "exhaust": "center"
+  },
+  {
+    "id": "artemis",
+    "name": "Artemis GXT",
+    "class": "BREAKOUT",
+    "badge": "LE MANS",
+    "desc": "Sci-Fi Cyber Le Mans Prototype, Glowing LED Trims, Aero Wheel Covers, Triple Rockets",
+    "color": "#ff6d00",
+    "icon": "\ud83c\udff9",
+    "archetype": "breakout",
+    "scale": [
+      1.06,
+      1.04,
+      0.92
+    ],
+    "wing": "gt",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "triple"
+  },
+  {
+    "id": "nexus",
+    "name": "Nexus Interceptor",
+    "class": "BREAKOUT",
+    "badge": "CYBER ENFORCER",
+    "desc": "Cyber Police Cruiser, Low Rake Aerodynamics, Carbon Ground Effects, Ducktail",
+    "color": "#2979ff",
+    "icon": "\ud83d\udea8",
+    "archetype": "breakout",
+    "scale": [
+      1.04,
+      1.02,
+      0.94
+    ],
+    "wing": "ducktail",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "mantis",
+    "name": "Mantis Low-Rider",
+    "class": "BREAKOUT",
+    "badge": "FLAT WEDGE",
+    "desc": "Ultra-Low Flat Wedge Chassis, Dual Rear Winglet Fins, Fighter Canopy, Dual Cannons",
+    "color": "#76ff03",
+    "icon": "\ud83e\udd97",
+    "archetype": "breakout",
+    "scale": [
+      1.06,
+      1.06,
+      0.86
+    ],
+    "wing": "dual",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "batmobile",
+    "name": "Batmobile Stealth",
+    "class": "BREAKOUT",
+    "badge": "DARK KNIGHT",
+    "desc": "Armored Tumbler Silhouette, Twin Jet Rocket Thrusters, Batwing Tail Fins, Triple Rockets",
+    "color": "#111111",
+    "icon": "\ud83e\udd87",
+    "archetype": "breakout",
+    "scale": [
+      1.1,
+      1.08,
+      0.88
+    ],
+    "wing": "dual",
+    "intake": "jet",
+    "front": "stealth",
+    "exhaust": "triple"
+  },
+  {
+    "id": "huracan_sto",
+    "name": "Hurac\u00e1n STO V10",
+    "class": "BREAKOUT",
+    "badge": "SQUADRA CORSE",
+    "desc": "V10 Track Weapon, Roof Air Scoop, Carbon Shark Fin, Shark Nose Splitter, Dual Cannons",
+    "color": "#00e5ff",
+    "icon": "\ud83d\udc02",
+    "archetype": "breakout",
+    "scale": [
+      1.04,
+      1.04,
+      0.92
+    ],
+    "wing": "shark",
+    "intake": "snorkel",
+    "front": "wedge",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "mclaren_570s",
+    "name": "McLaren 570S",
+    "class": "BREAKOUT",
+    "badge": "DIHEDRAL",
+    "desc": "Dihedral Scissor Doors, Teardrop Carbon Tub Cabin, High Mid-Exhausts, Active Aero",
+    "color": "#ff6f00",
+    "icon": "\ud83c\udfce\ufe0f",
+    "archetype": "breakout",
+    "scale": [
+      1.04,
+      1.04,
+      0.92
+    ],
+    "wing": "active",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "valhalla",
+    "name": "Valhalla Concept",
+    "class": "BREAKOUT",
+    "badge": "HYBRID AERO",
+    "desc": "Twin-Turbo Hybrid Hypercar, Venturi Ground Tunnel Floor, Sleek Canopy, Quad Exhausts",
+    "color": "#78909c",
+    "icon": "\u26a1",
+    "archetype": "breakout",
+    "scale": [
+      1.06,
+      1.04,
+      0.9
+    ],
+    "wing": "active",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "quad"
+  },
+  {
+    "id": "ferrari_296",
+    "name": "Ferrari 296 GTB",
+    "class": "BREAKOUT",
+    "badge": "BERLINETTA",
+    "desc": "Italian Berlinetta, Active Rear Aero Spoiler, Ultra-Low Rake Hood, Center Exhaust",
+    "color": "#d50000",
+    "icon": "\ud83d\udc0e",
+    "archetype": "breakout",
+    "scale": [
+      1.03,
+      1.04,
+      0.92
+    ],
+    "wing": "active",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "center"
+  },
+  {
+    "id": "centodieci",
+    "name": "Centodieci W16",
+    "class": "BREAKOUT",
+    "badge": "EB110 TRIBUTE",
+    "desc": "Quad-Turbo W16 Beast, 5 Round Side Air Intakes, Monumental Carbon Wing, Quad Tips",
+    "color": "#ffffff",
+    "icon": "\ud83d\udc8e",
+    "archetype": "breakout",
+    "scale": [
+      1.06,
+      1.06,
+      0.94
+    ],
+    "wing": "gt",
+    "intake": "turbo",
+    "front": "wedge",
+    "exhaust": "quad"
+  },
+  {
+    "id": "delorean",
+    "name": "DeLorean Time Machine",
+    "class": "BREAKOUT",
+    "badge": "OUTATIME",
+    "desc": "Brushed Stainless Steel Shell, Gullwing Doors, Dual Mr. Fusion Reactor Vents, Cannons",
+    "color": "#b0bec5",
+    "icon": "\u23f1\ufe0f",
+    "archetype": "breakout",
+    "scale": [
+      1.04,
+      1.02,
+      0.96
+    ],
+    "wing": "ducktail",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "knight_rider",
+    "name": "K.I.T.T. 2000",
+    "class": "BREAKOUT",
+    "badge": "KNIGHT RIDER",
+    "desc": "Red Sweeping Scanner Nose, T-Tops, High-Gloss Stealth Obsidian Black Glass, Dual Pipes",
+    "color": "#0a0a0a",
+    "icon": "\ud83d\udd34",
+    "archetype": "breakout",
+    "scale": [
+      1.05,
+      1.02,
+      0.94
+    ],
+    "wing": "ducktail",
+    "intake": "clean",
+    "front": "muscle",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "aston_db5",
+    "name": "Aston DB5 Grand Tourer",
+    "class": "BREAKOUT",
+    "badge": "007 SPY",
+    "desc": "Classic British Elegance, Chrome Spoke Wheels, Bulletproof Rear Shield, Dual Exhaust",
+    "color": "#cfd8dc",
+    "icon": "\ud83c\udf78",
+    "archetype": "breakout",
+    "scale": [
+      1.04,
+      1.0,
+      0.96
+    ],
+    "wing": "ducktail",
+    "intake": "clean",
+    "front": "muscle",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "speedtail",
+    "name": "Speedtail Aero",
+    "class": "BREAKOUT",
+    "badge": "HYPER GT",
+    "desc": "Streamliner Hyper-GT, Elongated Rear Tail, High-Speed Low-Drag Shape, Center Jet",
+    "color": "#37474f",
+    "icon": "\ud83d\udef8",
+    "archetype": "breakout",
+    "scale": [
+      1.1,
+      1.02,
+      0.88
+    ],
+    "wing": "none",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "center"
+  },
+  {
+    "id": "veneno",
+    "name": "Veneno Stealth",
+    "class": "BREAKOUT",
+    "badge": "PROTOTYPE",
+    "desc": "Extreme Prototype Hypercar, Giant Dorsal Carbon Fin, Triple Exhaust Stacks, Shark Splitter",
+    "color": "#424242",
+    "icon": "\u2620\ufe0f",
+    "archetype": "breakout",
+    "scale": [
+      1.08,
+      1.06,
+      0.9
+    ],
+    "wing": "shark",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "triple"
+  },
+  {
+    "id": "takumi",
+    "name": "Takumi Ion Phantom",
+    "class": "HYBRID",
+    "badge": "CYBER TUNER",
+    "desc": "Cyber JDM Drift Interceptor: Faceted Stealth Nose, Drift Over-Fenders, Dual-Deck Wing",
+    "color": "#8e24aa",
+    "icon": "\ud83d\udd30",
+    "archetype": "takumi",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "wing": "dual",
+    "intake": "turbo",
+    "front": "drift",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "takumi_rxt",
+    "name": "Takumi RX-T",
+    "class": "HYBRID",
+    "badge": "WIDEBODY JDM",
+    "desc": "Aggressive Widebody Spec, Carbon Vented Hood, Twin Titanium Cannons, Dual Wing",
+    "color": "#6a1b9a",
+    "icon": "\ud83d\udd30",
+    "archetype": "takumi",
+    "scale": [
+      1.02,
+      1.04,
+      0.98
+    ],
+    "wing": "dual",
+    "intake": "scoop",
+    "front": "drift",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "endo",
+    "name": "Endo Supercar",
+    "class": "HYBRID",
+    "badge": "GRAND TOURER",
+    "desc": "Exotic Grand Tourer, Curved Wheel Arches, Low-Slung Center Cabin, Dual Cannons",
+    "color": "#00b0ff",
+    "icon": "\ud83c\udfce\ufe0f",
+    "archetype": "takumi",
+    "scale": [
+      1.02,
+      1.04,
+      0.94
+    ],
+    "wing": "ducktail",
+    "intake": "clean",
+    "front": "wedge",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "jager",
+    "name": "Jager 619 RS",
+    "class": "HYBRID",
+    "badge": "GERMAN TOURING",
+    "desc": "German Touring Coupe, Flared Rear Quarters, Dual Oval Exhaust Outlets, Ducktail",
+    "color": "#ff6d00",
+    "icon": "\ud83c\udde9\ud83c\uddea",
+    "archetype": "takumi",
+    "scale": [
+      1.03,
+      1.03,
+      0.96
+    ],
+    "wing": "ducktail",
+    "intake": "scoop",
+    "front": "muscle",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "skyline_r34",
+    "name": "Skyline GT-R R34",
+    "class": "HYBRID",
+    "badge": "GODZILLA",
+    "desc": "RB26 Twin-Turbo Legend, Iconic Quad Round Taillights, Nismo Carbon Wing, Drift Cannons",
+    "color": "#0052cc",
+    "icon": "\ud83d\udc51",
+    "archetype": "takumi",
+    "scale": [
+      1.04,
+      1.03,
+      0.98
+    ],
+    "wing": "gt",
+    "intake": "turbo",
+    "front": "drift",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "venom_predator",
+    "name": "Venom Predator",
+    "class": "HYBRID",
+    "badge": "PREDATOR",
+    "desc": "Modernized Venom Chassis, Aggressive Aero Stance, Split Rear Winglets, Dual Cannons",
+    "color": "#00e676",
+    "icon": "\ud83e\udd82",
+    "archetype": "takumi",
+    "scale": [
+      1.04,
+      1.04,
+      0.94
+    ],
+    "wing": "dual",
+    "intake": "scoop",
+    "front": "wedge",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "r3mx",
+    "name": "R3MX Hyper",
+    "class": "HYBRID",
+    "badge": "HYBRID HYPER",
+    "desc": "Next-Gen Hybrid Hypercar, Neon Power Conduit Lines, Active Winglets, Triple Rockets",
+    "color": "#ff007f",
+    "icon": "\u26a1",
+    "archetype": "takumi",
+    "scale": [
+      1.04,
+      1.04,
+      0.94
+    ],
+    "wing": "active",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "triple"
+  },
+  {
+    "id": "guardian",
+    "name": "Guardian GXT",
+    "class": "HYBRID",
+    "badge": "CYBER GUARDIAN",
+    "desc": "Sci-Fi Cyber Supercar, Glowing Energy Core, Floating Front Splitter, GT Wing",
+    "color": "#ffea00",
+    "icon": "\ud83d\udee1\ufe0f",
+    "archetype": "takumi",
+    "scale": [
+      1.04,
+      1.04,
+      0.94
+    ],
+    "wing": "gt",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "ronin",
+    "name": "Ronin GTX",
+    "class": "HYBRID",
+    "badge": "TRACK TUNER",
+    "desc": "Japanese Cyber Track Car, Carbon Aero Blades, Hexagonal Center Exhaust, GT Wing",
+    "color": "#d50000",
+    "icon": "\ud83d\udde1\ufe0f",
+    "archetype": "takumi",
+    "scale": [
+      1.02,
+      1.03,
+      0.96
+    ],
+    "wing": "gt",
+    "intake": "scoop",
+    "front": "drift",
+    "exhaust": "center"
+  },
+  {
+    "id": "porsche_911",
+    "name": "Porsche 911 Turbo",
+    "class": "HYBRID",
+    "badge": "WHALE TAIL",
+    "desc": "Iconic Whale-Tail Wing, Round Headlight Projectors, Wide Rear Hips, Quad Exhausts",
+    "color": "#e0e0e0",
+    "icon": "\ud83c\udde9\ud83c\uddea",
+    "archetype": "takumi",
+    "scale": [
+      1.02,
+      1.04,
+      0.96
+    ],
+    "wing": "whale",
+    "intake": "turbo",
+    "front": "wedge",
+    "exhaust": "quad"
+  },
+  {
+    "id": "civic_type_r",
+    "name": "Civic Type R",
+    "class": "HYBRID",
+    "badge": "HOT HATCH",
+    "desc": "Hot Hatch Track Monster, Triple Center Exhaust Tips, Roof Vortex Generators, GT Wing",
+    "color": "#d50000",
+    "icon": "\ud83c\uddef\ud83c\uddf5",
+    "archetype": "fennec",
+    "scale": [
+      0.98,
+      1.02,
+      1.02
+    ],
+    "wing": "gt",
+    "intake": "scoop",
+    "front": "drift",
+    "exhaust": "triple"
+  },
+  {
+    "id": "bmw_m240i",
+    "name": "BMW M240i Racing",
+    "class": "HYBRID",
+    "badge": "M-PERFORMANCE",
+    "desc": "TwinPower Turbo Coupe, Carbon Fiber Roof, Quad M-Sport Exhaust Tips, Ducktail Lip",
+    "color": "#2979ff",
+    "icon": "\ud83c\udde9\ud83c\uddea",
+    "archetype": "takumi",
+    "scale": [
+      1.03,
+      1.03,
+      0.98
+    ],
+    "wing": "ducktail",
+    "intake": "clean",
+    "front": "muscle",
+    "exhaust": "quad"
+  },
+  {
+    "id": "silvia_s13",
+    "name": "Silvia S13 Drift",
+    "class": "HYBRID",
+    "badge": "DRIFT KING",
+    "desc": "Rocket Bunny Widebody Kit, Deep Dish Wheels, Low Offset Stance, Big Bore Cannons",
+    "color": "#aa00ff",
+    "icon": "\ud83d\udd30",
+    "archetype": "takumi",
+    "scale": [
+      1.03,
+      1.04,
+      0.96
+    ],
+    "wing": "ducktail",
+    "intake": "turbo",
+    "front": "drift",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "rx7_veilside",
+    "name": "RX-7 Veilside Fortune",
+    "class": "HYBRID",
+    "badge": "ROTARY TURBO",
+    "desc": "Twin-Rotary Turbo, Two-Tone Widebody Kit, High-Downforce GT Wing, Dual Cannons",
+    "color": "#ff6d00",
+    "icon": "\ud83d\udd30",
+    "archetype": "takumi",
+    "scale": [
+      1.04,
+      1.05,
+      0.94
+    ],
+    "wing": "gt",
+    "intake": "turbo",
+    "front": "drift",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "supra_mk4",
+    "name": "Supra MK4 TwinTurbo",
+    "class": "HYBRID",
+    "badge": "2JZ MONSTER",
+    "desc": "Legendary 2JZ Monster, TRD Carbon Wing, Polished Lip Racing Wheels, Monster Cannon",
+    "color": "#ffffff",
+    "icon": "\ud83c\uddef\ud83c\uddf5",
+    "archetype": "takumi",
+    "scale": [
+      1.04,
+      1.04,
+      0.96
+    ],
+    "wing": "gt",
+    "intake": "turbo",
+    "front": "drift",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "merc",
+    "name": "Merc Van Titan",
+    "class": "MERC",
+    "badge": "HEAVYWEIGHT",
+    "desc": "Heavyweight Industrial Van, High Stance, Chrome Front Grille, Boxy Armored Cab",
+    "color": "#37474f",
+    "icon": "\ud83d\ude90",
+    "archetype": "truck",
+    "scale": [
+      1.06,
+      1.06,
+      1.18
+    ],
+    "wing": "none",
+    "intake": "clean",
+    "front": "bullbar",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "battle_bus",
+    "name": "Battle Bus Titanium",
+    "class": "MERC",
+    "badge": "FLYING BUS",
+    "desc": "High-Flying Armored Blue Bus, Hot Air Balloon Roof Exhaust Vents, Quad Cannons",
+    "color": "#1e88e5",
+    "icon": "\ud83d\ude8c",
+    "archetype": "truck",
+    "scale": [
+      1.12,
+      1.08,
+      1.22
+    ],
+    "wing": "none",
+    "intake": "snorkel",
+    "front": "bullbar",
+    "exhaust": "quad"
+  },
+  {
+    "id": "f150_rle",
+    "name": "Ford F-150 RLE",
+    "class": "MERC",
+    "badge": "TOUGH TRUCK",
+    "desc": "Rocket League Edition Truck, Aggressive Chrome Billet Grille, Bed Rollbar, Side Pipes",
+    "color": "#c62828",
+    "icon": "\ud83d\udefb",
+    "archetype": "truck",
+    "scale": [
+      1.1,
+      1.1,
+      1.16
+    ],
+    "wing": "none",
+    "intake": "scoop",
+    "front": "bullbar",
+    "exhaust": "side"
+  },
+  {
+    "id": "cybertruck",
+    "name": "CyberTruck Heavy",
+    "class": "MERC",
+    "badge": "EXOSKELETON",
+    "desc": "Angular Cold-Rolled Stainless Steel Shell, Full-Width LED Lightbar, Tonneau Cover",
+    "color": "#9e9e9e",
+    "icon": "\ud83d\udcd0",
+    "archetype": "truck",
+    "scale": [
+      1.12,
+      1.1,
+      1.14
+    ],
+    "wing": "none",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "center"
+  },
+  {
+    "id": "monster_truck",
+    "name": "Bigfoot Monster 4x4",
+    "class": "MERC",
+    "badge": "LIFTED MONSTER",
+    "desc": "Lifted Competition 4x4, Tubular Bed Cage, Quad Overhead Spotlights, Side Exhausts",
+    "color": "#002244",
+    "icon": "\ud83d\udede",
+    "archetype": "truck",
+    "scale": [
+      1.08,
+      1.14,
+      1.25
+    ],
+    "wing": "none",
+    "intake": "v8",
+    "front": "bullbar",
+    "exhaust": "side"
+  },
+  {
+    "id": "golf_gti",
+    "name": "Golf GTI Turbo",
+    "class": "MERC",
+    "badge": "EURO HATCH",
+    "desc": "Plaid Interior Hatchback, Red Grille Pinstripe, Dual Chrome Tailpipes, Roof Spoiler",
+    "color": "#d50000",
+    "icon": "\ud83d\ude97",
+    "archetype": "fennec",
+    "scale": [
+      0.95,
+      1.02,
+      1.04
+    ],
+    "wing": "rally",
+    "intake": "turbo",
+    "front": "drift",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "triton",
+    "name": "Triton Hydro-Pod",
+    "class": "MERC",
+    "badge": "AMPHIBIOUS",
+    "desc": "Amphibious Rocket Car, Submarine Side Hydrofoils, Twin Waterjets, Stealth Cockpit",
+    "color": "#00838f",
+    "icon": "\ud83d\udc2c",
+    "archetype": "octane",
+    "scale": [
+      0.96,
+      1.04,
+      1.06
+    ],
+    "wing": "dual",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "zippy",
+    "name": "Zippy Pocket Rocket",
+    "class": "MERC",
+    "badge": "POCKET ROCKET",
+    "desc": "Ultra-Compact Agility Speedster, Center Monocoque, Tiny Agile Profile, Active Wings",
+    "color": "#ffab00",
+    "icon": "\u26a1",
+    "archetype": "octane",
+    "scale": [
+      0.86,
+      1.02,
+      1.02
+    ],
+    "wing": "active",
+    "intake": "clean",
+    "front": "formula",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "ballistic_scarab",
+    "name": "Scarab Mk II",
+    "class": "MERC",
+    "badge": "COMBAT SPHERE",
+    "desc": "Reinforced Combat Sphere, Roll Cage Ring Armor, Twin Boost Thrusters, Heavy Plating",
+    "color": "#4a148c",
+    "icon": "\ud83d\udca3",
+    "archetype": "octane",
+    "scale": [
+      0.9,
+      1.08,
+      1.12
+    ],
+    "wing": "none",
+    "intake": "clean",
+    "front": "stealth",
+    "exhaust": "cannons"
+  },
+  {
+    "id": "armored_nomad",
+    "name": "Nomad Expedition",
+    "class": "MERC",
+    "badge": "OVERLANDER",
+    "desc": "Overlanding Expedition Van, Front Heavy Winch, Roof Tent Cargo Deck, Snorkel Intake",
+    "color": "#3e2723",
+    "icon": "\u26fa",
+    "archetype": "truck",
+    "scale": [
+      1.04,
+      1.08,
+      1.18
+    ],
+    "wing": "none",
+    "intake": "snorkel",
+    "front": "bullbar",
+    "exhaust": "cannons"
+  }
+]

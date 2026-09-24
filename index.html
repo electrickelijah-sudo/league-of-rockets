@@ -1200,12 +1200,50 @@
     }
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
       gap: 12px;
       margin-bottom: 12px;
-      max-height: 240px;
+      max-height: 380px;
       overflow-y: auto;
-      padding: 2px 2px 8px 2px;
+      padding: 4px 4px 12px 4px;
+    }
+    .cards-grid::-webkit-scrollbar {
+      width: 6px;
+    }
+    .cards-grid::-webkit-scrollbar-track {
+      background: rgba(10, 15, 25, 0.6);
+      border-radius: 4px;
+    }
+    .cards-grid::-webkit-scrollbar-thumb {
+      background: rgba(0, 225, 255, 0.4);
+      border-radius: 4px;
+    }
+    .cards-grid::-webkit-scrollbar-thumb:hover {
+      background: #00e1ff;
+    }
+    .filter-chip {
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(0, 225, 255, 0.3);
+      border-radius: 6px;
+      color: #9cb3cc;
+      padding: 6px 12px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .filter-chip:hover {
+      background: rgba(0, 225, 255, 0.15);
+      border-color: #00e1ff;
+      color: #fff;
+    }
+    .filter-chip.active {
+      background: linear-gradient(135deg, #0052f5 0%, #00e1ff 100%);
+      border-color: #00f0ff;
+      color: #fff;
+      box-shadow: 0 0 12px rgba(0, 225, 255, 0.4);
     }
     .item-card {
       background: rgba(255, 255, 255, 0.05);
@@ -1939,6 +1977,20 @@
 
       <!-- Active Category Items Grid -->
       <div class="garage-section-title" id="garage-category-title">SELECT CAR BODY</div>
+      
+      <!-- 100-Car Hitbox Filters & Live Search Toolbar -->
+      <div class="garage-filter-bar" id="garage-body-filters" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center;">
+        <input type="text" id="garage-search-input" placeholder="🔍 Search 100 cars (e.g. Skyline, Batmobile, Octane, Dominus, Fennec...)" style="flex: 1; min-width: 240px; background: rgba(12, 18, 30, 0.95); border: 1.5px solid rgba(0, 225, 255, 0.4); border-radius: 8px; color: #fff; padding: 7px 12px; font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; outline: none;" oninput="onGarageSearchChanged(this.value)">
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <button class="filter-chip active" id="chip-ALL" onclick="filterGarageHitbox('ALL')">ALL (100)</button>
+          <button class="filter-chip" id="chip-OCTANE" onclick="filterGarageHitbox('OCTANE')">OCTANE (30)</button>
+          <button class="filter-chip" id="chip-DOMINUS" onclick="filterGarageHitbox('DOMINUS')">DOMINUS (25)</button>
+          <button class="filter-chip" id="chip-BREAKOUT" onclick="filterGarageHitbox('BREAKOUT')">BREAKOUT (20)</button>
+          <button class="filter-chip" id="chip-HYBRID" onclick="filterGarageHitbox('HYBRID')">HYBRID (15)</button>
+          <button class="filter-chip" id="chip-MERC" onclick="filterGarageHitbox('MERC')">MERC (10)</button>
+        </div>
+      </div>
+
       <div class="cards-grid" id="grid-customization"></div>
     </div>
 
@@ -3241,11 +3293,11 @@
         const rx = bx * rootOffset;
         const rz = bz * rootOffset;
 
-        // Broad overlapping blade dimensions with arching outward curve
+        // Professional low-profile manicured sports turf blade levels (Height: 0.14m)
         const levels = [
-          { y: 0.00, w: 0.34, bend: 0.00, col: rootColor },
-          { y: 0.40, w: 0.24, bend: 0.22, col: midColor },
-          { y: 0.78, w: 0.08, bend: 0.54, col: tipColor }
+          { y: 0.00, w: 0.16, bend: 0.00, col: rootColor },
+          { y: 0.06, w: 0.11, bend: 0.03, col: midColor },
+          { y: 0.13, w: 0.03, bend: 0.08, col: tipColor }
         ];
 
         for (let l = 0; l < levels.length; l++) {
@@ -3274,7 +3326,7 @@
         }
       }
 
-      // 2. 4 Low Ground-Covering Thatch Leaves (Physically blankets the floor under tufts)
+      // 2. 4 Low Ground-Covering Thatch Leaves
       const groundCount = 4;
       for (let g = 0; g < groundCount; g++) {
         const gAngle = (g / groundCount) * Math.PI * 2 + Math.PI / 4;
@@ -3286,22 +3338,22 @@
         const bx = cosG;
         const bz = sinG;
 
-        const w = 0.42;
-        const len = 0.90;
+        const w = 0.18;
+        const len = 0.25;
 
-        positions.push(-nx * (w * 0.5), 0.03, -nz * (w * 0.5));
+        positions.push(-nx * (w * 0.5), 0.02, -nz * (w * 0.5));
         normals.push(0, 1, 0);
         colors.push(groundColor[0], groundColor[1], groundColor[2]);
 
-        positions.push(nx * (w * 0.5), 0.03, nz * (w * 0.5));
+        positions.push(nx * (w * 0.5), 0.02, nz * (w * 0.5));
         normals.push(0, 1, 0);
         colors.push(groundColor[0], groundColor[1], groundColor[2]);
 
-        positions.push(-nx * (w * 0.3) + bx * len, 0.08, -nz * (w * 0.3) + bz * len);
+        positions.push(-nx * (w * 0.2) + bx * len, 0.04, -nz * (w * 0.2) + bz * len);
         normals.push(0, 1, 0);
         colors.push(midColor[0], midColor[1], midColor[2]);
 
-        positions.push(nx * (w * 0.3) + bx * len, 0.08, nz * (w * 0.3) + bz * len);
+        positions.push(nx * (w * 0.2) + bx * len, 0.04, nz * (w * 0.2) + bz * len);
         normals.push(0, 1, 0);
         colors.push(midColor[0], midColor[1], midColor[2]);
 
@@ -3365,9 +3417,9 @@
 
       const py = 0.01;
       const ry = Math.random() * Math.PI * 2;
-      const sx = 0.45 + Math.random() * 0.25;
-      const sy = 0.36 + Math.random() * 0.22;
-      const sz = 0.45 + Math.random() * 0.25;
+      const sx = 0.32 + Math.random() * 0.15;
+      const sy = 0.22 + Math.random() * 0.10;
+      const sz = 0.32 + Math.random() * 0.15;
 
       dummyTuft.position.set(px, py, pz);
       dummyTuft.rotation.set(0, ry, 0);
@@ -4165,246 +4217,241 @@
 
     scene.add(mountainGroup);
 
-    // 3. STACKED COLORFUL HILLSIDE FAVELA VILLAGE (Estadio Vida Signature Architecture)
-    const cityGroup = new THREE.Group();
+    // 3. CHAMPIONS FIELD ARENA SUPERSTRUCTURE & HOLOGRAPHIC SPECTACLE
+    const superstructureGroup = new THREE.Group();
+    const neonCyanMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
+    const neonOrangeMat = new THREE.MeshBasicMaterial({ color: 0xff6600 });
+    const trussMat = new THREE.MeshStandardMaterial({ color: 0x1a2232, metalness: 0.85, roughness: 0.35 });
 
-    // Procedural Facade Canvas Texture with Cozy Lit Windows & Stucco Panels
-    const favelaCanvas = document.createElement("canvas");
-    favelaCanvas.width = 512; favelaCanvas.height = 512;
-    const fCtx = favelaCanvas.getContext("2d");
-    fCtx.fillStyle = "#e0d8cc";
-    fCtx.fillRect(0, 0, 512, 512);
+    // 1. Four Massive Illuminated Space-Truss Super-Arches bridging across the arena
+    const archZCoords = [-34, -11, 11, 34];
+    const archWidth = hw + 5.5; // reaches from sideline to sideline (~27.5m half-width)
+    const archHeight = 26.5;    // rises 26.5m overhead
 
-    // Plaster / brick mortar lines
-    fCtx.strokeStyle = "rgba(0,0,0,0.12)";
-    fCtx.lineWidth = 2;
-    for (let py = 0; py < 512; py += 32) {
-      fCtx.beginPath(); fCtx.moveTo(0, py); fCtx.lineTo(512, py); fCtx.stroke();
-    }
-    for (let px = 0; px < 512; px += 32) {
-      fCtx.beginPath(); fCtx.moveTo(px, 0); fCtx.lineTo(px, 512); fCtx.stroke();
-    }
+    archZCoords.forEach((az, archIdx) => {
+      const isBlueSide = az < 0;
+      const glowMat = isBlueSide ? neonCyanMat : neonOrangeMat;
+      const archMeshGroup = new THREE.Group();
+      archMeshGroup.position.set(0, 0, az);
 
-    // Warm glowing twilight interior windows
-    for (let wy = 8; wy < 512; wy += 32) {
-      for (let wx = 8; wx < 512; wx += 32) {
-        const rand = Math.random();
-        if (rand > 0.38) {
-          if (rand > 0.82) {
-            fCtx.fillStyle = "#fff2aa"; // Warm bright incandescent light
-          } else if (rand > 0.58) {
-            fCtx.fillStyle = "#ffaa44"; // Cozy twilight amber window
-          } else {
-            fCtx.fillStyle = "#66d4ff"; // Cool interior cyan TV glow
-          }
-          fCtx.fillRect(wx + 2, wy + 2, 18, 22);
+      const segments = 28;
+      const ptsUpper = [];
+      const ptsLower = [];
 
-          // Window frame crossbars
-          fCtx.fillStyle = "rgba(30,30,30,0.45)";
-          fCtx.fillRect(wx + 10, wy + 2, 2, 22);
-          fCtx.fillRect(wx + 2, wy + 12, 18, 2);
-        } else {
-          // Closed wooden shutter
-          fCtx.fillStyle = "#4a3525";
-          fCtx.fillRect(wx + 2, wy + 4, 18, 20);
+      for (let s = 0; s <= segments; s++) {
+        const t = (s / segments) * 2 - 1; // -1 to +1
+        const x = t * archWidth;
+        const y = Math.max(0, (1 - t * t) * archHeight);
+        ptsUpper.push(new THREE.Vector3(x, y + 0.6, 0));
+        ptsLower.push(new THREE.Vector3(x, y, 0));
+      }
+
+      // Upper and lower tubular steel rails
+      for (let s = 0; s < segments; s++) {
+        const p1 = ptsUpper[s];
+        const p2 = ptsUpper[s + 1];
+        const dir = new THREE.Vector3().subVectors(p2, p1);
+        const len = dir.length();
+        const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
+
+        const railGeo = new THREE.CylinderGeometry(0.22, 0.22, len, 6);
+        const rail = new THREE.Mesh(railGeo, trussMat);
+        rail.position.copy(mid);
+        rail.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
+        archMeshGroup.add(rail);
+
+        // Lower rail
+        const lp1 = ptsLower[s];
+        const lp2 = ptsLower[s + 1];
+        const ldir = new THREE.Vector3().subVectors(lp2, lp1);
+        const llen = ldir.length();
+        const lmid = new THREE.Vector3().addVectors(lp1, lp2).multiplyScalar(0.5);
+
+        const lrailGeo = new THREE.CylinderGeometry(0.18, 0.18, llen, 6);
+        const lrail = new THREE.Mesh(lrailGeo, trussMat);
+        lrail.position.copy(lmid);
+        lrail.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), ldir.clone().normalize());
+        archMeshGroup.add(lrail);
+
+        // Neon LED runner strip along lower edge
+        const neonStrip = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, llen, 4), glowMat);
+        neonStrip.position.copy(lmid);
+        neonStrip.position.y -= 0.14;
+        neonStrip.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), ldir.clone().normalize());
+        archMeshGroup.add(neonStrip);
+
+        // Diagonal cross-truss struts
+        if (s % 2 === 0) {
+          const crossDir = new THREE.Vector3().subVectors(p2, lp1);
+          const crossLen = crossDir.length();
+          const crossMid = new THREE.Vector3().addVectors(p1, lp2).multiplyScalar(0.5);
+          const strut = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, crossLen, 4), trussMat);
+          strut.position.copy(crossMid);
+          strut.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), crossDir.clone().normalize());
+          archMeshGroup.add(strut);
         }
       }
+
+      // Arch Downward Spotlights
+      [-12, 0, 12].forEach(fx => {
+        const fy = (1 - (fx / archWidth) * (fx / archWidth)) * archHeight;
+        const spotHousing = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.6, 0.8, 8), trussMat);
+        spotHousing.position.set(fx, fy - 0.4, 0);
+        spotHousing.rotation.x = Math.PI;
+        archMeshGroup.add(spotHousing);
+
+        const bulb = new THREE.Mesh(new THREE.CircleGeometry(0.35, 8), glowMat);
+        bulb.position.set(fx, fy - 0.82, 0);
+        bulb.rotation.x = Math.PI / 2;
+        archMeshGroup.add(bulb);
+      });
+
+      superstructureGroup.add(archMeshGroup);
+    });
+
+    // 2. Floating 3D Holographic Team Goal Shields
+    function createHolographicGoalShield(isBlueSide) {
+      const shieldGroup = new THREE.Group();
+      const colHex = isBlueSide ? 0x00f0ff : 0xff6600;
+      const shieldGlowMat = new THREE.MeshBasicMaterial({
+        color: colHex,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.85
+      });
+      const solidHoloMat = new THREE.MeshBasicMaterial({
+        color: colHex,
+        transparent: true,
+        opacity: 0.35,
+        side: THREE.DoubleSide
+      });
+
+      // Outer hexagonal shield outline
+      const hexShape = new THREE.Shape();
+      for (let i = 0; i < 6; i++) {
+        const ang = (i / 6) * Math.PI * 2 + Math.PI / 6;
+        const rx = Math.cos(ang) * 3.8;
+        const ry = Math.sin(ang) * 4.4;
+        if (i === 0) hexShape.moveTo(rx, ry);
+        else hexShape.lineTo(rx, ry);
+      }
+      hexShape.closePath();
+
+      const shieldMesh = new THREE.Mesh(new THREE.ShapeGeometry(hexShape), solidHoloMat);
+      shieldGroup.add(shieldMesh);
+
+      // Rotating Energy Rings
+      const ring1 = new THREE.Mesh(new THREE.TorusGeometry(3.0, 0.08, 6, 24), shieldGlowMat);
+      shieldGroup.add(ring1);
+      shieldGroup.ring1 = ring1;
+
+      const ring2 = new THREE.Mesh(new THREE.TorusGeometry(2.1, 0.06, 6, 20), shieldGlowMat);
+      ring2.rotation.x = 0.5;
+      shieldGroup.add(ring2);
+      shieldGroup.ring2 = ring2;
+
+      // Stylized Team Insignia
+      const crestGroup = new THREE.Group();
+      [-1, 1].forEach(side => {
+        const wingGeo = new THREE.BufferGeometry();
+        const pts = new Float32Array([
+          0, 0, 0.05,
+          side * 2.6, 1.8, 0.05,
+          side * 1.8, -0.6, 0.05
+        ]);
+        wingGeo.setAttribute('position', new THREE.BufferAttribute(pts, 3));
+        const wing = new THREE.Mesh(wingGeo, shieldGlowMat);
+        crestGroup.add(wing);
+      });
+      shieldGroup.add(crestGroup);
+      shieldGroup.crest = crestGroup;
+
+      return shieldGroup;
     }
 
-    const favelaTex = new THREE.CanvasTexture(favelaCanvas);
-    favelaTex.wrapS = THREE.RepeatWrapping;
-    favelaTex.wrapT = THREE.RepeatWrapping;
+    const holoShieldBlue = createHolographicGoalShield(true);
+    holoShieldBlue.position.set(0, 11.5, -hl - 0.8);
+    superstructureGroup.add(holoShieldBlue);
 
-    // Authentic Estadio Vida Vibrant Color Palette
-    const favelaPalette = [
-      0xf5c542, // Sunny warm yellow
-      0x26a69a, // Tropical turquoise / teal
-      0xef5350, // Vibrant coral pink / red
-      0xd84315, // Terracotta / burnt orange
-      0x1e88e5, // Cobalt blue
-      0x42a5f5, // Sky blue
-      0xede7f6, // Crisp stucco cream
-      0x8e24aa, // Dusk lilac purple
-      0x7cb342  // Bright palm lime
+    const holoShieldOrange = createHolographicGoalShield(false);
+    holoShieldOrange.position.set(0, 11.5, hl + 0.8);
+    holoShieldOrange.rotation.y = Math.PI;
+    superstructureGroup.add(holoShieldOrange);
+
+    // 3. Sweeping Volumetric Stadium Searchlights
+    const stadiumSearchlights = [];
+    const searchlightCoords = [
+      { x: -hw - 12, z: -hl - 6, baseRot: Math.PI / 4 },
+      { x: hw + 12, z: -hl - 6, baseRot: -Math.PI / 4 },
+      { x: -hw - 12, z: hl + 6, baseRot: (3 * Math.PI) / 4 },
+      { x: hw + 12, z: hl + 6, baseRot: -(3 * Math.PI) / 4 }
     ];
 
-    const favelaMaterials = favelaPalette.map(col => new THREE.MeshStandardMaterial({
-      color: col,
-      map: favelaTex,
-      roughness: 0.65,
-      metalness: 0.15
-    }));
+    searchlightCoords.forEach((sc, sidx) => {
+      const slGroup = new THREE.Group();
+      slGroup.position.set(sc.x, 24, sc.z);
 
-    const stiltMat = new THREE.MeshStandardMaterial({ color: 0x3e3a36, roughness: 0.9, metalness: 0.2 });
-    const roofTinMat = new THREE.MeshStandardMaterial({ color: 0x546e7a, roughness: 0.6, metalness: 0.5 });
-    const waterTankMat = new THREE.MeshStandardMaterial({ color: 0x0277bd, roughness: 0.4, metalness: 0.3 });
-    const antennaMat = new THREE.MeshBasicMaterial({ color: 0x8899a6 });
-    const palmTrunkMat = new THREE.MeshStandardMaterial({ color: 0x5d4037, roughness: 0.9 });
-    const palmFrondMat = new THREE.MeshStandardMaterial({ color: 0x2e7d32, roughness: 0.7 });
+      const slBase = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.5, 2.0, 8), trussMat);
+      slGroup.add(slBase);
 
-    // Procedural Hillside Favela Houses stacked safely on the mountain slopes OUTSIDE the stadium (Estadio Vida 1:1 Parity)
-    // CRITICAL: Guaranteed clearance perimeter completely outside arena boundaries and stadium bleachers!
-    const favelaCount = 210;
-    const X_clear = 64.0; // Clear of sideline bleachers (which end at x = ±52)
-    const Z_clear = 78.0; // Clear of endzone bleachers and goals (which end at z = ±66)
+      const slHead = new THREE.Group();
+      slHead.position.y = 1.6;
+      slGroup.add(slHead);
 
-    for (let f = 0; f < favelaCount; f++) {
-      const angle = (f / favelaCount) * Math.PI * 2 + ((f % 7) * 0.04);
-      const tier = f % 6;
+      const barrelMat = new THREE.MeshStandardMaterial({ color: 0x111620, metalness: 0.9, roughness: 0.2 });
+      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.7, 2.2, 12), barrelMat);
+      barrel.rotation.x = Math.PI / 2;
+      slHead.add(barrel);
 
-      const bW = 8 + ((f * 13) % 9);
-      const bD = 8 + ((f * 17) % 9);
-      const bH = 6.5 + ((f * 19) % 9);
-
-      const cosA = Math.abs(Math.cos(angle));
-      const sinA = Math.abs(Math.sin(angle));
-
-      // Raycast to stadium bounding perimeter to prevent corner clipping into arena
-      const tx = (X_clear + bW * 0.6) / Math.max(0.0001, cosA);
-      const tz = (Z_clear + bD * 0.6) / Math.max(0.0001, sinA);
-      const t_base = Math.min(tx, tz);
-
-      // Concentric hillside tiers cascading up the mountainside
-      const dist = t_base + tier * 15.0 + ((f * 17) % 12);
-      const fx = Math.cos(angle) * dist;
-      const fz = Math.sin(angle) * dist;
-
-      // Natural terraced slope elevation rising above the bleacher parapet (y >= 4.5m)
-      const fy = 4.5 + tier * 5.2 + tier * tier * 1.3 + ((f * 7) % 5);
-
-      const houseGroup = new THREE.Group();
-      const houseMat = favelaMaterials[f % favelaMaterials.length];
-
-      // Concrete stilt / slope foundation
-      const foundationH = 3 + (tier * 1.4);
-      const stilt = new THREE.Mesh(new THREE.BoxGeometry(bW * 1.02, foundationH, bD * 1.02), stiltMat);
-      stilt.position.y = foundationH / 2 - foundationH;
-      houseGroup.add(stilt);
-
-      // Main vibrant colored house block
-      const houseBody = new THREE.Mesh(new THREE.BoxGeometry(bW, bH, bD), houseMat);
-      houseBody.position.y = bH / 2;
-      houseGroup.add(houseBody);
-
-      // Overhanging corrugated tin roof slab
-      const roofSlab = new THREE.Mesh(new THREE.BoxGeometry(bW + 1.2, 0.45, bD + 1.2), roofTinMat);
-      roofSlab.position.y = bH + 0.22;
-      houseGroup.add(roofSlab);
-
-      // Rooftop Blue Cylindrical Water Storage Tank (Signature favela detail)
-      if (f % 2 === 0) {
-        const tank = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 1.6, 8), waterTankMat);
-        tank.position.set((f % 3 - 1) * 2.0, bH + 1.2, (f % 2 === 0 ? 1 : -1) * 1.8);
-        houseGroup.add(tank);
-      }
-
-      // Rooftop TV Aerial / Antenna
-      if (f % 3 === 0) {
-        const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 3.8, 4), antennaMat);
-        antenna.position.set(((f + 1) % 3 - 1) * 2.2, bH + 2.3, 0);
-        houseGroup.add(antenna);
-      }
-
-      // Stacked 2nd story room for hillside tier stepped look
-      if (f % 3 === 1) {
-        const uW = bW * 0.65;
-        const uD = bD * 0.65;
-        const uH = bH * 0.75;
-        const upperMat = favelaMaterials[(f + 3) % favelaMaterials.length];
-        const upperStory = new THREE.Mesh(new THREE.BoxGeometry(uW, uH, uD), upperMat);
-        upperStory.position.set((f % 2 === 0 ? 1 : -1) * (bW * 0.15), bH + uH / 2 + 0.45, 0);
-        houseGroup.add(upperStory);
-
-        const upperRoof = new THREE.Mesh(new THREE.BoxGeometry(uW + 0.8, 0.4, uD + 0.8), roofTinMat);
-        upperRoof.position.set(upperStory.position.x, bH + uH + 0.65, 0);
-        houseGroup.add(upperRoof);
-      }
-
-      // Tropical Palm Trees nestled between houses
-      if (f % 4 === 0) {
-        const palm = new THREE.Group();
-        const trunkH = 9 + (f % 5);
-        const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.5, trunkH, 5), palmTrunkMat);
-        trunk.position.y = trunkH / 2;
-        trunk.rotation.z = (Math.random() - 0.5) * 0.2;
-        palm.add(trunk);
-
-        // Radiating palm fronds canopy
-        for (let fr = 0; fr < 6; fr++) {
-          const frondAng = (fr / 6) * Math.PI * 2;
-          const frond = new THREE.Mesh(new THREE.ConeGeometry(2.2, 0.8, 4), palmFrondMat);
-          frond.position.set(Math.cos(frondAng) * 2.0, trunkH + 0.3, Math.sin(frondAng) * 2.0);
-          frond.rotation.y = frondAng;
-          frond.rotation.z = 0.55;
-          palm.add(frond);
-        }
-        palm.position.set((Math.random() - 0.5) * 10, 0, (Math.random() - 0.5) * 10);
-        houseGroup.add(palm);
-      }
-
-      houseGroup.position.set(fx, fy, fz);
-      houseGroup.lookAt(0, fy, 0);
-      cityGroup.add(houseGroup);
-    }
-
-    // Prominent Hero Favela House on the Left Hillside (Exact match to reference photo)
-    const heroHouseGroup = new THREE.Group();
-    const heroMat = favelaMaterials[3]; // Terracotta / vibrant burnt orange
-    const hero1 = new THREE.Mesh(new THREE.BoxGeometry(14, 9, 12), heroMat);
-    hero1.position.y = 4.5;
-    heroHouseGroup.add(hero1);
-
-    const heroRoof1 = new THREE.Mesh(new THREE.BoxGeometry(15.2, 0.5, 13.2), roofTinMat);
-    heroRoof1.position.y = 9.25;
-    heroHouseGroup.add(heroRoof1);
-
-    const hero2 = new THREE.Mesh(new THREE.BoxGeometry(10, 7.5, 9), favelaMaterials[2]); // Coral pink 2nd story
-    hero2.position.set(-1.5, 13.0, 0);
-    heroHouseGroup.add(hero2);
-
-    const heroRoof2 = new THREE.Mesh(new THREE.BoxGeometry(11, 0.5, 10), roofTinMat);
-    heroRoof2.position.set(-1.5, 17.0, 0);
-    heroHouseGroup.add(heroRoof2);
-
-    const hero3 = new THREE.Mesh(new THREE.BoxGeometry(6.5, 6, 6), favelaMaterials[0]); // Sunny yellow 3rd story
-    hero3.position.set(-2.5, 20.2, 0);
-    heroHouseGroup.add(hero3);
-
-    const heroTank = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 2.0, 10), waterTankMat);
-    heroTank.position.set(2.8, 18.0, 2.0);
-    heroHouseGroup.add(heroTank);
-
-    const heroPalm = new THREE.Group();
-    const heroTrunk = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.65, 18, 6), palmTrunkMat);
-    heroTrunk.position.y = 9;
-    heroTrunk.rotation.z = -0.15;
-    heroPalm.add(heroTrunk);
-    for (let fr = 0; fr < 8; fr++) {
-      const frondAng = (fr / 8) * Math.PI * 2;
-      const frond = new THREE.Mesh(new THREE.ConeGeometry(3.2, 1.1, 4), palmFrondMat);
-      frond.position.set(Math.cos(frondAng) * 2.8, 18.2, Math.sin(frondAng) * 2.8);
-      frond.rotation.y = frondAng;
-      frond.rotation.z = 0.55;
-      heroPalm.add(frond);
-    }
-    heroPalm.position.set(9.0, 0, 4.0);
-    heroHouseGroup.add(heroPalm);
-
-    heroHouseGroup.position.set(-68.0, 5.0, -14.0);
-    heroHouseGroup.rotation.y = 0.35;
-    cityGroup.add(heroHouseGroup);
-
-    // Disable matrix auto-update on static city meshes for max FPS
-    if (typeof cityGroup.traverse === "function") {
-      cityGroup.traverse(c => {
-        if (c.isMesh) {
-          c.matrixAutoUpdate = false;
-          c.updateMatrix();
-        }
+      // Volumetric Sweeping Light Cone (Soft additive beam)
+      const beamMat = new THREE.MeshBasicMaterial({
+        color: sidx < 2 ? 0x66d4ff : 0xffaa44,
+        transparent: true,
+        opacity: 0.28,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide
       });
-    }
+      const beamGeo = new THREE.ConeGeometry(5.8, 90, 16, 1, true);
+      beamGeo.translate(0, 45, 0);
+      beamGeo.rotateX(Math.PI / 2);
+      const beam = new THREE.Mesh(beamGeo, beamMat);
+      slHead.add(beam);
 
-    scene.add(cityGroup);
+      superstructureGroup.add(slGroup);
+      stadiumSearchlights.push({ head: slHead, baseRot: sc.baseRot, phase: sidx * 1.57 });
+    });
+
+    // 4. Glowing Neon Pitch Seam Runners & Kickoff Ring
+    const pitchRunnerBlue = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonCyanMat);
+    pitchRunnerBlue.position.set(-hw, 0.10, -hl / 2);
+    superstructureGroup.add(pitchRunnerBlue);
+
+    const pitchRunnerBlueR = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonCyanMat);
+    pitchRunnerBlueR.position.set(hw, 0.10, -hl / 2);
+    superstructureGroup.add(pitchRunnerBlueR);
+
+    const pitchRunnerOrange = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonOrangeMat);
+    pitchRunnerOrange.position.set(-hw, 0.10, hl / 2);
+    superstructureGroup.add(pitchRunnerOrange);
+
+    const pitchRunnerOrangeR = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, hl), neonOrangeMat);
+    pitchRunnerOrangeR.position.set(hw, 0.10, hl / 2);
+    superstructureGroup.add(pitchRunnerOrangeR);
+
+    // Center Field Neon Kickoff Ring
+    const kickoffRingGeo = new THREE.RingGeometry(8.9, 9.2, 48);
+    const kickoffRing = new THREE.Mesh(kickoffRingGeo, new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.65
+    }));
+    kickoffRing.rotation.x = -Math.PI / 2;
+    kickoffRing.position.set(0, 0.04, 0);
+    superstructureGroup.add(kickoffRing);
+
+    scene.add(superstructureGroup);
 
     // 4. OPEN-AIR STADIUM PERIMETER & SAFETY NETTING (Estadio Vida Open Sky Parity)
     // No heavy roof arches or catwalk dome! The sky remains completely open.
@@ -4966,9 +5013,9 @@
     });
 
     /* =========================================================================
-       THE OFFICIAL TURBO STRIKE BALL & TELEMETRY GROUND INDICATOR (Diameter: 2.1m, 1:1 Scale)
+       THE OFFICIAL TURBO STRIKE BALL & TELEMETRY GROUND INDICATOR (Diameter: 2.96m, Authentic AAA Scale)
        ========================================================================= */
-    const BALL_RADIUS = 1.05; // Ball diameter: 2.1 m, Radius: 1.05 m (Authentic 1:1 Scale)
+    const BALL_RADIUS = 1.48; // Significantly bigger, chunky, easy-to-read Rocket League ball (Diameter: 2.96m)
     const ballGroup = new THREE.Group();
 
     // Procedural High-Res Rocket League Ball Texture (Carbon-Weave & Cybernetic Armor)
@@ -6769,21 +6816,577 @@
     }
 
     /* =========================================================================
-       MASTER VEHICLE FACTORY ENGINE (DISPATCHES ALL 5 ICONIC VEHICLES)
+       6. MERC / BATTLE BUS / OFF-ROAD HEAVY TRUCK (MERC HITBOX SPEC)
+       ========================================================================= */
+    function createMasterTruck(addToScene = true, isTitaniumWhite = true, teamTheme = 'blue') {
+      const car = new THREE.Group();
+      const model = new THREE.Group();
+      model.position.y = -0.50;
+      car.add(model);
+
+      const isOrangeTeam = (teamTheme === 'orange' || teamTheme === 0xff5500);
+      const primaryColor = isOrangeTeam ? 0xff4800 : 0x0052f5;
+
+      const mats = {
+        paint: new THREE.MeshStandardMaterial({ color: primaryColor, metalness: 0.55, roughness: 0.25, envMapIntensity: 2.2, side: THREE.DoubleSide }),
+        white_trim: new THREE.MeshStandardMaterial({ color: 0xf0f0f5, metalness: 0.20, roughness: 0.25, envMapIntensity: 2.0, side: THREE.DoubleSide }),
+        racing_stripe: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.10, roughness: 0.15, envMapIntensity: 2.2, side: THREE.DoubleSide }),
+        glass: new THREE.MeshStandardMaterial({ color: 0x0a1018, roughness: 0.05, metalness: 0.95, envMapIntensity: 3.5, side: THREE.DoubleSide }),
+        carbon: new THREE.MeshStandardMaterial({ color: 0x14161c, roughness: 0.55, metalness: 0.40 }),
+        chassis: new THREE.MeshStandardMaterial({ color: 0x181a22, roughness: 0.45, metalness: 0.85 }),
+        chrome: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.02, envMapIntensity: 3.5 }),
+        steel_plate: new THREE.MeshStandardMaterial({ color: 0x3a424d, metalness: 0.8, roughness: 0.4 }),
+        headlight: new THREE.MeshBasicMaterial({ color: 0xffffff }),
+        taillight: new THREE.MeshBasicMaterial({ color: 0xff1020 }),
+        amber: new THREE.MeshBasicMaterial({ color: 0xffaa00 })
+      };
+
+      car.paintMat = mats.paint;
+      car.secondaryMat = mats.racing_stripe;
+
+      const addMesh = (geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => {
+        const m = new THREE.Mesh(geo, mat);
+        m.position.set(x, y, z);
+        if (rx || ry || rz) m.rotation.set(rx, ry, rz);
+        m.castShadow = true;
+        m.receiveShadow = true;
+        model.add(m);
+        return m;
+      };
+
+      // 1. Lifted Heavy Ladder Frame Chassis & Skid Plate
+      addMesh(new THREE.BoxGeometry(1.42, 0.16, 3.40), mats.chassis, 0, 0.22, 0);
+      addMesh(new THREE.BoxGeometry(1.20, 0.08, 0.65), mats.steel_plate, 0, 0.20, 1.60, 0.22, 0, 0);
+
+      // 2. High-Roof Boxy Cab & Cargo Body
+      addMesh(new THREE.BoxGeometry(1.46, 0.62, 1.85), mats.paint, 0, 0.62, -0.65);
+      addMesh(new THREE.BoxGeometry(1.42, 0.56, 1.30), mats.paint, 0, 0.58, 0.80);
+      addMesh(new THREE.BoxGeometry(1.36, 0.30, 0.90), mats.paint, 0, 0.52, 1.35, -0.06, 0, 0);
+
+      // Dual Center Racing Stripes
+      [-0.14, 0.14].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.08, 0.02, 0.92), mats.racing_stripe, sx, 0.68, 1.35, -0.06, 0, 0);
+        addMesh(new THREE.BoxGeometry(0.08, 0.02, 1.88), mats.racing_stripe, sx, 0.94, -0.65);
+      });
+
+      // 3. Upright Windshield & Windows
+      addMesh(new THREE.BoxGeometry(1.32, 0.44, 0.06), mats.glass, 0, 0.74, 0.88, 0.32, 0, 0);
+      [-0.72, 0.72].forEach(wx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.38, 1.70), mats.glass, wx, 0.72, -0.60);
+      });
+      addMesh(new THREE.BoxGeometry(1.32, 0.42, 0.04), mats.glass, 0, 0.72, -1.56);
+
+      // Roof Clearance Lights
+      for (let i = -2; i <= 2; i++) {
+        addMesh(new THREE.BoxGeometry(0.08, 0.04, 0.08), mats.amber, i * 0.22, 0.95, 0.74);
+      }
+
+      // 4. Front Billet Grille & Headlights
+      addMesh(new THREE.BoxGeometry(1.24, 0.28, 0.08), mats.chrome, 0, 0.46, 1.80);
+      [-0.52, 0.52].forEach(hx => {
+        addMesh(new THREE.BoxGeometry(0.18, 0.14, 0.06), mats.headlight, hx, 0.48, 1.82);
+        addMesh(new THREE.BoxGeometry(0.14, 0.08, 0.06), mats.headlight, hx * 0.65, 0.48, 1.82);
+      });
+
+      // Heavy Front Steel Bullbar
+      addMesh(new THREE.BoxGeometry(1.50, 0.18, 0.14), mats.steel_plate, 0, 0.34, 1.88);
+      [-0.45, 0.45].forEach(bx => {
+        addMesh(new THREE.CylinderGeometry(0.05, 0.05, 0.42, 6), mats.steel_plate, bx, 0.50, 1.88);
+      });
+
+      // 5. Heavy Duty Over-Fender Flares
+      [-0.74, 0.74].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.16, 0.28, 0.90), mats.carbon, sx, 0.40, 1.05);
+        addMesh(new THREE.BoxGeometry(0.16, 0.32, 0.94), mats.carbon, sx, 0.42, -1.05);
+      });
+
+      // 6. Rear Vertical Taillights & Heavy Steel Bumper
+      [-0.64, 0.64].forEach(tx => {
+        addMesh(new THREE.BoxGeometry(0.08, 0.34, 0.04), mats.taillight, tx, 0.56, -1.58);
+      });
+      addMesh(new THREE.BoxGeometry(1.52, 0.16, 0.12), mats.steel_plate, 0, 0.28, -1.62);
+
+      // 7. Beadlock Wheels
+      car.wheelMeshes = [];
+      car.wheelSteerPivots = [];
+      const wheelRadius = 0.40;
+      const wheelWidth = 0.36;
+      const wheelRimGeo = new THREE.CylinderGeometry(wheelRadius, wheelRadius, wheelWidth, 18);
+      const tireRubberMat = new THREE.MeshStandardMaterial({ color: 0x121418, roughness: 0.90, metalness: 0.10 });
+      const rimForgedMat = new THREE.MeshStandardMaterial({ color: 0x333b45, metalness: 0.85, roughness: 0.25 });
+
+      const wheelPositions = [
+        { x: -0.76, y: 0.36, z: 1.05, isFront: true },
+        { x: 0.76,  y: 0.36, z: 1.05, isFront: true },
+        { x: -0.76, y: 0.36, z: -1.05, isFront: false },
+        { x: 0.76,  y: 0.36, z: -1.05, isFront: false }
+      ];
+
+      wheelPositions.forEach(wp => {
+        const pivot = new THREE.Group();
+        pivot.position.set(wp.x, wp.y, wp.z);
+        model.add(pivot);
+
+        const wGroup = new THREE.Group();
+        pivot.add(wGroup);
+
+        const tire = new THREE.Mesh(wheelRimGeo, tireRubberMat);
+        tire.rotation.z = Math.PI / 2;
+        tire.castShadow = true;
+        wGroup.add(tire);
+
+        const rim = new THREE.Mesh(new THREE.CylinderGeometry(wheelRadius * 0.70, wheelRadius * 0.70, wheelWidth * 1.02, 12), rimForgedMat);
+        rim.rotation.z = Math.PI / 2;
+        wGroup.add(rim);
+
+        car.wheelMeshes.push(wGroup);
+        if (wp.isFront) car.wheelSteerPivots.push(pivot);
+      });
+
+      // Rocket Thruster & Boost Lights
+      const thruster = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.26, 0.45, 12), mats.chrome);
+      thruster.position.set(0, 0.38, -1.68);
+      thruster.rotation.x = Math.PI / 2;
+      model.add(thruster);
+
+      const flame = new THREE.Mesh(new THREE.ConeGeometry(0.24, 1.2, 8), new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.0 }));
+      flame.position.set(0, 0.38, -2.25);
+      flame.rotation.x = -Math.PI / 2;
+      model.add(flame);
+      car.flame = flame;
+
+      const boostLight = new THREE.PointLight(0x00f0ff, 0, 8);
+      boostLight.position.set(0, 0.38, -1.9);
+      model.add(boostLight);
+      car.boostLight = boostLight;
+
+      const underglow = new THREE.PointLight(primaryColor, 0.4, 4);
+      underglow.position.set(0, 0.15, 0);
+      model.add(underglow);
+      car.underglow = underglow;
+
+      car.model = model;
+      car.bodyId = 'truck';
+      if (addToScene) scene.add(car);
+      return car;
+    }
+
+    /* =========================================================================
+       7. FORMULA MONOPOSTO / INDY SPEEDSTER (BREAKOUT HITBOX SPEC)
+       ========================================================================= */
+    function createMasterFormula(addToScene = true, isTitaniumWhite = true, teamTheme = 'blue') {
+      const car = new THREE.Group();
+      const model = new THREE.Group();
+      model.position.y = -0.50;
+      car.add(model);
+
+      const isOrangeTeam = (teamTheme === 'orange' || teamTheme === 0xff5500);
+      const primaryColor = isOrangeTeam ? 0xff4800 : 0x0052f5;
+
+      const mats = {
+        paint: new THREE.MeshStandardMaterial({ color: primaryColor, metalness: 0.75, roughness: 0.14, envMapIntensity: 2.6, side: THREE.DoubleSide }),
+        white_trim: new THREE.MeshStandardMaterial({ color: 0xf5f5fa, metalness: 0.22, roughness: 0.20, envMapIntensity: 2.2, side: THREE.DoubleSide }),
+        racing_stripe: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.10, roughness: 0.12, envMapIntensity: 2.4, side: THREE.DoubleSide }),
+        glass: new THREE.MeshStandardMaterial({ color: 0x050a12, roughness: 0.02, metalness: 0.98, envMapIntensity: 3.5, side: THREE.DoubleSide }),
+        carbon: new THREE.MeshStandardMaterial({ color: 0x101216, roughness: 0.45, metalness: 0.55 }),
+        chassis: new THREE.MeshStandardMaterial({ color: 0x14161e, roughness: 0.35, metalness: 0.90 }),
+        chrome: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.02, envMapIntensity: 3.5 })
+      };
+
+      car.paintMat = mats.paint;
+      car.secondaryMat = mats.racing_stripe;
+
+      const addMesh = (geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => {
+        const m = new THREE.Mesh(geo, mat);
+        m.position.set(x, y, z);
+        if (rx || ry || rz) m.rotation.set(rx, ry, rz);
+        m.castShadow = true;
+        m.receiveShadow = true;
+        model.add(m);
+        return m;
+      };
+
+      // 1. Monocoque & Floor
+      addMesh(new THREE.BoxGeometry(1.36, 0.06, 3.60), mats.carbon, 0, 0.12, 0);
+
+      // 2. Needle Nose Cone
+      addMesh(new THREE.ConeGeometry(0.38, 1.8, 6), mats.paint, 0, 0.28, 1.15, Math.PI / 2, 0, 0);
+      addMesh(new THREE.BoxGeometry(0.48, 0.26, 1.20), mats.paint, 0, 0.32, 0.45);
+
+      // Cockpit & Halo
+      addMesh(new THREE.BoxGeometry(0.42, 0.22, 0.65), mats.glass, 0, 0.44, -0.05);
+      addMesh(new THREE.TorusGeometry(0.24, 0.035, 6, 14, Math.PI), mats.chrome, 0, 0.54, 0.08, -Math.PI / 2, 0, 0);
+      addMesh(new THREE.CylinderGeometry(0.03, 0.03, 0.20, 6), mats.chrome, 0, 0.46, 0.26);
+
+      // Engine Air Induction Box
+      addMesh(new THREE.BoxGeometry(0.28, 0.24, 0.70), mats.paint, 0, 0.58, -0.55, 0.12, 0, 0);
+
+      // 3. Sidepods
+      [-0.48, 0.48].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.38, 0.28, 1.45), mats.paint, sx, 0.28, -0.30);
+        addMesh(new THREE.BoxGeometry(0.32, 0.20, 0.08), mats.carbon, sx, 0.28, 0.44);
+        addMesh(new THREE.BoxGeometry(0.04, 0.02, 1.40), mats.racing_stripe, sx, 0.43, -0.30);
+      });
+
+      // 4. Front Multi-Tier F1 Wing
+      addMesh(new THREE.BoxGeometry(1.68, 0.04, 0.34), mats.carbon, 0, 0.14, 1.85);
+      addMesh(new THREE.BoxGeometry(1.56, 0.03, 0.26), mats.paint, 0, 0.20, 1.82);
+      [-0.84, 0.84].forEach(ex => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.20, 0.42), mats.paint, ex, 0.22, 1.84);
+      });
+
+      // 5. Rear Wing
+      [-0.28, 0.28].forEach(sx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.52, 0.24), mats.carbon, sx, 0.56, -1.52, -0.15, 0, 0);
+      });
+      addMesh(new THREE.BoxGeometry(1.58, 0.05, 0.38), mats.paint, 0, 0.82, -1.58, -0.12, 0, 0);
+      addMesh(new THREE.BoxGeometry(1.52, 0.04, 0.28), mats.carbon, 0, 0.74, -1.56, -0.12, 0, 0);
+      [-0.80, 0.80].forEach(ex => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.38, 0.50), mats.paint, ex, 0.76, -1.58);
+      });
+
+      // 6. Formula Wheels & Wishbones
+      car.wheelMeshes = [];
+      car.wheelSteerPivots = [];
+      const tireRubberMat = new THREE.MeshStandardMaterial({ color: 0x14161a, roughness: 0.80, metalness: 0.15 });
+      const f1RimMat = new THREE.MeshStandardMaterial({ color: 0x0a0c10, metalness: 0.95, roughness: 0.15 });
+
+      const f1WheelPositions = [
+        { x: -0.74, y: 0.28, z: 1.12, r: 0.30, w: 0.28, isFront: true },
+        { x: 0.74,  y: 0.28, z: 1.12, r: 0.30, w: 0.28, isFront: true },
+        { x: -0.78, y: 0.32, z: -1.08, r: 0.34, w: 0.38, isFront: false },
+        { x: 0.78,  y: 0.32, z: -1.08, r: 0.34, w: 0.38, isFront: false }
+      ];
+
+      f1WheelPositions.forEach(wp => {
+        const armGeo = new THREE.CylinderGeometry(0.02, 0.02, 0.40, 4);
+        const arm1 = new THREE.Mesh(armGeo, mats.carbon);
+        arm1.position.set(wp.x * 0.55, wp.y + 0.04, wp.z);
+        arm1.rotation.z = wp.x > 0 ? 0.35 : -0.35;
+        model.add(arm1);
+
+        const pivot = new THREE.Group();
+        pivot.position.set(wp.x, wp.y, wp.z);
+        model.add(pivot);
+
+        const wGroup = new THREE.Group();
+        pivot.add(wGroup);
+
+        const tireGeo = new THREE.CylinderGeometry(wp.r, wp.r, wp.w, 20);
+        const tire = new THREE.Mesh(tireGeo, tireRubberMat);
+        tire.rotation.z = Math.PI / 2;
+        tire.castShadow = true;
+        wGroup.add(tire);
+
+        const rimGeo = new THREE.CylinderGeometry(wp.r * 0.65, wp.r * 0.65, wp.w * 1.02, 12);
+        const rim = new THREE.Mesh(rimGeo, f1RimMat);
+        rim.rotation.z = Math.PI / 2;
+        wGroup.add(rim);
+
+        car.wheelMeshes.push(wGroup);
+        if (wp.isFront) car.wheelSteerPivots.push(pivot);
+      });
+
+      // Rocket Thruster & Boost Light
+      const thruster = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.22, 0.42, 12), mats.chrome);
+      thruster.position.set(0, 0.32, -1.65);
+      thruster.rotation.x = Math.PI / 2;
+      model.add(thruster);
+
+      const flame = new THREE.Mesh(new THREE.ConeGeometry(0.20, 1.2, 8), new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.0 }));
+      flame.position.set(0, 0.32, -2.25);
+      flame.rotation.x = -Math.PI / 2;
+      model.add(flame);
+      car.flame = flame;
+
+      const boostLight = new THREE.PointLight(0x00f0ff, 0, 8);
+      boostLight.position.set(0, 0.32, -1.85);
+      model.add(boostLight);
+      car.boostLight = boostLight;
+
+      const underglow = new THREE.PointLight(primaryColor, 0.4, 4);
+      underglow.position.set(0, 0.12, 0);
+      model.add(underglow);
+      car.underglow = underglow;
+
+      car.model = model;
+      car.bodyId = 'formula';
+      if (addToScene) scene.add(car);
+      return car;
+    }
+
+    /* =========================================================================
+       8. CHOPPED RETRO HOTROD & DRAGSTER (OCTANE / DOMINUS HYBRID HITBOX SPEC)
+       ========================================================================= */
+    function createMasterHotrod(addToScene = true, isTitaniumWhite = true, teamTheme = 'blue') {
+      const car = new THREE.Group();
+      const model = new THREE.Group();
+      model.position.y = -0.50;
+      car.add(model);
+
+      const isOrangeTeam = (teamTheme === 'orange' || teamTheme === 0xff5500);
+      const primaryColor = isOrangeTeam ? 0xff4800 : 0x0052f5;
+
+      const mats = {
+        paint: new THREE.MeshStandardMaterial({ color: primaryColor, metalness: 0.70, roughness: 0.18, envMapIntensity: 2.5, side: THREE.DoubleSide }),
+        white_trim: new THREE.MeshStandardMaterial({ color: 0xf5f5fa, metalness: 0.22, roughness: 0.20, envMapIntensity: 2.2, side: THREE.DoubleSide }),
+        racing_stripe: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.10, roughness: 0.12, envMapIntensity: 2.4, side: THREE.DoubleSide }),
+        glass: new THREE.MeshStandardMaterial({ color: 0x080c14, roughness: 0.04, metalness: 0.95, envMapIntensity: 3.5, side: THREE.DoubleSide }),
+        carbon: new THREE.MeshStandardMaterial({ color: 0x12141a, roughness: 0.50, metalness: 0.45 }),
+        chassis: new THREE.MeshStandardMaterial({ color: 0x161820, roughness: 0.40, metalness: 0.85 }),
+        chrome: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.02, envMapIntensity: 3.8 }),
+        engine_cast: new THREE.MeshStandardMaterial({ color: 0x4a525d, metalness: 0.9, roughness: 0.35 }),
+        headlight: new THREE.MeshBasicMaterial({ color: 0xffffff }),
+        taillight: new THREE.MeshBasicMaterial({ color: 0xff1020 })
+      };
+
+      car.paintMat = mats.paint;
+      car.secondaryMat = mats.racing_stripe;
+
+      const addMesh = (geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => {
+        const m = new THREE.Mesh(geo, mat);
+        m.position.set(x, y, z);
+        if (rx || ry || rz) m.rotation.set(rx, ry, rz);
+        m.castShadow = true;
+        m.receiveShadow = true;
+        model.add(m);
+        return m;
+      };
+
+      // 1. Frame
+      addMesh(new THREE.BoxGeometry(0.85, 0.14, 3.45), mats.chassis, 0, 0.18, 0);
+
+      // 2. Cabin
+      addMesh(new THREE.BoxGeometry(1.24, 0.40, 1.30), mats.paint, 0, 0.48, -0.65);
+      addMesh(new THREE.BoxGeometry(1.08, 0.30, 0.95), mats.paint, 0, 0.72, -0.70);
+      addMesh(new THREE.BoxGeometry(0.96, 0.22, 0.04), mats.glass, 0, 0.72, -0.22, 0.38, 0, 0);
+      [-0.55, 0.55].forEach(wx => {
+        addMesh(new THREE.BoxGeometry(0.04, 0.20, 0.80), mats.glass, wx, 0.72, -0.70);
+      });
+      addMesh(new THREE.BoxGeometry(0.96, 0.18, 0.04), mats.glass, 0, 0.70, -1.18);
+
+      // 3. Exposed Big Block V8 Engine
+      addMesh(new THREE.BoxGeometry(0.72, 0.45, 0.95), mats.engine_cast, 0, 0.44, 0.45);
+      [-0.32, 0.32].forEach(vx => {
+        addMesh(new THREE.BoxGeometry(0.20, 0.12, 0.85), mats.chrome, vx, 0.58, 0.45, 0, 0, vx > 0 ? 0.35 : -0.35);
+      });
+      for (let s = 0; s < 4; s++) {
+        const sz = 0.15 + s * 0.20;
+        [-0.14, 0.14].forEach(sx => {
+          addMesh(new THREE.CylinderGeometry(0.045, 0.03, 0.25, 8), mats.chrome, sx, 0.74, sz);
+        });
+      }
+      addMesh(new THREE.BoxGeometry(0.36, 0.14, 0.45), mats.chrome, 0, 0.84, 0.45);
+      addMesh(new THREE.BoxGeometry(0.32, 0.08, 0.04), new THREE.MeshBasicMaterial({ color: 0xff1020 }), 0, 0.84, 0.68);
+
+      // 4. Zoomie Header Pipes
+      [-0.42, 0.42].forEach(ex => {
+        const sign = ex > 0 ? 1 : -1;
+        for (let p = 0; p < 4; p++) {
+          const pz = 0.20 + p * 0.18;
+          addMesh(new THREE.CylinderGeometry(0.04, 0.04, 0.45, 6), mats.chrome, ex, 0.42, pz, 0.45, 0, sign * 0.55);
+        }
+      });
+
+      // 5. Radiator Shell
+      addMesh(new THREE.BoxGeometry(0.68, 0.56, 0.20), mats.chrome, 0, 0.46, 1.45);
+      addMesh(new THREE.BoxGeometry(0.56, 0.46, 0.04), mats.carbon, 0, 0.46, 1.56);
+      [-0.45, 0.45].forEach(hx => {
+        addMesh(new THREE.SphereGeometry(0.14, 8, 8), mats.chrome, hx, 0.44, 1.40);
+        addMesh(new THREE.CircleGeometry(0.12, 8), mats.headlight, hx, 0.44, 1.54);
+      });
+
+      // 6. Wheels
+      car.wheelMeshes = [];
+      car.wheelSteerPivots = [];
+      const tireRubberMat = new THREE.MeshStandardMaterial({ color: 0x14161a, roughness: 0.85, metalness: 0.15 });
+
+      const hotrodWheels = [
+        { x: -0.72, y: 0.28, z: 1.45, r: 0.28, w: 0.18, isFront: true },
+        { x: 0.72,  y: 0.28, z: 1.45, r: 0.28, w: 0.18, isFront: true },
+        { x: -0.80, y: 0.42, z: -1.05, r: 0.44, w: 0.44, isFront: false },
+        { x: 0.80,  y: 0.42, z: -1.05, r: 0.44, w: 0.44, isFront: false }
+      ];
+
+      hotrodWheels.forEach(wp => {
+        const pivot = new THREE.Group();
+        pivot.position.set(wp.x, wp.y, wp.z);
+        model.add(pivot);
+
+        const wGroup = new THREE.Group();
+        pivot.add(wGroup);
+
+        const tireGeo = new THREE.CylinderGeometry(wp.r, wp.r, wp.w, 18);
+        const tire = new THREE.Mesh(tireGeo, tireRubberMat);
+        tire.rotation.z = Math.PI / 2;
+        tire.castShadow = true;
+        wGroup.add(tire);
+
+        const rimGeo = new THREE.CylinderGeometry(wp.r * 0.70, wp.r * 0.70, wp.w * 1.02, 10);
+        const rim = new THREE.Mesh(rimGeo, mats.chrome);
+        rim.rotation.z = Math.PI / 2;
+        wGroup.add(rim);
+
+        car.wheelMeshes.push(wGroup);
+        if (wp.isFront) car.wheelSteerPivots.push(pivot);
+      });
+
+      // Rocket Thruster & Boost Light
+      const thruster = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.26, 0.45, 12), mats.chrome);
+      thruster.position.set(0, 0.42, -1.45);
+      thruster.rotation.x = Math.PI / 2;
+      model.add(thruster);
+
+      const flame = new THREE.Mesh(new THREE.ConeGeometry(0.22, 1.2, 8), new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.0 }));
+      flame.position.set(0, 0.42, -2.10);
+      flame.rotation.x = -Math.PI / 2;
+      model.add(flame);
+      car.flame = flame;
+
+      const boostLight = new THREE.PointLight(0x00f0ff, 0, 8);
+      boostLight.position.set(0, 0.42, -1.70);
+      model.add(boostLight);
+      car.boostLight = boostLight;
+
+      const underglow = new THREE.PointLight(primaryColor, 0.4, 4);
+      underglow.position.set(0, 0.15, 0);
+      model.add(underglow);
+      car.underglow = underglow;
+
+      car.model = model;
+      car.bodyId = 'hotrod';
+      if (addToScene) scene.add(car);
+      return car;
+    }
+
+    /* =========================================================================
+       MASTER VEHICLE FACTORY ENGINE (DISPATCHES ALL 100 UNIQUE CAR MODELS)
        ========================================================================= */
     function createVehicleMesh(bodyId = 'octane', addToScene = true, isTitaniumWhite = true, teamTheme = 'blue') {
-      const b = (bodyId || '').toLowerCase();
-      if (b === 'dominus' || b === 'viper') {
-        return createMasterDominus(addToScene, isTitaniumWhite, teamTheme);
-      } else if (b === 'fennec' || b === 'titan') {
-        return createMasterFennec(addToScene, isTitaniumWhite, teamTheme);
-      } else if (b === 'breakout' || b === 'specter') {
-        return createMasterBreakout(addToScene, isTitaniumWhite, teamTheme);
-      } else if (b === 'takumi' || b === 'phantom') {
-        return createMasterTakumi(addToScene, isTitaniumWhite, teamTheme);
-      } else {
-        return createMasterOctane(addToScene, isTitaniumWhite, teamTheme);
+      const b = (bodyId || 'octane').toLowerCase();
+      let preset = null;
+      if (typeof garageCatalog !== 'undefined' && garageCatalog.body) {
+        preset = garageCatalog.body.find(item => item.id.toLowerCase() === b);
       }
+      if (!preset) {
+        preset = {
+          id: b,
+          name: b.toUpperCase(),
+          archetype: b.includes('dominus') ? 'dominus' :
+                     b.includes('fennec') ? 'fennec' :
+                     b.includes('breakout') ? 'breakout' :
+                     b.includes('takumi') ? 'takumi' :
+                     b.includes('truck') || b.includes('bus') || b.includes('merc') ? 'truck' :
+                     b.includes('formula') || b.includes('centio') ? 'formula' :
+                     b.includes('rod') || b.includes('bone') ? 'hotrod' : 'octane',
+          scale: [1, 1, 1],
+          wing: 'gt',
+          intake: 'clean',
+          front: 'stealth',
+          exhaust: 'cannons'
+        };
+      }
+
+      let car;
+      const arch = preset.archetype || 'octane';
+      if (arch === 'dominus') {
+        car = createMasterDominus(addToScene, isTitaniumWhite, teamTheme);
+      } else if (arch === 'fennec') {
+        car = createMasterFennec(addToScene, isTitaniumWhite, teamTheme);
+      } else if (arch === 'breakout') {
+        car = createMasterBreakout(addToScene, isTitaniumWhite, teamTheme);
+      } else if (arch === 'takumi') {
+        car = createMasterTakumi(addToScene, isTitaniumWhite, teamTheme);
+      } else if (arch === 'truck') {
+        car = createMasterTruck(addToScene, isTitaniumWhite, teamTheme);
+      } else if (arch === 'formula') {
+        car = createMasterFormula(addToScene, isTitaniumWhite, teamTheme);
+      } else if (arch === 'hotrod') {
+        car = createMasterHotrod(addToScene, isTitaniumWhite, teamTheme);
+      } else {
+        car = createMasterOctane(addToScene, isTitaniumWhite, teamTheme);
+      }
+
+      // Apply tailored silhouette scale vector
+      if (preset.scale && car.model) {
+        car.model.scale.set(preset.scale[0], preset.scale[1], preset.scale[2]);
+      }
+
+      // Bespoke procedural aero & mechanical attachments
+      if (car.model) {
+        const carbonMat = new THREE.MeshStandardMaterial({ color: 0x12141a, roughness: 0.5, metalness: 0.45 });
+        const chromeMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.02 });
+        const redMat = new THREE.MeshBasicMaterial({ color: 0xff1525 });
+
+        // Custom Wing attachments
+        if (preset.wing === 'whale') {
+          const wWing = new THREE.Mesh(new THREE.BoxGeometry(1.65, 0.05, 0.42), carbonMat);
+          wWing.position.set(0, 0.88, -1.65);
+          wWing.rotation.x = -0.18;
+          car.model.add(wWing);
+        } else if (preset.wing === 'ducktail') {
+          const dWing = new THREE.Mesh(new THREE.BoxGeometry(1.35, 0.08, 0.16), carbonMat);
+          dWing.position.set(0, 0.65, -1.60);
+          dWing.rotation.x = 0.35;
+          car.model.add(dWing);
+        } else if (preset.wing === 'shark') {
+          const sFin = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.32, 0.85), carbonMat);
+          sFin.position.set(0, 0.85, -0.65);
+          sFin.rotation.x = 0.22;
+          car.model.add(sFin);
+        } else if (preset.wing === 'active') {
+          [-0.45, 0.45].forEach(ax => {
+            const aWing = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.04, 0.32), carbonMat);
+            aWing.position.set(ax, 0.76, -1.55);
+            aWing.rotation.x = -0.15;
+            car.model.add(aWing);
+          });
+        }
+
+        // Custom Intake attachments
+        if (preset.intake === 'blower') {
+          const blower = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.16, 0.42), chromeMat);
+          blower.position.set(0, 0.68, 0.65);
+          car.model.add(blower);
+          const valves = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.08, 0.04), redMat);
+          valves.position.set(0, 0.68, 0.88);
+          car.model.add(valves);
+        } else if (preset.intake === 'snorkel') {
+          const snorkel = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.75, 6), carbonMat);
+          snorkel.position.set(0.60, 0.80, 0.30);
+          snorkel.rotation.x = -0.25;
+          car.model.add(snorkel);
+        } else if (preset.intake === 'turbo') {
+          [-0.32, 0.32].forEach(tx => {
+            const turbo = new THREE.Mesh(new THREE.CylinderGeometry(0.10, 0.12, 0.14, 8), chromeMat);
+            turbo.position.set(tx, 0.60, 0.75);
+            turbo.rotation.z = Math.PI / 2;
+            car.model.add(turbo);
+          });
+        }
+
+        // Custom Front Aero attachments
+        if (preset.front === 'bullbar') {
+          const bb = new THREE.Mesh(new THREE.BoxGeometry(1.52, 0.16, 0.14), carbonMat);
+          bb.position.set(0, 0.35, 1.82);
+          car.model.add(bb);
+        } else if (preset.front === 'wedge') {
+          const wedge = new THREE.Mesh(new THREE.BoxGeometry(1.60, 0.04, 0.36), carbonMat);
+          wedge.position.set(0, 0.14, 1.76);
+          car.model.add(wedge);
+        } else if (preset.front === 'drift') {
+          [-0.72, 0.72].forEach(cx => {
+            const canard = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.03, 0.22), carbonMat);
+            canard.position.set(cx, 0.32, 1.55);
+            canard.rotation.z = cx > 0 ? 0.25 : -0.25;
+            car.model.add(canard);
+          });
+        }
+      }
+
+      car.carPreset = preset;
+      car.bodyId = preset.id;
+      return car;
     }
 
     let playerCarMesh = createVehicleMesh(equippedLoadout.body || 'octane');
@@ -7560,7 +8163,7 @@
     let mutatorCarCollision = 'solid';
     let mutatorBoost = 'standard';
     let mutatorGravity = 22.0;
-    let mutatorBounciness = 0.76;
+    let mutatorBounciness = 0.48; // Significantly lower authentic Rocket League bounce
     let mutatorBallScale = 1.0;
 
     function setMutatorCollision(val) {
@@ -7581,9 +8184,9 @@
       showStatBadge(`GRAVITY: ${val.toUpperCase()}`, 0, '🌕');
     }
     function setMutatorBounciness(val) {
-      if (val === 'super') mutatorBounciness = 0.95;
-      else if (val === 'low') mutatorBounciness = 0.50;
-      else mutatorBounciness = 0.76;
+      if (val === 'super') mutatorBounciness = 0.85;
+      else if (val === 'low') mutatorBounciness = 0.32;
+      else mutatorBounciness = 0.48;
       showStatBadge(`BOUNCINESS: ${val.toUpperCase()}`, 0, '🤾');
     }
     function setMutatorSize(val) {
@@ -8568,12 +9171,1907 @@
     // 7-Category Original Fictional Customization Database
     const garageCatalog = {
       body: [
-        { id: 'octane', name: 'Apex Championship Octane', icon: '⚡', desc: '1:1 Blueprint Edition: Cobalt Blue Metallic, Dual White Racing Stripes, Titanium White Trim, Exposed V8 Engine', color: '#0052f5', class: 'OCTANE', badge: '1:1 BLUEPRINT' },
-        { id: 'dominus', name: 'Dominus Viper GT', icon: '🏎️', desc: 'Muscular American Muscle: Low Rake, Chrome Blower Scoop, Dual Side Exhausts, Ducktail Lip Spoiler', color: '#ff4800', class: 'DOMINUS', badge: 'MUSCLE GT' },
-        { id: 'fennec', name: 'Fennec Titan', icon: '🚙', desc: 'Heavyweight Rally Hatchback: Boxy Stance, Heavy Front Bullbar, Roof Spoiler, Rugged Armor Panels', color: '#00e5ff', class: 'OCTANE', badge: 'RALLY STRIKER' },
-        { id: 'breakout', name: 'Breakout Specter RS', icon: '🚀', desc: 'Exotic Wedge Hypercar: Knife-Edge Nose, Jet Bubble Canopy, Twin Active Aero Wings, Scissor Stance', color: '#ff1a35', class: 'BREAKOUT', badge: 'HYPERCAR' },
-        { id: 'takumi', name: 'Takumi Ion Phantom', icon: '🔰', desc: 'Cyberpunk JDM Interceptor: Faceted Stealth Nose, Drift Over-Fenders, Dual-Deck Wing, Chrome Cannons', color: '#8e24aa', class: 'HYBRID', badge: 'CYBER TUNER' }
-      ],
+        {
+                "id": "octane",
+                "name": "Apex Championship Octane",
+                "class": "OCTANE",
+                "badge": "1:1 BLUEPRINT",
+                "desc": "1:1 Blueprint Edition: Cobalt Blue Metallic, Dual White Stripes, Exposed V8 Engine, GT Wing",
+                "color": "#0052f5",
+                "icon": "\u26a1",
+                "archetype": "octane",
+                "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                ],
+                "wing": "gt",
+                "intake": "v8",
+                "front": "formula",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "octane_zsr",
+                "name": "Octane ZSR",
+                "class": "OCTANE",
+                "badge": "CARBON SPEC",
+                "desc": "Reinforced Carbon Rollcage, Dual Roof Snorkels, Widened Striker Stance, Quad Exhausts",
+                "color": "#0088ff",
+                "icon": "\u26a1",
+                "archetype": "octane",
+                "scale": [
+                        1.02,
+                        1.05,
+                        1.02
+                ],
+                "wing": "gt",
+                "intake": "snorkel",
+                "front": "formula",
+                "exhaust": "quad"
+        },
+        {
+                "id": "fennec",
+                "name": "Fennec Titan",
+                "class": "OCTANE",
+                "badge": "RALLY STRIKER",
+                "desc": "Heavyweight Rally Hatchback: Boxy Stance, Heavy Front Bullbar, Roof Spoiler",
+                "color": "#00e5ff",
+                "icon": "\ud83d\ude99",
+                "archetype": "fennec",
+                "scale": [
+                        0.96,
+                        1.04,
+                        1.06
+                ],
+                "wing": "rally",
+                "intake": "clean",
+                "front": "bullbar",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "dingo",
+                "name": "Dingo Street RS",
+                "class": "OCTANE",
+                "badge": "JDM RALLY",
+                "desc": "Retro Japanese Rally Coupe, Quad Projector Headlamps, Boxed Over-Fenders, Ducktail",
+                "color": "#ffaa00",
+                "icon": "\ud83d\udd30",
+                "archetype": "fennec",
+                "scale": [
+                        0.98,
+                        1.02,
+                        1.02
+                ],
+                "wing": "ducktail",
+                "intake": "scoop",
+                "front": "drift",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "jackal",
+                "name": "Jackal Hatchback",
+                "class": "OCTANE",
+                "badge": "AERO HATCH",
+                "desc": "Compact Aggressive Rally Striker, Front Carbon Splitter, Rear Diffuser",
+                "color": "#00ff88",
+                "icon": "\ud83c\udfce\ufe0f",
+                "archetype": "fennec",
+                "scale": [
+                        0.95,
+                        1.03,
+                        1.04
+                ],
+                "wing": "rally",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "mudcat",
+                "name": "Mudcat GXT",
+                "class": "OCTANE",
+                "badge": "DIRT WARRIOR",
+                "desc": "Widebody Dirt Rally Warrior, Roof LED Lightbar, Massive Air Extractor, GT Wing",
+                "color": "#ff6600",
+                "icon": "\ud83d\udd25",
+                "archetype": "fennec",
+                "scale": [
+                        1.02,
+                        1.08,
+                        1.08
+                ],
+                "wing": "gt",
+                "intake": "scoop",
+                "front": "bullbar",
+                "exhaust": "quad"
+        },
+        {
+                "id": "harbinger",
+                "name": "Harbinger 4x4",
+                "class": "OCTANE",
+                "badge": "BAJA TROPHY",
+                "desc": "Heavy Baja Trophy Truck, Full Undercarriage Skid Plates, Beadlock Wheels, Snorkel",
+                "color": "#e65100",
+                "icon": "\ud83d\udefb",
+                "archetype": "truck",
+                "scale": [
+                        1.08,
+                        1.1,
+                        1.14
+                ],
+                "wing": "none",
+                "intake": "snorkel",
+                "front": "bullbar",
+                "exhaust": "side"
+        },
+        {
+                "id": "twinzer",
+                "name": "Twinzer Buggy",
+                "class": "OCTANE",
+                "badge": "TUBE FRAME",
+                "desc": "Tubular Chrome Rollcage, Exposed Dual Wishbones, Twin Rear Thrusters, V8 Stacks",
+                "color": "#ffcc00",
+                "icon": "\ud83c\udfce\ufe0f",
+                "archetype": "octane",
+                "scale": [
+                        0.98,
+                        1.04,
+                        1.02
+                ],
+                "wing": "gt",
+                "intake": "v8",
+                "front": "stealth",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "marauder",
+                "name": "Marauder Tank",
+                "class": "OCTANE",
+                "badge": "ARMORED",
+                "desc": "Armored Military Brawler, Heavy Front Bumper Ram, Twin Roof Stacks, Side Exhausts",
+                "color": "#4e342e",
+                "icon": "\ud83d\udee1\ufe0f",
+                "archetype": "truck",
+                "scale": [
+                        1.1,
+                        1.12,
+                        1.15
+                ],
+                "wing": "none",
+                "intake": "v8",
+                "front": "bullbar",
+                "exhaust": "side"
+        },
+        {
+                "id": "road_hog",
+                "name": "Road Hog XL",
+                "class": "OCTANE",
+                "badge": "SEMI MUSCLE",
+                "desc": "Heavyweight Semi-Truck Muscle, Chrome Tower Stacks, Quad Rectangular Lights, Blower",
+                "color": "#d32f2f",
+                "icon": "\ud83d\ude9b",
+                "archetype": "truck",
+                "scale": [
+                        1.12,
+                        1.1,
+                        1.12
+                ],
+                "wing": "ducktail",
+                "intake": "blower",
+                "front": "muscle",
+                "exhaust": "side"
+        },
+        {
+                "id": "scarab",
+                "name": "Scarab Ballistic",
+                "class": "OCTANE",
+                "badge": "ORBITAL",
+                "desc": "Spherical Rolling Striker, Bubble Cockpit Canopy, Dual Gyro Antennae, Center Thruster",
+                "color": "#7b1fa2",
+                "icon": "\ud83d\udd2e",
+                "archetype": "octane",
+                "scale": [
+                        0.88,
+                        1.08,
+                        1.12
+                ],
+                "wing": "none",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "center"
+        },
+        {
+                "id": "grog",
+                "name": "Grog Wastelander",
+                "class": "OCTANE",
+                "badge": "MAD MAX",
+                "desc": "Post-Apocalyptic Spiked Raider, Heavy Riveted Armor, Grate Windshield, V8 Block",
+                "color": "#5d4037",
+                "icon": "\u26d3\ufe0f",
+                "archetype": "truck",
+                "scale": [
+                        1.04,
+                        1.08,
+                        1.06
+                ],
+                "wing": "none",
+                "intake": "v8",
+                "front": "bullbar",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "ripper",
+                "name": "Ripper Interceptor",
+                "class": "OCTANE",
+                "badge": "CHOPPER GT",
+                "desc": "Wasteland Blown Muscle Striker, Exposed Massive Blower, Side Exhaust Pipes, Ducktail",
+                "color": "#c2185b",
+                "icon": "\ud83d\udc80",
+                "archetype": "dominus",
+                "scale": [
+                        1.04,
+                        1.06,
+                        0.98
+                ],
+                "wing": "ducktail",
+                "intake": "blower",
+                "front": "muscle",
+                "exhaust": "side"
+        },
+        {
+                "id": "proteus",
+                "name": "Proteus Submersible",
+                "class": "OCTANE",
+                "badge": "AQUATIC",
+                "desc": "Deep Sea Exploration Rover, Twin Hydro Propeller Domes, Pressure Hull, Snorkel",
+                "color": "#0097a7",
+                "icon": "\ud83c\udf0a",
+                "archetype": "octane",
+                "scale": [
+                        0.94,
+                        1.02,
+                        1.08
+                ],
+                "wing": "dual",
+                "intake": "snorkel",
+                "front": "stealth",
+                "exhaust": "center"
+        },
+        {
+                "id": "gizmo",
+                "name": "Gizmo Aero-Wing",
+                "class": "OCTANE",
+                "badge": "RETRO JET",
+                "desc": "Twin Raked Forward Canards, Bubble Jet Canopy, Wingtip Thrusters, Triple Rockets",
+                "color": "#0288d1",
+                "icon": "\ud83d\udef8",
+                "archetype": "octane",
+                "scale": [
+                        0.92,
+                        1.04,
+                        1.04
+                ],
+                "wing": "active",
+                "intake": "jet",
+                "front": "stealth",
+                "exhaust": "triple"
+        },
+        {
+                "id": "fast_4wd",
+                "name": "Fast 4WD Striker",
+                "class": "OCTANE",
+                "badge": "RALLY AWD",
+                "desc": "Aggressive AWD Rally Buggy, Vented Hood Induction, Rear Carbon Ducktail, Cannons",
+                "color": "#388e3c",
+                "icon": "\ud83c\udfc1",
+                "archetype": "fennec",
+                "scale": [
+                        0.98,
+                        1.04,
+                        1.04
+                ],
+                "wing": "ducktail",
+                "intake": "scoop",
+                "front": "wedge",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "chupacabra",
+                "name": "Chupacabra Desert",
+                "class": "OCTANE",
+                "badge": "DESERT SPEC",
+                "desc": "Baja Desert Sand Rail, High Clearance Tubular Suspension, Rear High GT Wing, V8 Stacks",
+                "color": "#f57c00",
+                "icon": "\ud83c\udfdc\ufe0f",
+                "archetype": "octane",
+                "scale": [
+                        1.02,
+                        1.06,
+                        1.06
+                ],
+                "wing": "gt",
+                "intake": "v8",
+                "front": "stealth",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "armadillo",
+                "name": "Armadillo Heavy",
+                "class": "OCTANE",
+                "badge": "TACTICAL",
+                "desc": "Reinforced Armor-Plated Combat Rover, Angular Slanted Ballistic Shell, Quad Exhausts",
+                "color": "#455a64",
+                "icon": "\ud83e\udd94",
+                "archetype": "truck",
+                "scale": [
+                        1.06,
+                        1.08,
+                        1.1
+                ],
+                "wing": "none",
+                "intake": "clean",
+                "front": "bullbar",
+                "exhaust": "quad"
+        },
+        {
+                "id": "bone_shaker",
+                "name": "Bone Shaker Hotrod",
+                "class": "OCTANE",
+                "badge": "HOTROD",
+                "desc": "Chrome Skull Front Grille, Chopped Roofline, 8 Exposed Velocity Stacks, Side Pipes",
+                "color": "#212121",
+                "icon": "\u2620\ufe0f",
+                "archetype": "hotrod",
+                "scale": [
+                        1.04,
+                        1.05,
+                        0.94
+                ],
+                "wing": "ducktail",
+                "intake": "v8",
+                "front": "muscle",
+                "exhaust": "side"
+        },
+        {
+                "id": "twin_mill",
+                "name": "Twin Mill III",
+                "class": "OCTANE",
+                "badge": "TWIN ENGINE",
+                "desc": "Dual Blown Big-Block V8 Engines, Ultra-Low Raked Cockpit, Chrome Whale Fins, Quad Exhaust",
+                "color": "#1565c0",
+                "icon": "\ud83d\ude80",
+                "archetype": "breakout",
+                "scale": [
+                        1.08,
+                        1.06,
+                        0.88
+                ],
+                "wing": "whale",
+                "intake": "blower",
+                "front": "wedge",
+                "exhaust": "quad"
+        },
+        {
+                "id": "jurassic_jeep",
+                "name": "Jurassic 4x4",
+                "class": "OCTANE",
+                "badge": "SAFARI",
+                "desc": "Safari Expedition Rig, Front Heavy Winch, Rollcage Soft-Top Framework, Snorkel Intake",
+                "color": "#c0ca33",
+                "icon": "\ud83e\udd96",
+                "archetype": "truck",
+                "scale": [
+                        1.02,
+                        1.06,
+                        1.14
+                ],
+                "wing": "none",
+                "intake": "snorkel",
+                "front": "bullbar",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "hogsticker",
+                "name": "Hogsticker Striker",
+                "class": "OCTANE",
+                "badge": "MILITARY",
+                "desc": "Military Recon Combat Buggy, Triple Communications Antenna, Heavy Armor, GT Wing",
+                "color": "#558b2f",
+                "icon": "\ud83d\udc17",
+                "archetype": "octane",
+                "scale": [
+                        1.04,
+                        1.06,
+                        1.06
+                ],
+                "wing": "gt",
+                "intake": "snorkel",
+                "front": "bullbar",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "rumble_striker",
+                "name": "Rumble Striker",
+                "class": "OCTANE",
+                "badge": "COMPETITION",
+                "desc": "Competition Aerial Striker, High Lift Suspension, Polyhedral GT Wing, Hood Scoop",
+                "color": "#6a1b9a",
+                "icon": "\ud83c\udfc6",
+                "archetype": "octane",
+                "scale": [
+                        1.0,
+                        1.02,
+                        1.02
+                ],
+                "wing": "gt",
+                "intake": "scoop",
+                "front": "formula",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "veloce_hatch",
+                "name": "Veloce Rally",
+                "class": "OCTANE",
+                "badge": "TOURING",
+                "desc": "European Touring Cup Hatchback, Flared Aero Arches, Rear Roof Spoiler, Dual Cannons",
+                "color": "#00acc1",
+                "icon": "\ud83d\ude97",
+                "archetype": "fennec",
+                "scale": [
+                        0.96,
+                        1.02,
+                        1.02
+                ],
+                "wing": "rally",
+                "intake": "clean",
+                "front": "drift",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "brawler_4x4",
+                "name": "Brawler 4x4",
+                "class": "OCTANE",
+                "badge": "ALL-TERRAIN",
+                "desc": "All-Terrain Mud Monster, Heavy Bullbar, Dual Lightbar Roof Cage, Side Exhaust Stacks",
+                "color": "#6d4c41",
+                "icon": "\ud83e\uddbe",
+                "archetype": "truck",
+                "scale": [
+                        1.08,
+                        1.1,
+                        1.15
+                ],
+                "wing": "none",
+                "intake": "snorkel",
+                "front": "bullbar",
+                "exhaust": "side"
+        },
+        {
+                "id": "outlaw",
+                "name": "Outlaw Rebel",
+                "class": "OCTANE",
+                "badge": "DIRT MODIFIED",
+                "desc": "Dirt Track Modified Oval Racer, Massive Asymmetric Top Wing, Raked Stance, V8 Stacks",
+                "color": "#d84315",
+                "icon": "\ud83e\udd20",
+                "archetype": "octane",
+                "scale": [
+                        1.02,
+                        1.04,
+                        1.02
+                ],
+                "wing": "gt",
+                "intake": "v8",
+                "front": "muscle",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "nomad",
+                "name": "Nomad Express",
+                "class": "OCTANE",
+                "badge": "SPEED VAN",
+                "desc": "Urban Delivery Speed-Van, Carbon Front Splitter, Roof Utility Cargo Rack, Ducktail",
+                "color": "#fdd835",
+                "icon": "\ud83d\udce6",
+                "archetype": "truck",
+                "scale": [
+                        1.02,
+                        1.06,
+                        1.12
+                ],
+                "wing": "ducktail",
+                "intake": "clean",
+                "front": "bullbar",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "vindicator",
+                "name": "Vindicator Apex",
+                "class": "OCTANE",
+                "badge": "ESPORTS",
+                "desc": "Championship Esports Striker, Exposed Rear Differential, Carbon Wing, Quad Exhausts",
+                "color": "#00b0ff",
+                "icon": "\u2b50",
+                "archetype": "octane",
+                "scale": [
+                        1.0,
+                        1.02,
+                        1.0
+                ],
+                "wing": "gt",
+                "intake": "v8",
+                "front": "formula",
+                "exhaust": "quad"
+        },
+        {
+                "id": "rogue_dune",
+                "name": "Rogue Dune Rail",
+                "class": "OCTANE",
+                "badge": "SAND RAIL",
+                "desc": "Sand Rail Buggy, Exposed Tubular Chromoly Chassis, Long-Travel Coil-Overs, V8 Block",
+                "color": "#ff9100",
+                "icon": "\ud83c\udfd6\ufe0f",
+                "archetype": "octane",
+                "scale": [
+                        1.04,
+                        1.06,
+                        1.02
+                ],
+                "wing": "gt",
+                "intake": "v8",
+                "front": "stealth",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "stinger",
+                "name": "Stinger Sprint",
+                "class": "OCTANE",
+                "badge": "SPRINT CAR",
+                "desc": "Winged Outlaw Sprint Car, Giant Overhead Downforce Wing, Exposed Headers, Side Exhaust",
+                "color": "#f44336",
+                "icon": "\ud83d\udc1d",
+                "archetype": "octane",
+                "scale": [
+                        1.0,
+                        1.02,
+                        1.06
+                ],
+                "wing": "gt",
+                "intake": "v8",
+                "front": "stealth",
+                "exhaust": "side"
+        },
+        {
+                "id": "dominus",
+                "name": "Dominus Viper GT",
+                "class": "DOMINUS",
+                "badge": "MUSCLE GT",
+                "desc": "Chiseled American Muscle: Low Rake, Chrome Blower Scoop, Ducktail Spoiler, Side Pipes",
+                "color": "#ff4800",
+                "icon": "\ud83c\udfce\ufe0f",
+                "archetype": "dominus",
+                "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                ],
+                "wing": "ducktail",
+                "intake": "blower",
+                "front": "muscle",
+                "exhaust": "side"
+        },
+        {
+                "id": "dominus_gt",
+                "name": "Dominus GT",
+                "class": "DOMINUS",
+                "badge": "TRACK SPEC",
+                "desc": "Modern Factory Track Spec, Carbon Front Splitter, Rear Window Louvers, GT Wing, Quad Pipes",
+                "color": "#d50000",
+                "icon": "\ud83c\udfce\ufe0f",
+                "archetype": "dominus",
+                "scale": [
+                        1.02,
+                        1.02,
+                        0.98
+                ],
+                "wing": "gt",
+                "intake": "blower",
+                "front": "muscle",
+                "exhaust": "quad"
+        },
+        {
+                "id": "imperator",
+                "name": "Imperator DT5",
+                "class": "DOMINUS",
+                "badge": "80S WEDGE",
+                "desc": "80s Wedge Super-Coupe, Retractable Headlights, Slotted Rear Engine Deck, Ducktail",
+                "color": "#e040fb",
+                "icon": "\ud83d\udd79\ufe0f",
+                "archetype": "dominus",
+                "scale": [
+                        1.04,
+                        1.02,
+                        0.94
+                ],
+                "wing": "ducktail",
+                "intake": "scoop",
+                "front": "stealth",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "maverick",
+                "name": "Maverick GXT",
+                "class": "DOMINUS",
+                "badge": "NEON CYBER",
+                "desc": "High-Tech Neon Muscle, Rear Jet Boost Thrusters, Carbon Front Canards, Triple Jet",
+                "color": "#00e5ff",
+                "icon": "\ud83d\ude80",
+                "archetype": "dominus",
+                "scale": [
+                        1.05,
+                        1.04,
+                        0.96
+                ],
+                "wing": "gt",
+                "intake": "scoop",
+                "front": "muscle",
+                "exhaust": "triple"
+        },
+        {
+                "id": "komodo",
+                "name": "Komodo Muscle",
+                "class": "DOMINUS",
+                "badge": "WIDEBODY",
+                "desc": "Widebody Modern Muscle Coupe, Dual Hood Heat Extractors, Quad Rectangular Exhausts",
+                "color": "#c51162",
+                "icon": "\ud83e\udd8e",
+                "archetype": "dominus",
+                "scale": [
+                        1.02,
+                        1.06,
+                        0.98
+                ],
+                "wing": "ducktail",
+                "intake": "scoop",
+                "front": "muscle",
+                "exhaust": "quad"
+        },
+        {
+                "id": "peregrine",
+                "name": "Peregrine TT",
+                "class": "DOMINUS",
+                "badge": "TOURING GT",
+                "desc": "FIA Aero GT Touring Car, Giant Front Carbon Splitter, Swan-Neck Wing, Quad Exhausts",
+                "color": "#00b0ff",
+                "icon": "\ud83e\udd85",
+                "archetype": "dominus",
+                "scale": [
+                        1.06,
+                        1.04,
+                        0.94
+                ],
+                "wing": "gt",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "quad"
+        },
+        {
+                "id": "diestro",
+                "name": "Diestro Italian",
+                "class": "DOMINUS",
+                "badge": "V12 EXOTIC",
+                "desc": "Exotic Italian V12 Wedge, Mid-Engine Louvered Deck, Active Air Brakes, Quad Tips",
+                "color": "#ff1744",
+                "icon": "\ud83c\uddee\ud83c\uddf9",
+                "archetype": "dominus",
+                "scale": [
+                        1.04,
+                        1.04,
+                        0.92
+                ],
+                "wing": "active",
+                "intake": "scoop",
+                "front": "wedge",
+                "exhaust": "quad"
+        },
+        {
+                "id": "tyranno",
+                "name": "Tyranno Apex",
+                "class": "DOMINUS",
+                "badge": "STREET BRAWLER",
+                "desc": "Aggressive Street Fighter, Twin Carbon Hood Scoops, Deep Rear Diffuser, GT Wing",
+                "color": "#ff6d00",
+                "icon": "\ud83e\udd96",
+                "archetype": "dominus",
+                "scale": [
+                        1.02,
+                        1.04,
+                        0.96
+                ],
+                "wing": "gt",
+                "intake": "scoop",
+                "front": "muscle",
+                "exhaust": "quad"
+        },
+        {
+                "id": "mamba",
+                "name": "Mamba GT",
+                "class": "DOMINUS",
+                "badge": "60S COBRA",
+                "desc": "Classic 60s Shelby Coupe Silhouette, Side-Exit Lake Pipes, Dual Racing Stripes, Ducktail",
+                "color": "#2979ff",
+                "icon": "\ud83d\udc0d",
+                "archetype": "dominus",
+                "scale": [
+                        1.02,
+                        1.02,
+                        0.96
+                ],
+                "wing": "ducktail",
+                "intake": "scoop",
+                "front": "muscle",
+                "exhaust": "side"
+        },
+        {
+                "id": "chikara",
+                "name": "Chikara GT",
+                "class": "DOMINUS",
+                "badge": "NEO TOKYO",
+                "desc": "Cyberpunk Super-Coupe, Neon Underglow Channels, Polyhedral Tail Section, Active Wing",
+                "color": "#76ff03",
+                "icon": "\u26a1",
+                "archetype": "dominus",
+                "scale": [
+                        1.04,
+                        1.04,
+                        0.94
+                ],
+                "wing": "active",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "nemesis",
+                "name": "Nemesis Aero",
+                "class": "DOMINUS",
+                "badge": "STEALTH GT",
+                "desc": "Stealth Track Weapon, Carbon Dive Planes, Center Aerodynamic Shark Fin, Center Exhaust",
+                "color": "#212121",
+                "icon": "\ud83c\udf11",
+                "archetype": "dominus",
+                "scale": [
+                        1.05,
+                        1.04,
+                        0.92
+                ],
+                "wing": "shark",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "center"
+        },
+        {
+                "id": "masamune",
+                "name": "Masamune Cyber",
+                "class": "DOMINUS",
+                "badge": "KATANA",
+                "desc": "Futuristic Neo-Tokyo Interceptor, Dual Jet Pods, Katana Aero Fins, Triple Rocket Cluster",
+                "color": "#651fff",
+                "icon": "\ud83d\udde1\ufe0f",
+                "archetype": "dominus",
+                "scale": [
+                        1.04,
+                        1.02,
+                        0.92
+                ],
+                "wing": "dual",
+                "intake": "jet",
+                "front": "stealth",
+                "exhaust": "triple"
+        },
+        {
+                "id": "aftershock",
+                "name": "Aftershock Jet",
+                "class": "DOMINUS",
+                "badge": "SUPERSONIC",
+                "desc": "Supersonic Fighter-Jet Car, Folding Winglets, Twin Afterburner Cannons, Active Aero",
+                "color": "#304ffe",
+                "icon": "\u2708\ufe0f",
+                "archetype": "dominus",
+                "scale": [
+                        1.06,
+                        1.0,
+                        0.92
+                ],
+                "wing": "active",
+                "intake": "jet",
+                "front": "stealth",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "esper",
+                "name": "Esper Wedge",
+                "class": "DOMINUS",
+                "badge": "MAG-LEV",
+                "desc": "Cyber Wedge Striker, Levitating Wheel Arch Rings, Hexagonal Cockpit, Center Rocket",
+                "color": "#00e5ff",
+                "icon": "\ud83d\udd2e",
+                "archetype": "dominus",
+                "scale": [
+                        1.02,
+                        1.04,
+                        0.92
+                ],
+                "wing": "whale",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "center"
+        },
+        {
+                "id": "hotshot",
+                "name": "Hotshot Dragster",
+                "class": "DOMINUS",
+                "badge": "DRAGSTER",
+                "desc": "Low-Slung Dragster Coupe, High-Rise Wheelie Stance, Giant Rear Slicks, Side Pipes",
+                "color": "#ff9100",
+                "icon": "\ud83d\udd25",
+                "archetype": "dominus",
+                "scale": [
+                        1.06,
+                        1.04,
+                        0.92
+                ],
+                "wing": "ducktail",
+                "intake": "blower",
+                "front": "muscle",
+                "exhaust": "side"
+        },
+        {
+                "id": "paladin",
+                "name": "Paladin Blade",
+                "class": "DOMINUS",
+                "badge": "AERO BLADE",
+                "desc": "Aero Blade Concept Car, Forward-Swept Side Winglets, Chrome Nose Cone, Quad Exhausts",
+                "color": "#eceff1",
+                "icon": "\u2694\ufe0f",
+                "archetype": "dominus",
+                "scale": [
+                        1.06,
+                        1.02,
+                        0.9
+                ],
+                "wing": "dual",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "quad"
+        },
+        {
+                "id": "venom",
+                "name": "Venom Fang",
+                "class": "DOMINUS",
+                "badge": "STINGRAY",
+                "desc": "Exotic Stingray Silhouette, Dual Tail Strikers, Sculpted Side Air Pods, Dual Cannons",
+                "color": "#00c853",
+                "icon": "\ud83e\udd82",
+                "archetype": "dominus",
+                "scale": [
+                        1.04,
+                        1.04,
+                        0.92
+                ],
+                "wing": "dual",
+                "intake": "scoop",
+                "front": "wedge",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "x_devil",
+                "name": "X-Devil Mk2",
+                "class": "DOMINUS",
+                "badge": "BLOWN V8",
+                "desc": "Twin Blower V8 Monster, Quad Chrome Velocity Stacks, High Rake Stance, GT Wing",
+                "color": "#ff3d00",
+                "icon": "\ud83d\ude08",
+                "archetype": "dominus",
+                "scale": [
+                        1.02,
+                        1.04,
+                        0.96
+                ],
+                "wing": "gt",
+                "intake": "v8",
+                "front": "muscle",
+                "exhaust": "quad"
+        },
+        {
+                "id": "mustang_mach1",
+                "name": "Mustang Mach 1",
+                "class": "DOMINUS",
+                "badge": "1969 FASTBACK",
+                "desc": "1969 Classic Fastback, Shaker Hood Scoop, Rear Window Sport Slats, Ducktail Lip",
+                "color": "#ffb300",
+                "icon": "\ud83d\udc0e",
+                "archetype": "dominus",
+                "scale": [
+                        1.04,
+                        1.02,
+                        0.98
+                ],
+                "wing": "ducktail",
+                "intake": "scoop",
+                "front": "muscle",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "charger_rt",
+                "name": "Charger 1970 R/T",
+                "class": "DOMINUS",
+                "badge": "HEMI BRAWLER",
+                "desc": "Blacked-Out Street Brawler, Blown 426 Hemi, Heavy Steel Bumper Trim, Side Pipes",
+                "color": "#1a1a1a",
+                "icon": "\ud83d\udcaa",
+                "archetype": "dominus",
+                "scale": [
+                        1.06,
+                        1.04,
+                        0.98
+                ],
+                "wing": "ducktail",
+                "intake": "blower",
+                "front": "muscle",
+                "exhaust": "side"
+        },
+        {
+                "id": "firebird_ta",
+                "name": "Firebird Trans Am",
+                "class": "DOMINUS",
+                "badge": "SCREAMING CHICKEN",
+                "desc": "Gold Firebird Hood Livery, T-Top Roof Panels, Integrated Ducktail, Dual Pipes",
+                "color": "#ff6f00",
+                "icon": "\ud83e\udd85",
+                "archetype": "dominus",
+                "scale": [
+                        1.04,
+                        1.02,
+                        0.96
+                ],
+                "wing": "ducktail",
+                "intake": "scoop",
+                "front": "muscle",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "viper_srt",
+                "name": "Viper SRT-10",
+                "class": "DOMINUS",
+                "badge": "V10 COUPE",
+                "desc": "8.4L V10 American Exotic, Double-Bubble Roof, Side Exhaust Cannons, GT Wing",
+                "color": "#0044ff",
+                "icon": "\ud83d\udc0d",
+                "archetype": "dominus",
+                "scale": [
+                        1.02,
+                        1.05,
+                        0.94
+                ],
+                "wing": "gt",
+                "intake": "scoop",
+                "front": "muscle",
+                "exhaust": "side"
+        },
+        {
+                "id": "corvette_c8",
+                "name": "Corvette C8 Stingray",
+                "class": "DOMINUS",
+                "badge": "MID-ENGINE",
+                "desc": "Mid-Engine Exotic, Sculpted Side Boomerang Intakes, Quad Center Exhaust, Carbon Wing",
+                "color": "#e53935",
+                "icon": "\ud83c\udfc1",
+                "archetype": "dominus",
+                "scale": [
+                        1.04,
+                        1.05,
+                        0.92
+                ],
+                "wing": "gt",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "quad"
+        },
+        {
+                "id": "hellcat_wide",
+                "name": "Hellcat Widebody",
+                "class": "DOMINUS",
+                "badge": "SUPERCHARGED",
+                "desc": "Supercharged Widebody Beast, Dual Snorkel Hood, Massive 315 Rear Tires, Quad Exhausts",
+                "color": "#311b92",
+                "icon": "\ud83d\udc31",
+                "archetype": "dominus",
+                "scale": [
+                        1.03,
+                        1.06,
+                        0.98
+                ],
+                "wing": "ducktail",
+                "intake": "blower",
+                "front": "muscle",
+                "exhaust": "quad"
+        },
+        {
+                "id": "shelby_gt500",
+                "name": "Shelby GT500",
+                "class": "DOMINUS",
+                "badge": "SUPER SNAKE",
+                "desc": "Cobra Super Snake Track Pack, Carbon GT Wing, High-Flow Grille Aperture, Quad Tips",
+                "color": "#01579b",
+                "icon": "\ud83d\udc0d",
+                "archetype": "dominus",
+                "scale": [
+                        1.04,
+                        1.04,
+                        0.98
+                ],
+                "wing": "gt",
+                "intake": "scoop",
+                "front": "muscle",
+                "exhaust": "quad"
+        },
+        {
+                "id": "breakout",
+                "name": "Breakout Specter RS",
+                "class": "BREAKOUT",
+                "badge": "AERO WEDGE",
+                "desc": "Exotic Wedge Hypercar: Knife-Edge Nose, Jet Bubble Canopy, Twin Active Aero Wings",
+                "color": "#ff1a35",
+                "icon": "\ud83d\ude80",
+                "archetype": "breakout",
+                "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                ],
+                "wing": "active",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "triple"
+        },
+        {
+                "id": "breakout_s",
+                "name": "Breakout Type-S",
+                "class": "BREAKOUT",
+                "badge": "FACTORY SPEC",
+                "desc": "High-Performance Factory Spec, Carbon Front Splitter, Tuned Active Wing, Quad Tips",
+                "color": "#d50000",
+                "icon": "\ud83d\ude80",
+                "archetype": "breakout",
+                "scale": [
+                        1.02,
+                        1.02,
+                        0.96
+                ],
+                "wing": "gt",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "quad"
+        },
+        {
+                "id": "samurai",
+                "name": "Samurai Cyber",
+                "class": "BREAKOUT",
+                "badge": "SHOGUN",
+                "desc": "Neo-Tokyo Track Speedster, Angled Over-Fenders, Carbon Diffuser Blades, GT Wing",
+                "color": "#00e5ff",
+                "icon": "\ud83d\udde1\ufe0f",
+                "archetype": "breakout",
+                "scale": [
+                        1.04,
+                        1.04,
+                        0.94
+                ],
+                "wing": "gt",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "cyclone",
+                "name": "Cyclone Hypercar",
+                "class": "BREAKOUT",
+                "badge": "QUAD TURBO",
+                "desc": "Quad-Turbo Track Weapon, Center Dorsal Aerodynamic Fin, Active Winglets, Quad Tips",
+                "color": "#ff007f",
+                "icon": "\ud83c\udf00",
+                "archetype": "breakout",
+                "scale": [
+                        1.06,
+                        1.04,
+                        0.92
+                ],
+                "wing": "shark",
+                "intake": "turbo",
+                "front": "wedge",
+                "exhaust": "quad"
+        },
+        {
+                "id": "centio",
+                "name": "Centio V17",
+                "class": "BREAKOUT",
+                "badge": "F1 PROTOTYPE",
+                "desc": "Formula-1 Inspired Track Prototype, Ground-Hugging Nose, Center Monocoque, Formula Wing",
+                "color": "#ffea00",
+                "icon": "\ud83c\udfce\ufe0f",
+                "archetype": "formula",
+                "scale": [
+                        1.06,
+                        1.02,
+                        0.88
+                ],
+                "wing": "formula",
+                "intake": "clean",
+                "front": "formula",
+                "exhaust": "center"
+        },
+        {
+                "id": "animus_gp",
+                "name": "Animus GP",
+                "class": "BREAKOUT",
+                "badge": "GRAND PRIX",
+                "desc": "Open-Cockpit Grand Prix Racer, Triple-Tier Rear Wing, Front Bargeboards, Center Thruster",
+                "color": "#00e676",
+                "icon": "\ud83c\udfc1",
+                "archetype": "formula",
+                "scale": [
+                        1.08,
+                        1.02,
+                        0.86
+                ],
+                "wing": "formula",
+                "intake": "clean",
+                "front": "formula",
+                "exhaust": "center"
+        },
+        {
+                "id": "artemis",
+                "name": "Artemis GXT",
+                "class": "BREAKOUT",
+                "badge": "LE MANS",
+                "desc": "Sci-Fi Cyber Le Mans Prototype, Glowing LED Trims, Aero Wheel Covers, Triple Rockets",
+                "color": "#ff6d00",
+                "icon": "\ud83c\udff9",
+                "archetype": "breakout",
+                "scale": [
+                        1.06,
+                        1.04,
+                        0.92
+                ],
+                "wing": "gt",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "triple"
+        },
+        {
+                "id": "nexus",
+                "name": "Nexus Interceptor",
+                "class": "BREAKOUT",
+                "badge": "CYBER ENFORCER",
+                "desc": "Cyber Police Cruiser, Low Rake Aerodynamics, Carbon Ground Effects, Ducktail",
+                "color": "#2979ff",
+                "icon": "\ud83d\udea8",
+                "archetype": "breakout",
+                "scale": [
+                        1.04,
+                        1.02,
+                        0.94
+                ],
+                "wing": "ducktail",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "mantis",
+                "name": "Mantis Low-Rider",
+                "class": "BREAKOUT",
+                "badge": "FLAT WEDGE",
+                "desc": "Ultra-Low Flat Wedge Chassis, Dual Rear Winglet Fins, Fighter Canopy, Dual Cannons",
+                "color": "#76ff03",
+                "icon": "\ud83e\udd97",
+                "archetype": "breakout",
+                "scale": [
+                        1.06,
+                        1.06,
+                        0.86
+                ],
+                "wing": "dual",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "batmobile",
+                "name": "Batmobile Stealth",
+                "class": "BREAKOUT",
+                "badge": "DARK KNIGHT",
+                "desc": "Armored Tumbler Silhouette, Twin Jet Rocket Thrusters, Batwing Tail Fins, Triple Rockets",
+                "color": "#111111",
+                "icon": "\ud83e\udd87",
+                "archetype": "breakout",
+                "scale": [
+                        1.1,
+                        1.08,
+                        0.88
+                ],
+                "wing": "dual",
+                "intake": "jet",
+                "front": "stealth",
+                "exhaust": "triple"
+        },
+        {
+                "id": "huracan_sto",
+                "name": "Hurac\u00e1n STO V10",
+                "class": "BREAKOUT",
+                "badge": "SQUADRA CORSE",
+                "desc": "V10 Track Weapon, Roof Air Scoop, Carbon Shark Fin, Shark Nose Splitter, Dual Cannons",
+                "color": "#00e5ff",
+                "icon": "\ud83d\udc02",
+                "archetype": "breakout",
+                "scale": [
+                        1.04,
+                        1.04,
+                        0.92
+                ],
+                "wing": "shark",
+                "intake": "snorkel",
+                "front": "wedge",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "mclaren_570s",
+                "name": "McLaren 570S",
+                "class": "BREAKOUT",
+                "badge": "DIHEDRAL",
+                "desc": "Dihedral Scissor Doors, Teardrop Carbon Tub Cabin, High Mid-Exhausts, Active Aero",
+                "color": "#ff6f00",
+                "icon": "\ud83c\udfce\ufe0f",
+                "archetype": "breakout",
+                "scale": [
+                        1.04,
+                        1.04,
+                        0.92
+                ],
+                "wing": "active",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "valhalla",
+                "name": "Valhalla Concept",
+                "class": "BREAKOUT",
+                "badge": "HYBRID AERO",
+                "desc": "Twin-Turbo Hybrid Hypercar, Venturi Ground Tunnel Floor, Sleek Canopy, Quad Exhausts",
+                "color": "#78909c",
+                "icon": "\u26a1",
+                "archetype": "breakout",
+                "scale": [
+                        1.06,
+                        1.04,
+                        0.9
+                ],
+                "wing": "active",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "quad"
+        },
+        {
+                "id": "ferrari_296",
+                "name": "Ferrari 296 GTB",
+                "class": "BREAKOUT",
+                "badge": "BERLINETTA",
+                "desc": "Italian Berlinetta, Active Rear Aero Spoiler, Ultra-Low Rake Hood, Center Exhaust",
+                "color": "#d50000",
+                "icon": "\ud83d\udc0e",
+                "archetype": "breakout",
+                "scale": [
+                        1.03,
+                        1.04,
+                        0.92
+                ],
+                "wing": "active",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "center"
+        },
+        {
+                "id": "centodieci",
+                "name": "Centodieci W16",
+                "class": "BREAKOUT",
+                "badge": "EB110 TRIBUTE",
+                "desc": "Quad-Turbo W16 Beast, 5 Round Side Air Intakes, Monumental Carbon Wing, Quad Tips",
+                "color": "#ffffff",
+                "icon": "\ud83d\udc8e",
+                "archetype": "breakout",
+                "scale": [
+                        1.06,
+                        1.06,
+                        0.94
+                ],
+                "wing": "gt",
+                "intake": "turbo",
+                "front": "wedge",
+                "exhaust": "quad"
+        },
+        {
+                "id": "delorean",
+                "name": "DeLorean Time Machine",
+                "class": "BREAKOUT",
+                "badge": "OUTATIME",
+                "desc": "Brushed Stainless Steel Shell, Gullwing Doors, Dual Mr. Fusion Reactor Vents, Cannons",
+                "color": "#b0bec5",
+                "icon": "\u23f1\ufe0f",
+                "archetype": "breakout",
+                "scale": [
+                        1.04,
+                        1.02,
+                        0.96
+                ],
+                "wing": "ducktail",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "knight_rider",
+                "name": "K.I.T.T. 2000",
+                "class": "BREAKOUT",
+                "badge": "KNIGHT RIDER",
+                "desc": "Red Sweeping Scanner Nose, T-Tops, High-Gloss Stealth Obsidian Black Glass, Dual Pipes",
+                "color": "#0a0a0a",
+                "icon": "\ud83d\udd34",
+                "archetype": "breakout",
+                "scale": [
+                        1.05,
+                        1.02,
+                        0.94
+                ],
+                "wing": "ducktail",
+                "intake": "clean",
+                "front": "muscle",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "aston_db5",
+                "name": "Aston DB5 Grand Tourer",
+                "class": "BREAKOUT",
+                "badge": "007 SPY",
+                "desc": "Classic British Elegance, Chrome Spoke Wheels, Bulletproof Rear Shield, Dual Exhaust",
+                "color": "#cfd8dc",
+                "icon": "\ud83c\udf78",
+                "archetype": "breakout",
+                "scale": [
+                        1.04,
+                        1.0,
+                        0.96
+                ],
+                "wing": "ducktail",
+                "intake": "clean",
+                "front": "muscle",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "speedtail",
+                "name": "Speedtail Aero",
+                "class": "BREAKOUT",
+                "badge": "HYPER GT",
+                "desc": "Streamliner Hyper-GT, Elongated Rear Tail, High-Speed Low-Drag Shape, Center Jet",
+                "color": "#37474f",
+                "icon": "\ud83d\udef8",
+                "archetype": "breakout",
+                "scale": [
+                        1.1,
+                        1.02,
+                        0.88
+                ],
+                "wing": "none",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "center"
+        },
+        {
+                "id": "veneno",
+                "name": "Veneno Stealth",
+                "class": "BREAKOUT",
+                "badge": "PROTOTYPE",
+                "desc": "Extreme Prototype Hypercar, Giant Dorsal Carbon Fin, Triple Exhaust Stacks, Shark Splitter",
+                "color": "#424242",
+                "icon": "\u2620\ufe0f",
+                "archetype": "breakout",
+                "scale": [
+                        1.08,
+                        1.06,
+                        0.9
+                ],
+                "wing": "shark",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "triple"
+        },
+        {
+                "id": "takumi",
+                "name": "Takumi Ion Phantom",
+                "class": "HYBRID",
+                "badge": "CYBER TUNER",
+                "desc": "Cyber JDM Drift Interceptor: Faceted Stealth Nose, Drift Over-Fenders, Dual-Deck Wing",
+                "color": "#8e24aa",
+                "icon": "\ud83d\udd30",
+                "archetype": "takumi",
+                "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                ],
+                "wing": "dual",
+                "intake": "turbo",
+                "front": "drift",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "takumi_rxt",
+                "name": "Takumi RX-T",
+                "class": "HYBRID",
+                "badge": "WIDEBODY JDM",
+                "desc": "Aggressive Widebody Spec, Carbon Vented Hood, Twin Titanium Cannons, Dual Wing",
+                "color": "#6a1b9a",
+                "icon": "\ud83d\udd30",
+                "archetype": "takumi",
+                "scale": [
+                        1.02,
+                        1.04,
+                        0.98
+                ],
+                "wing": "dual",
+                "intake": "scoop",
+                "front": "drift",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "endo",
+                "name": "Endo Supercar",
+                "class": "HYBRID",
+                "badge": "GRAND TOURER",
+                "desc": "Exotic Grand Tourer, Curved Wheel Arches, Low-Slung Center Cabin, Dual Cannons",
+                "color": "#00b0ff",
+                "icon": "\ud83c\udfce\ufe0f",
+                "archetype": "takumi",
+                "scale": [
+                        1.02,
+                        1.04,
+                        0.94
+                ],
+                "wing": "ducktail",
+                "intake": "clean",
+                "front": "wedge",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "jager",
+                "name": "Jager 619 RS",
+                "class": "HYBRID",
+                "badge": "GERMAN TOURING",
+                "desc": "German Touring Coupe, Flared Rear Quarters, Dual Oval Exhaust Outlets, Ducktail",
+                "color": "#ff6d00",
+                "icon": "\ud83c\udde9\ud83c\uddea",
+                "archetype": "takumi",
+                "scale": [
+                        1.03,
+                        1.03,
+                        0.96
+                ],
+                "wing": "ducktail",
+                "intake": "scoop",
+                "front": "muscle",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "skyline_r34",
+                "name": "Skyline GT-R R34",
+                "class": "HYBRID",
+                "badge": "GODZILLA",
+                "desc": "RB26 Twin-Turbo Legend, Iconic Quad Round Taillights, Nismo Carbon Wing, Drift Cannons",
+                "color": "#0052cc",
+                "icon": "\ud83d\udc51",
+                "archetype": "takumi",
+                "scale": [
+                        1.04,
+                        1.03,
+                        0.98
+                ],
+                "wing": "gt",
+                "intake": "turbo",
+                "front": "drift",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "venom_predator",
+                "name": "Venom Predator",
+                "class": "HYBRID",
+                "badge": "PREDATOR",
+                "desc": "Modernized Venom Chassis, Aggressive Aero Stance, Split Rear Winglets, Dual Cannons",
+                "color": "#00e676",
+                "icon": "\ud83e\udd82",
+                "archetype": "takumi",
+                "scale": [
+                        1.04,
+                        1.04,
+                        0.94
+                ],
+                "wing": "dual",
+                "intake": "scoop",
+                "front": "wedge",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "r3mx",
+                "name": "R3MX Hyper",
+                "class": "HYBRID",
+                "badge": "HYBRID HYPER",
+                "desc": "Next-Gen Hybrid Hypercar, Neon Power Conduit Lines, Active Winglets, Triple Rockets",
+                "color": "#ff007f",
+                "icon": "\u26a1",
+                "archetype": "takumi",
+                "scale": [
+                        1.04,
+                        1.04,
+                        0.94
+                ],
+                "wing": "active",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "triple"
+        },
+        {
+                "id": "guardian",
+                "name": "Guardian GXT",
+                "class": "HYBRID",
+                "badge": "CYBER GUARDIAN",
+                "desc": "Sci-Fi Cyber Supercar, Glowing Energy Core, Floating Front Splitter, GT Wing",
+                "color": "#ffea00",
+                "icon": "\ud83d\udee1\ufe0f",
+                "archetype": "takumi",
+                "scale": [
+                        1.04,
+                        1.04,
+                        0.94
+                ],
+                "wing": "gt",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "ronin",
+                "name": "Ronin GTX",
+                "class": "HYBRID",
+                "badge": "TRACK TUNER",
+                "desc": "Japanese Cyber Track Car, Carbon Aero Blades, Hexagonal Center Exhaust, GT Wing",
+                "color": "#d50000",
+                "icon": "\ud83d\udde1\ufe0f",
+                "archetype": "takumi",
+                "scale": [
+                        1.02,
+                        1.03,
+                        0.96
+                ],
+                "wing": "gt",
+                "intake": "scoop",
+                "front": "drift",
+                "exhaust": "center"
+        },
+        {
+                "id": "porsche_911",
+                "name": "Porsche 911 Turbo",
+                "class": "HYBRID",
+                "badge": "WHALE TAIL",
+                "desc": "Iconic Whale-Tail Wing, Round Headlight Projectors, Wide Rear Hips, Quad Exhausts",
+                "color": "#e0e0e0",
+                "icon": "\ud83c\udde9\ud83c\uddea",
+                "archetype": "takumi",
+                "scale": [
+                        1.02,
+                        1.04,
+                        0.96
+                ],
+                "wing": "whale",
+                "intake": "turbo",
+                "front": "wedge",
+                "exhaust": "quad"
+        },
+        {
+                "id": "civic_type_r",
+                "name": "Civic Type R",
+                "class": "HYBRID",
+                "badge": "HOT HATCH",
+                "desc": "Hot Hatch Track Monster, Triple Center Exhaust Tips, Roof Vortex Generators, GT Wing",
+                "color": "#d50000",
+                "icon": "\ud83c\uddef\ud83c\uddf5",
+                "archetype": "fennec",
+                "scale": [
+                        0.98,
+                        1.02,
+                        1.02
+                ],
+                "wing": "gt",
+                "intake": "scoop",
+                "front": "drift",
+                "exhaust": "triple"
+        },
+        {
+                "id": "bmw_m240i",
+                "name": "BMW M240i Racing",
+                "class": "HYBRID",
+                "badge": "M-PERFORMANCE",
+                "desc": "TwinPower Turbo Coupe, Carbon Fiber Roof, Quad M-Sport Exhaust Tips, Ducktail Lip",
+                "color": "#2979ff",
+                "icon": "\ud83c\udde9\ud83c\uddea",
+                "archetype": "takumi",
+                "scale": [
+                        1.03,
+                        1.03,
+                        0.98
+                ],
+                "wing": "ducktail",
+                "intake": "clean",
+                "front": "muscle",
+                "exhaust": "quad"
+        },
+        {
+                "id": "silvia_s13",
+                "name": "Silvia S13 Drift",
+                "class": "HYBRID",
+                "badge": "DRIFT KING",
+                "desc": "Rocket Bunny Widebody Kit, Deep Dish Wheels, Low Offset Stance, Big Bore Cannons",
+                "color": "#aa00ff",
+                "icon": "\ud83d\udd30",
+                "archetype": "takumi",
+                "scale": [
+                        1.03,
+                        1.04,
+                        0.96
+                ],
+                "wing": "ducktail",
+                "intake": "turbo",
+                "front": "drift",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "rx7_veilside",
+                "name": "RX-7 Veilside Fortune",
+                "class": "HYBRID",
+                "badge": "ROTARY TURBO",
+                "desc": "Twin-Rotary Turbo, Two-Tone Widebody Kit, High-Downforce GT Wing, Dual Cannons",
+                "color": "#ff6d00",
+                "icon": "\ud83d\udd30",
+                "archetype": "takumi",
+                "scale": [
+                        1.04,
+                        1.05,
+                        0.94
+                ],
+                "wing": "gt",
+                "intake": "turbo",
+                "front": "drift",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "supra_mk4",
+                "name": "Supra MK4 TwinTurbo",
+                "class": "HYBRID",
+                "badge": "2JZ MONSTER",
+                "desc": "Legendary 2JZ Monster, TRD Carbon Wing, Polished Lip Racing Wheels, Monster Cannon",
+                "color": "#ffffff",
+                "icon": "\ud83c\uddef\ud83c\uddf5",
+                "archetype": "takumi",
+                "scale": [
+                        1.04,
+                        1.04,
+                        0.96
+                ],
+                "wing": "gt",
+                "intake": "turbo",
+                "front": "drift",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "merc",
+                "name": "Merc Van Titan",
+                "class": "MERC",
+                "badge": "HEAVYWEIGHT",
+                "desc": "Heavyweight Industrial Van, High Stance, Chrome Front Grille, Boxy Armored Cab",
+                "color": "#37474f",
+                "icon": "\ud83d\ude90",
+                "archetype": "truck",
+                "scale": [
+                        1.06,
+                        1.06,
+                        1.18
+                ],
+                "wing": "none",
+                "intake": "clean",
+                "front": "bullbar",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "battle_bus",
+                "name": "Battle Bus Titanium",
+                "class": "MERC",
+                "badge": "FLYING BUS",
+                "desc": "High-Flying Armored Blue Bus, Hot Air Balloon Roof Exhaust Vents, Quad Cannons",
+                "color": "#1e88e5",
+                "icon": "\ud83d\ude8c",
+                "archetype": "truck",
+                "scale": [
+                        1.12,
+                        1.08,
+                        1.22
+                ],
+                "wing": "none",
+                "intake": "snorkel",
+                "front": "bullbar",
+                "exhaust": "quad"
+        },
+        {
+                "id": "f150_rle",
+                "name": "Ford F-150 RLE",
+                "class": "MERC",
+                "badge": "TOUGH TRUCK",
+                "desc": "Rocket League Edition Truck, Aggressive Chrome Billet Grille, Bed Rollbar, Side Pipes",
+                "color": "#c62828",
+                "icon": "\ud83d\udefb",
+                "archetype": "truck",
+                "scale": [
+                        1.1,
+                        1.1,
+                        1.16
+                ],
+                "wing": "none",
+                "intake": "scoop",
+                "front": "bullbar",
+                "exhaust": "side"
+        },
+        {
+                "id": "cybertruck",
+                "name": "CyberTruck Heavy",
+                "class": "MERC",
+                "badge": "EXOSKELETON",
+                "desc": "Angular Cold-Rolled Stainless Steel Shell, Full-Width LED Lightbar, Tonneau Cover",
+                "color": "#9e9e9e",
+                "icon": "\ud83d\udcd0",
+                "archetype": "truck",
+                "scale": [
+                        1.12,
+                        1.1,
+                        1.14
+                ],
+                "wing": "none",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "center"
+        },
+        {
+                "id": "monster_truck",
+                "name": "Bigfoot Monster 4x4",
+                "class": "MERC",
+                "badge": "LIFTED MONSTER",
+                "desc": "Lifted Competition 4x4, Tubular Bed Cage, Quad Overhead Spotlights, Side Exhausts",
+                "color": "#002244",
+                "icon": "\ud83d\udede",
+                "archetype": "truck",
+                "scale": [
+                        1.08,
+                        1.14,
+                        1.25
+                ],
+                "wing": "none",
+                "intake": "v8",
+                "front": "bullbar",
+                "exhaust": "side"
+        },
+        {
+                "id": "golf_gti",
+                "name": "Golf GTI Turbo",
+                "class": "MERC",
+                "badge": "EURO HATCH",
+                "desc": "Plaid Interior Hatchback, Red Grille Pinstripe, Dual Chrome Tailpipes, Roof Spoiler",
+                "color": "#d50000",
+                "icon": "\ud83d\ude97",
+                "archetype": "fennec",
+                "scale": [
+                        0.95,
+                        1.02,
+                        1.04
+                ],
+                "wing": "rally",
+                "intake": "turbo",
+                "front": "drift",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "triton",
+                "name": "Triton Hydro-Pod",
+                "class": "MERC",
+                "badge": "AMPHIBIOUS",
+                "desc": "Amphibious Rocket Car, Submarine Side Hydrofoils, Twin Waterjets, Stealth Cockpit",
+                "color": "#00838f",
+                "icon": "\ud83d\udc2c",
+                "archetype": "octane",
+                "scale": [
+                        0.96,
+                        1.04,
+                        1.06
+                ],
+                "wing": "dual",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "zippy",
+                "name": "Zippy Pocket Rocket",
+                "class": "MERC",
+                "badge": "POCKET ROCKET",
+                "desc": "Ultra-Compact Agility Speedster, Center Monocoque, Tiny Agile Profile, Active Wings",
+                "color": "#ffab00",
+                "icon": "\u26a1",
+                "archetype": "octane",
+                "scale": [
+                        0.86,
+                        1.02,
+                        1.02
+                ],
+                "wing": "active",
+                "intake": "clean",
+                "front": "formula",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "ballistic_scarab",
+                "name": "Scarab Mk II",
+                "class": "MERC",
+                "badge": "COMBAT SPHERE",
+                "desc": "Reinforced Combat Sphere, Roll Cage Ring Armor, Twin Boost Thrusters, Heavy Plating",
+                "color": "#4a148c",
+                "icon": "\ud83d\udca3",
+                "archetype": "octane",
+                "scale": [
+                        0.9,
+                        1.08,
+                        1.12
+                ],
+                "wing": "none",
+                "intake": "clean",
+                "front": "stealth",
+                "exhaust": "cannons"
+        },
+        {
+                "id": "armored_nomad",
+                "name": "Nomad Expedition",
+                "class": "MERC",
+                "badge": "OVERLANDER",
+                "desc": "Overlanding Expedition Van, Front Heavy Winch, Roof Tent Cargo Deck, Snorkel Intake",
+                "color": "#3e2723",
+                "icon": "\u26fa",
+                "archetype": "truck",
+                "scale": [
+                        1.04,
+                        1.08,
+                        1.18
+                ],
+                "wing": "none",
+                "intake": "snorkel",
+                "front": "bullbar",
+                "exhaust": "cannons"
+        }
+],
       primary_paint: [
         { id: 'cobalt', name: 'Cobalt Blue', color: '#0066FF', desc: 'High-gloss sapphire metallic' },
         { id: 'crimson', name: 'Crimson Blaze', color: '#FF1A35', desc: 'Fiery racing candy red' },
@@ -8673,12 +11171,54 @@
       renderGarageCards();
     }
 
+    let activeHitboxFilter = 'ALL';
+    let carSearchTerm = '';
+
+    function filterGarageHitbox(hitbox) {
+      activeHitboxFilter = hitbox;
+      document.querySelectorAll('.filter-chip').forEach(btn => {
+        btn.classList.toggle('active', btn.id === 'chip-' + hitbox);
+      });
+      renderGarageCards();
+    }
+
+    function onGarageSearchChanged(val) {
+      carSearchTerm = (val || '').trim().toLowerCase();
+      renderGarageCards();
+    }
+
     function renderGarageCards() {
       const container = document.getElementById('grid-customization');
       if (!container) return;
       container.innerHTML = '';
 
-      const items = garageCatalog[currentGarageCategory] || [];
+      const filterBar = document.getElementById('garage-body-filters');
+      if (filterBar) {
+        filterBar.style.display = (currentGarageCategory === 'body') ? 'flex' : 'none';
+      }
+
+      let items = garageCatalog[currentGarageCategory] || [];
+
+      if (currentGarageCategory === 'body') {
+        if (activeHitboxFilter && activeHitboxFilter !== 'ALL') {
+          items = items.filter(item => (item.class || '').toUpperCase() === activeHitboxFilter);
+        }
+        if (carSearchTerm) {
+          items = items.filter(item => {
+            const name = (item.name || '').toLowerCase();
+            const desc = (item.desc || '').toLowerCase();
+            const badge = (item.badge || '').toLowerCase();
+            const cls = (item.class || '').toLowerCase();
+            return name.includes(carSearchTerm) || desc.includes(carSearchTerm) || badge.includes(carSearchTerm) || cls.includes(carSearchTerm);
+          });
+        }
+      }
+
+      if (items.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #8899aa; font-family: Rajdhani, sans-serif; font-size: 16px;">NO CARS FOUND MATCHING SEARCH CRITERIA</div>';
+        return;
+      }
+
       items.forEach(item => {
         const isEquipped = equippedLoadout[currentGarageCategory] === item.id;
         const card = document.createElement('div');
@@ -10255,12 +12795,12 @@
       ball.vel.y -= ballGravity * dt;
       ball.pos.addScaledVector(ball.vel, dt);
 
-      // Floor Bounce & Curved Quarter-Pipe Ramp Rolling
+      // Floor Bounce & Curved Quarter-Pipe Ramp Rolling (Authentic Low-Bounce Dribbling Physics)
       const bSurf = getArenaSurface(ball.pos.x, ball.pos.z);
       if (bSurf.isRamp && ball.pos.y <= bSurf.height + BALL_RADIUS * mutatorBallScale) {
         ball.pos.y = bSurf.height + BALL_RADIUS * mutatorBallScale;
         if (ball.vel.dot(bSurf.normal) < 0) {
-          ball.vel.reflect(bSurf.normal).multiplyScalar(0.86);
+          ball.vel.reflect(bSurf.normal).multiplyScalar(0.52);
           sound.playHit(ball.vel.length() * 0.1);
           spawnBallImpactSparks(ball.pos, bSurf.normal, ball.vel.length());
         }
@@ -10269,9 +12809,15 @@
         if (Math.abs(ball.vel.y) > 2.5) {
           spawnBallImpactSparks(ball.pos, new THREE.Vector3(0, 1, 0), Math.abs(ball.vel.y));
         }
-        ball.vel.y = Math.abs(ball.vel.y) * mutatorBounciness;
-        ball.vel.x *= 0.986;
-        ball.vel.z *= 0.986;
+        // "make the ball bounce way lower"
+        // Settle micro-bounces cleanly into smooth turf rolling
+        if (Math.abs(ball.vel.y) < 1.8) {
+          ball.vel.y = 0;
+        } else {
+          ball.vel.y = Math.abs(ball.vel.y) * mutatorBounciness;
+        }
+        ball.vel.x *= 0.980;
+        ball.vel.z *= 0.980;
 
         // Zero-Second Rule: Match concludes the moment ball touches turf after 0:00
         if (isZeroSecondsActive) {
@@ -10293,7 +12839,7 @@
         if (Math.abs(ball.vel.y) > 2.5) {
           spawnBallImpactSparks(ball.pos, new THREE.Vector3(0, -1, 0), Math.abs(ball.vel.y));
         }
-        ball.vel.y = -Math.abs(ball.vel.y) * 0.8;
+        ball.vel.y = -Math.abs(ball.vel.y) * 0.55;
       }
 
       // 45-Degree Beveled Corner Deflections (Radius: 12m)
@@ -10303,7 +12849,7 @@
         const signZ = Math.sign(ball.pos.z);
         const cornerNorm = new THREE.Vector3(-signX * 0.7071, 0, -signZ * 0.7071);
         if (ball.vel.dot(cornerNorm) < 0) {
-          ball.vel.reflect(cornerNorm).multiplyScalar(0.85);
+          ball.vel.reflect(cornerNorm).multiplyScalar(0.60);
           sound.playHit(ball.vel.length() * 0.1);
           spawnBallImpactSparks(ball.pos, cornerNorm, ball.vel.length());
         }
@@ -10313,7 +12859,7 @@
       if (Math.abs(ball.pos.x) >= hw - BALL_RADIUS) {
         ball.pos.x = Math.sign(ball.pos.x) * (hw - BALL_RADIUS);
         spawnBallImpactSparks(ball.pos, new THREE.Vector3(-Math.sign(ball.pos.x), 0, 0), Math.abs(ball.vel.x));
-        ball.vel.x *= -0.82;
+        ball.vel.x *= -0.60;
         sound.playHit(ball.vel.length() * 0.1);
       }
 
@@ -10344,7 +12890,7 @@
         } else {
           ball.pos.z = Math.sign(ball.pos.z) * (hl - BALL_RADIUS);
           spawnBallImpactSparks(ball.pos, new THREE.Vector3(0, 0, -Math.sign(ball.pos.z)), Math.abs(ball.vel.z));
-          ball.vel.z *= -0.82;
+          ball.vel.z *= -0.60;
           sound.playHit(ball.vel.length() * 0.1);
         }
       }
@@ -11057,6 +13603,27 @@
 
       if (stadiumRibbonTex && stadiumRibbonTex.offset) {
         stadiumRibbonTex.offset.x -= dt * 0.08;
+      }
+
+      // Sweeping Stadium Searchlights & Floating Holographic Shields
+      if (typeof stadiumSearchlights !== 'undefined') {
+        const slTime = now * 0.001;
+        stadiumSearchlights.forEach(sl => {
+          sl.head.rotation.y = sl.baseRot + Math.sin(slTime * 0.55 + sl.phase) * 0.65;
+          sl.head.rotation.x = -0.52 + Math.cos(slTime * 0.75 + sl.phase) * 0.22;
+        });
+      }
+      if (typeof holoShieldBlue !== 'undefined' && holoShieldBlue.ring1) {
+        const hTime = now * 0.001;
+        holoShieldBlue.ring1.rotation.z = hTime * 1.2;
+        holoShieldBlue.ring2.rotation.z = -hTime * 1.5;
+        holoShieldBlue.position.y = 11.5 + Math.sin(hTime * 2.0) * 0.25;
+      }
+      if (typeof holoShieldOrange !== 'undefined' && holoShieldOrange.ring1) {
+        const hTime = now * 0.001;
+        holoShieldOrange.ring1.rotation.z = -hTime * 1.2;
+        holoShieldOrange.ring2.rotation.z = hTime * 1.5;
+        holoShieldOrange.position.y = 11.5 + Math.sin(hTime * 2.0 + 1.5) * 0.25;
       }
 
       if (typeof stadiumDust !== 'undefined' && stadiumDust && stadiumDust.geometry && stadiumDust.geometry.attributes && stadiumDust.geometry.attributes.position) {
