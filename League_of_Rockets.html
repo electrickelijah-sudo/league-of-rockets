@@ -254,6 +254,7 @@
       transform: translate(-50%, -50%) scale(0);
       text-align: center;
       transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
     }
     #goal-banner.show {
       transform: translate(-50%, -50%) scale(1);
@@ -291,6 +292,7 @@
       display: none;
       line-height: 1;
       animation: pulse 0.4s infinite alternate;
+      pointer-events: none;
     }
 
     /* Goal Replay Badge */
@@ -1664,11 +1666,15 @@
       box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 240, 255, 0.4);
       backdrop-filter: blur(12px);
       pointer-events: none;
+      cursor: pointer;
       z-index: 100;
       opacity: 0;
+      display: none;
       transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .cinematic-banner.active {
+      display: block;
+      pointer-events: auto;
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
@@ -1860,6 +1866,14 @@
       color: #fff;
     }
 
+
+    /* Guaranteed Pointer Events on all Menu Interactive Elements */
+    .rl-menu-btn, .rl-mode-card, .rl-profile-widget, .rl-loadout-badge,
+    .rl-drawer-close, .close-btn, .btn-hud, .settings-tab-item, .bakkes-btn,
+    .game-modal button, .game-modal select, .game-modal input {
+      pointer-events: auto !important;
+      cursor: pointer !important;
+    }
   </style>
 </head>
 <body>
@@ -1919,9 +1933,14 @@
 
       <!-- Left-hand Slanted Rocket League Sidebar Navigation -->
       <div class="rl-menu-sidebar">
-        <button class="rl-menu-btn primary" onclick="togglePlaySubmenu()">
-          <span class="rl-btn-text">🚀 PLAY</span>
-          <span class="rl-btn-sub">FIND MATCH / PLAYLISTS</span>
+        <button class="rl-menu-btn primary" onclick="startMatchmaking('1v1')">
+          <span class="rl-btn-text">🚀 PLAY NOW</span>
+          <span class="rl-btn-sub">INSTANT KICKOFF (1v1 DUEL)</span>
+        </button>
+
+        <button class="rl-menu-btn" onclick="togglePlaySubmenu()">
+          <span class="rl-btn-text">🎮 GAME MODES</span>
+          <span class="rl-btn-sub">1v1, 2v2, 3v3, FREE PLAY</span>
         </button>
 
         <button class="rl-menu-btn" onclick="openModal('garage-modal')">
@@ -1999,10 +2018,10 @@
     </div>
 
     <!-- Cinematic Broadcast Match Intro Banner -->
-    <div id="cinematic-match-banner" class="cinematic-banner">
+    <div id="cinematic-match-banner" class="cinematic-banner" onclick="endCinematicIntro()">
       <div class="cin-stadium-tag">🏆 CHAMPIONS FIELD • REGULATION ARENA</div>
       <div class="cin-match-title" id="cin-match-mode-text">1v1 COMPETITIVE DUEL</div>
-      <div class="cin-skip-hint">PRESS [SPACE] OR [A] TO SKIP INTRO</div>
+      <div class="cin-skip-hint">CLICK ANYWHERE OR PRESS [SPACE] TO START KICKOFF</div>
     </div>
 
     <!-- BAKKESMOD V3.4 IN-GAME MOD & TRAINING OVERLAY (F2) -->
@@ -2841,7 +2860,7 @@
         if (this.ctx && this.ctx.state === 'suspended') {
           this.ctx.resume().catch(() => {});
         }
-        return this.initialized && this.ctx && this.ctx.state === 'running';
+        return !!(this.initialized && this.ctx);
       }
 
       updateEngine(speed, isBoosting, throttle = 1) {
@@ -3568,13 +3587,13 @@
     const tCtx = turfCanvas.getContext('2d');
 
     // 1. Champions Field Honeycomb Hexagonal Pitch Tiles (Image 4 Parity)
-    const hexRadius = 36;
-    const hexH = Math.sqrt(3) * hexRadius;
-    for (let hy = -hexRadius; hy < 2560 + hexRadius * 2; hy += hexH) {
-      for (let hx = -hexRadius; hx < 2048 + hexRadius * 2; hx += hexRadius * 3) {
+    const pitchHexRadius = 36;
+    const pitchHexH = Math.sqrt(3) * pitchHexRadius;
+    for (let hy = -pitchHexRadius; hy < 2560 + pitchHexRadius * 2; hy += pitchHexH) {
+      for (let hx = -pitchHexRadius; hx < 2048 + pitchHexRadius * 2; hx += pitchHexRadius * 3) {
         [0, 1].forEach(rowShift => {
-          const cx = hx + (rowShift ? hexRadius * 1.5 : 0);
-          const cy = hy + (rowShift ? hexH * 0.5 : 0);
+          const cx = hx + (rowShift ? pitchHexRadius * 1.5 : 0);
+          const cy = hy + (rowShift ? pitchHexH * 0.5 : 0);
           const isBlueSide = (cy < 1280);
 
           // Subtle honeycomb cell fill
@@ -3582,8 +3601,8 @@
           tCtx.beginPath();
           for (let i = 0; i < 6; i++) {
             const ang = i * Math.PI / 3;
-            const px = cx + (hexRadius - 2) * Math.cos(ang);
-            const py = cy + (hexRadius - 2) * Math.sin(ang);
+            const px = cx + (pitchHexRadius - 2) * Math.cos(ang);
+            const py = cy + (pitchHexRadius - 2) * Math.sin(ang);
             if (i === 0) tCtx.moveTo(px, py);
             else tCtx.lineTo(px, py);
           }
@@ -4915,7 +4934,7 @@
     const superstructureGroup = new THREE.Group();
     const neonCyanMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
     const neonOrangeMat = new THREE.MeshBasicMaterial({ color: 0xff6600 });
-    const trussMat = new THREE.MeshStandardMaterial({ color: 0x1a2232, metalness: 0.85, roughness: 0.35 });
+    const superArchTrussMat = new THREE.MeshStandardMaterial({ color: 0x1a2232, metalness: 0.85, roughness: 0.35 });
 
     // 1. Four Massive Illuminated Space-Truss Super-Arches bridging across the arena
     const archZCoords = [-34, -11, 11, 34];
@@ -4949,7 +4968,7 @@
         const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
 
         const railGeo = new THREE.CylinderGeometry(0.22, 0.22, len, 6);
-        const rail = new THREE.Mesh(railGeo, trussMat);
+        const rail = new THREE.Mesh(railGeo, superArchTrussMat);
         rail.position.copy(mid);
         rail.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
         archMeshGroup.add(rail);
@@ -4962,7 +4981,7 @@
         const lmid = new THREE.Vector3().addVectors(lp1, lp2).multiplyScalar(0.5);
 
         const lrailGeo = new THREE.CylinderGeometry(0.18, 0.18, llen, 6);
-        const lrail = new THREE.Mesh(lrailGeo, trussMat);
+        const lrail = new THREE.Mesh(lrailGeo, superArchTrussMat);
         lrail.position.copy(lmid);
         lrail.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), ldir.clone().normalize());
         archMeshGroup.add(lrail);
@@ -4979,7 +4998,7 @@
           const crossDir = new THREE.Vector3().subVectors(p2, lp1);
           const crossLen = crossDir.length();
           const crossMid = new THREE.Vector3().addVectors(p1, lp2).multiplyScalar(0.5);
-          const strut = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, crossLen, 4), trussMat);
+          const strut = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, crossLen, 4), superArchTrussMat);
           strut.position.copy(crossMid);
           strut.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), crossDir.clone().normalize());
           archMeshGroup.add(strut);
@@ -4989,7 +5008,7 @@
       // Arch Downward Spotlights
       [-12, 0, 12].forEach(fx => {
         const fy = (1 - (fx / archWidth) * (fx / archWidth)) * archHeight;
-        const spotHousing = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.6, 0.8, 8), trussMat);
+        const spotHousing = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.6, 0.8, 8), superArchTrussMat);
         spotHousing.position.set(fx, fy - 0.4, 0);
         spotHousing.rotation.x = Math.PI;
         archMeshGroup.add(spotHousing);
@@ -5085,7 +5104,7 @@
       const slGroup = new THREE.Group();
       slGroup.position.set(sc.x, 24, sc.z);
 
-      const slBase = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.5, 2.0, 8), trussMat);
+      const slBase = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.5, 2.0, 8), superArchTrussMat);
       slGroup.add(slBase);
 
       const slHead = new THREE.Group();
@@ -8984,6 +9003,11 @@
       }, 2200);
     }
 
+    /* Global State: Cinematic Intro, BakkesMod & Pro Camera */
+    // Cinematic intro state initialized at top of script
+    // customGameSpeed initialized at top of script
+    // Camera settings initialized at top of script
+
     /* =========================================================================
        INPUT CONTROLS & CAMERA
        ========================================================================= */
@@ -9031,6 +9055,10 @@
       const isZKey = (e.key.toLowerCase() === 'z' || e.code.toLowerCase() === 'keyz');
       const isArrowSteering = (keys['arrowup'] || keys['arrowdown'] || keys['arrowleft'] || keys['arrowright']);
 
+      if (isInMainMenu && (isSpace || e.key === 'Enter')) {
+        startMatchmaking('1v1');
+        return;
+      }
       if ((isSpace || (isArrowSteering && (isAKey || isZKey))) && !e.repeat) {
         handleJump();
       }
@@ -9211,6 +9239,10 @@
       const curJump = isBtnPressed(0) || (isNintendo && isBtnPressed(1));
       const prevJump = prevGamepadButtons.get('jump') || false;
       if (curJump && !prevJump) {
+        if (isInMainMenu) {
+          startMatchmaking('1v1');
+          return;
+        }
         handleJump();
       }
       prevGamepadButtons.set('jump', curJump);
@@ -9747,6 +9779,7 @@
         if (menuOverlay) menuOverlay.classList.add('hidden');
 
         setupTeamsForMode(mode);
+        resetKickoff();
 
         startCinematicIntro(mode);
       }, 220);
@@ -14053,6 +14086,18 @@
     /* =========================================================================
        CAMERA SYSTEM: DYNAMIC SPEED FOV WARP, TRAUMA SHAKE & OFF-SCREEN BALL ARROW (3X Scale)
        ========================================================================= */
+    // Click / Touch anywhere to immediately skip cinematic intro & start match
+    window.addEventListener('click', () => {
+      if (isCinematicIntroActive && cinematicIntroTimer > 0.15) {
+        endCinematicIntro();
+      }
+    });
+    window.addEventListener('pointerdown', () => {
+      if (isCinematicIntroActive && cinematicIntroTimer > 0.15) {
+        endCinematicIntro();
+      }
+    });
+
     function updateCamera(dt) {
       if (isCinematicIntroActive) {
         cinematicIntroTimer += dt;
@@ -14742,6 +14787,54 @@
 
     // Start game in Authentic Rocket League Main Menu
     // Initialize Progression, Customization Garage, and Default Teams
+    function attachMenuClickHandlers() {
+      // Programmatic event listener fallbacks for all menu action buttons
+      const playBtn = document.querySelector('.rl-menu-btn.primary');
+      if (playBtn) {
+        playBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          startMatchmaking('1v1');
+        });
+      }
+      const modesBtn = document.querySelectorAll('.rl-menu-btn')[1];
+      if (modesBtn) {
+        modesBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          togglePlaySubmenu();
+        });
+      }
+      const garageBtn = document.querySelectorAll('.rl-menu-btn')[2];
+      if (garageBtn) {
+        garageBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openModal('garage-modal');
+        });
+      }
+      const arenasBtn = document.querySelectorAll('.rl-menu-btn')[3];
+      if (arenasBtn) {
+        arenasBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openModal('maps-modal');
+        });
+      }
+      const settingsBtn = document.querySelectorAll('.rl-menu-btn')[4];
+      if (settingsBtn) {
+        settingsBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openModal('settings-modal');
+        });
+      }
+      const dlBtn = document.querySelectorAll('.rl-menu-btn')[5];
+      if (dlBtn) {
+        dlBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openModal('download-modal');
+        });
+      }
+    }
+
+    attachMenuSoundListeners();
+    attachMenuClickHandlers();
     updateProgressionUI();
     renderGarageCards();
     applyEquippedLoadout();
