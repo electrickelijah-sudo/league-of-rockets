@@ -222,6 +222,159 @@
       letter-spacing: 1.5px;
     }
 
+    /* Rumble Powerup HUD Widget */
+    .rumble-widget {
+      position: absolute;
+      bottom: 35px;
+      right: 280px;
+      background: linear-gradient(135deg, rgba(16, 20, 36, 0.92) 0%, rgba(32, 16, 44, 0.92) 100%);
+      border: 2px solid #ff0077;
+      border-radius: 12px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      pointer-events: auto;
+      box-shadow: 0 0 20px rgba(255, 0, 119, 0.35);
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      user-select: none;
+    }
+    .rumble-widget:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 0 30px rgba(255, 0, 119, 0.65);
+    }
+    .rumble-widget.ready {
+      border-color: #00ffcc;
+      box-shadow: 0 0 25px rgba(0, 255, 204, 0.5), inset 0 0 15px rgba(0, 255, 204, 0.2);
+      animation: rumblePulse 1.2s infinite alternate;
+    }
+    @keyframes rumblePulse {
+      0% { transform: scale(1); filter: drop-shadow(0 0 8px #00ffcc); }
+      100% { transform: scale(1.05); filter: drop-shadow(0 0 22px #00ffcc); }
+    }
+    .rumble-ring-wrap {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rumble-svg {
+      width: 48px;
+      height: 48px;
+      transform: rotate(-90deg);
+    }
+    .rumble-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.15);
+      stroke-width: 6;
+    }
+    .rumble-progress {
+      fill: none;
+      stroke: #ff0077;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 213;
+      stroke-dashoffset: 213;
+      transition: stroke-dashoffset 0.1s linear, stroke 0.2s;
+    }
+    .rumble-widget.ready .rumble-progress {
+      stroke: #00ffcc;
+    }
+    .rumble-icon {
+      position: absolute;
+      font-size: 24px;
+      line-height: 1;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    .rumble-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .rumble-name {
+      font-family: 'Teko', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+    .rumble-key-hint {
+      font-size: 10px;
+      font-weight: 800;
+      color: #ff0077;
+      letter-spacing: 1.5px;
+    }
+    .rumble-widget.ready .rumble-key-hint {
+      color: #00ffcc;
+    }
+
+    /* Chaos Mutators Quick Bar */
+    .chaos-drawer {
+      position: fixed;
+      top: 60px;
+      right: 30px;
+      background: rgba(12, 16, 28, 0.95);
+      border: 1.5px solid #ffaa00;
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 170, 0, 0.35);
+      backdrop-filter: blur(14px);
+      pointer-events: auto;
+    }
+    .chaos-drawer.active {
+      display: flex;
+    }
+    .chaos-title {
+      font-family: 'Teko', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffaa00;
+      letter-spacing: 1.5px;
+      border-bottom: 1px solid rgba(255, 170, 0, 0.3);
+      padding-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chaos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .chaos-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      color: #e0e6ed;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .chaos-btn:hover {
+      background: rgba(255, 170, 0, 0.2);
+      border-color: #ffaa00;
+      color: #fff;
+    }
+    .chaos-btn.active {
+      background: linear-gradient(135deg, #ff6600, #ffaa00);
+      color: #060910;
+      border-color: #ffaa00;
+      font-weight: 800;
+      box-shadow: 0 0 12px rgba(255, 170, 0, 0.5);
+    }
+
     /* Ball Cam Indicator */
     .ball-cam-indicator {
       position: absolute;
@@ -1290,6 +1443,170 @@
       color: #fff;
       box-shadow: 0 0 12px rgba(0, 225, 255, 0.4);
     }
+    
+    /* Rarity Glow & 7,000 Item Styling */
+    .rarity-badge-header {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #ff0077, #00f0ff);
+      padding: 3px 9px;
+      border-radius: 12px;
+      color: #fff;
+      margin-left: 10px;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+    }
+    .item-card.rarity-black_market {
+      border: 1.5px solid #ffcc00;
+      box-shadow: 0 0 10px rgba(255, 204, 0, 0.35);
+    }
+    .item-card.rarity-black_market:hover {
+      border-color: #ffe066;
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.6);
+    }
+    .item-card.rarity-exotic {
+      border: 1.5px solid #ff2a4b;
+      box-shadow: 0 0 9px rgba(255, 42, 75, 0.3);
+    }
+    .item-card.rarity-exotic:hover {
+      border-color: #ff6680;
+      box-shadow: 0 0 18px rgba(255, 42, 75, 0.55);
+    }
+    .item-card.rarity-import {
+      border: 1.5px solid #b829ff;
+      box-shadow: 0 0 8px rgba(184, 41, 255, 0.25);
+    }
+    .item-card.rarity-import:hover {
+      border-color: #d166ff;
+      box-shadow: 0 0 16px rgba(184, 41, 255, 0.5);
+    }
+    .item-card.rarity-very_rare {
+      border: 1.5px solid #0088ff;
+      box-shadow: 0 0 6px rgba(0, 136, 255, 0.2);
+    }
+    .item-card.rarity-rare {
+      border: 1.5px solid #00ff88;
+      box-shadow: 0 0 6px rgba(0, 255, 136, 0.2);
+    }
+    .item-card-rarity-tag {
+      font-size: 8px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 4px;
+      display: inline-block;
+      letter-spacing: 0.6px;
+      margin-top: 3px;
+      text-transform: uppercase;
+    }
+    .tag-black_market { background: rgba(255, 204, 0, 0.2); color: #ffcc00; border: 1px solid #ffcc00; }
+    .tag-exotic { background: rgba(255, 42, 75, 0.2); color: #ff2a4b; border: 1px solid #ff2a4b; }
+    .tag-import { background: rgba(184, 41, 255, 0.2); color: #d166ff; border: 1px solid #b829ff; }
+    .tag-very_rare { background: rgba(0, 136, 255, 0.2); color: #38bdf8; border: 1px solid #0088ff; }
+    .tag-rare { background: rgba(0, 255, 136, 0.2); color: #00ff88; border: 1px solid #00ff88; }
+    .tag-common { background: rgba(255, 255, 255, 0.1); color: #e0e6ed; border: 1px solid rgba(255,255,255,0.2); }
+
+    /* Crate Unboxing Modal */
+    .crate-box {
+      width: 100%;
+      background: radial-gradient(circle at center, #1a2236 0%, #080d18 100%);
+      border: 2px solid #ffcc00;
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 0 35px rgba(255, 204, 0, 0.25);
+    }
+    .crate-reel-viewport {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      background: rgba(4, 8, 16, 0.95);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      margin: 18px 0;
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.85);
+    }
+    .crate-reel-indicator {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      transform: translateX(-50%);
+      background: #ffcc00;
+      box-shadow: 0 0 14px #ffcc00, 0 0 28px #ffcc00;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .crate-reel-needle-top {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 14px solid #ffcc00;
+      z-index: 11;
+    }
+    .crate-reel-needle-bot {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 14px solid #ffcc00;
+      z-index: 11;
+    }
+    .crate-track {
+      display: flex;
+      gap: 12px;
+      padding: 15px 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      will-change: transform;
+    }
+    .crate-item-slot {
+      width: 130px;
+      height: 148px;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      box-sizing: border-box;
+      transition: transform 0.2s;
+    }
+    .crate-item-slot .c-icon {
+      font-size: 38px;
+      margin-bottom: 6px;
+    }
+    .crate-item-slot .c-name {
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 114px;
+    }
+    .crate-item-slot .c-cat {
+      font-size: 8px;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
     .item-card {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -1981,6 +2298,11 @@
           <span class="rl-btn-sub">INSTANT KICKOFF (1v1 DUEL)</span>
         </button>
 
+        <button class="rl-menu-btn" onclick="openMultiplayerModal()" style="border-left-color: #00ff88;">
+          <span class="rl-btn-text">🌐 ONLINE MULTIPLAYER</span>
+          <span class="rl-btn-sub" style="color: #00ff88;">PLAY ON DIFFERENT DEVICES</span>
+        </button>
+
         <button class="rl-menu-btn" onclick="togglePlaySubmenu()">
           <span class="rl-btn-text">🎮 GAME MODES</span>
           <span class="rl-btn-sub">1v1, 2v2, 3v3, FREE PLAY</span>
@@ -2036,7 +2358,24 @@
             <div class="rl-mode-badge" style="background:#00ff88; color:#060d17;">FREE PLAY</div>
             <div class="rl-mode-name">🎯 TRAINING / FREE PLAY</div>
             <div class="rl-mode-desc">Unlimited boost, open stadium, zero clock. Master your mechanics.</div>
-            <div class="rl-mode-pop">⚡ WARMUP & MECHANICS</div>
+          </div>
+          <div class="rl-mode-card" onclick="openMultiplayerModal()" style="border-color: rgba(0, 255, 136, 0.5);">
+            <div class="rl-mode-badge" style="background:#00ff88; color:#060d17;">CROSS-DEVICE</div>
+            <div class="rl-mode-name">🌐 ONLINE / LAN DUEL</div>
+            <div class="rl-mode-desc">Play head-to-head or co-op across 2 different phones, laptops, or PCs!</div>
+            <div class="rl-mode-pop" style="color:#00ff88;">📶 PEER-TO-PEER WEBRTC</div>
+          </div>
+          <div class="rl-mode-card" onclick="startMatchmaking('rumble')">
+            <div class="rl-mode-badge" style="background:#ff0077; color:#fff;">PARTY CHAOS</div>
+            <div class="rl-mode-name">🥊 RUMBLE ROYALE</div>
+            <div class="rl-mode-desc">Powerups showdown! Punch, plungers, spikes, freeze & tornadoes.</div>
+            <div class="rl-mode-pop">💥 18,400 PLAYERS IN PLAYLIST</div>
+          </div>
+          <div class="rl-mode-card" onclick="startMatchmaking('derby')">
+            <div class="rl-mode-badge" style="background:#ff5500; color:#fff;">MAYHEM</div>
+            <div class="rl-mode-name">💥 DEMOLITION DERBY</div>
+            <div class="rl-mode-desc">Instagib collisions! Any touch triggers massive nuclear explosions.</div>
+            <div class="rl-mode-pop">🔥 8,250 PLAYERS IN PLAYLIST</div>
           </div>
         </div>
       </div>
@@ -2199,11 +2538,30 @@
     <!-- Top Action Bar (Mode, Garage, Maps, Pause/Settings) -->
     <div class="top-action-bar hud-match-only">
       <button id="btn-mode-toggle" class="btn-hud" onclick="cycleGameMode()">🎮 1v1 DUEL</button>
+      <button id="btn-mp-toggle" class="btn-hud" onclick="openMultiplayerModal()" style="border-color: #00ff88; color: #00ff88; font-weight: bold;">🌐 MULTIPLAYER</button>
+      <button id="btn-rumble-toggle" class="btn-hud" onclick="toggleRumbleMode()" style="border-color: #ff0077; color: #ff0077; font-weight: bold;">⚡ RUMBLE: ON</button>
+      <button id="btn-chaos-toggle" class="btn-hud" onclick="toggleChaosDrawer()" style="border-color: #ffaa00; color: #ffaa00; font-weight: bold;">🔥 CHAOS MODS</button>
       <button class="btn-hud" onclick="openModal('garage-modal')">🚗 GARAGE</button>
       <button class="btn-hud" onclick="openModal('maps-modal')">🌎 MAPS</button>
       <button class="btn-hud" onclick="toggleBakkesMod()" style="border-color: #00e5ff; color: #00e5ff;">🛠️ BAKKESMOD [F2]</button>
       <button class="btn-hud" onclick="openModal('settings-modal')">⚙️ SETTINGS</button>
       <button id="btn-download" class="btn-hud btn-hud-download" onclick="openModal('download-modal')">💾 DOWNLOAD</button>
+    </div>
+
+    <!-- Quick Chaos Mutators Floating Drawer -->
+    <div id="chaos-drawer" class="chaos-drawer">
+      <div class="chaos-title">
+        <span>🔥 CHAOS MUTATORS</span>
+        <button onclick="toggleChaosDrawer()" style="background:none; border:none; color:#ffaa00; font-size:18px; cursor:pointer;">✕</button>
+      </div>
+      <div class="chaos-grid">
+        <button id="cbtn-instagib" class="chaos-btn" onclick="toggleChaosMutator('instagib')">💥 INSTAGIB DERBY</button>
+        <button id="cbtn-moon" class="chaos-btn" onclick="toggleChaosMutator('moon')">🌙 MOON GRAVITY</button>
+        <button id="cbtn-superboost" class="chaos-btn" onclick="toggleChaosMutator('superboost')">⚡ 1.5x SUPER BOOST</button>
+        <button id="cbtn-beach" class="chaos-btn" onclick="toggleChaosMutator('beach')">🏐 BEACH BALL</button>
+        <button id="cbtn-pinball" class="chaos-btn" onclick="toggleChaosMutator('pinball')">🕹️ PINBALL BOUNCE</button>
+        <button id="cbtn-superspeed" class="chaos-btn" onclick="toggleChaosMutator('superspeed')">🏎️ 2x HYPERSPEED</button>
+      </div>
     </div>
 
     <div class="scoreboard hud-match-only">
@@ -2218,11 +2576,18 @@
       </div>
     </div>
 
+    <!-- Active Multiplayer Latency & Room HUD -->
+    <div id="mp-hud-badge" class="hud-match-only" style="display:none; position:absolute; top:72px; left:50%; transform:translateX(-50%); background:rgba(6,12,24,0.92); border:1.5px solid #00ff88; border-radius:20px; padding:3px 14px; font-size:13px; font-weight:700; color:#00ff88; z-index:22; letter-spacing:0.5px; box-shadow:0 0 14px rgba(0,255,136,0.35); align-items:center; gap:8px;">
+      <span id="mp-hud-dot" style="font-size:10px;">🟢</span>
+      <span id="mp-hud-role">HOST</span> • ROOM: <span id="mp-hud-room">ROCK-42</span> • <span id="mp-hud-ping">24 ms</span>
+    </div>
+
     <div id="controls-hint" class="hud-match-only">
       <span><span id="badge-w" class="key-badge">W</span><span id="badge-s" class="key-badge">S</span> Drive</span>
       <span><span id="badge-a" class="key-badge">A</span><span id="badge-d" class="key-badge">D</span> Steer</span>
       <span><span id="badge-space" class="key-badge">SPACE</span> Jump / Dodge</span>
       <span><span id="badge-q" class="key-badge">Q</span><span id="badge-e" class="key-badge">E</span> Air Roll</span>
+      <span><span id="badge-f" class="key-badge">F</span> Powerup</span>
       <span><span id="badge-shift" class="key-badge">SHIFT</span> Boost</span>
       <span><span id="badge-c" class="key-badge">C</span> Ball Cam</span>
       <span><span id="badge-tab" class="key-badge">TAB</span> Scoreboard</span>
@@ -2233,6 +2598,21 @@
     <div class="speedo-container hud-match-only">
       <div id="speedo-val" class="speedo-val">0</div>
       <div class="speedo-lbl">KPH</div>
+    </div>
+
+    <!-- Active Rumble Powerup HUD Display -->
+    <div id="rumble-widget" class="rumble-widget hud-match-only" onclick="activatePlayerRumblePowerup()" title="Click or Press [F] to activate Powerup">
+      <div class="rumble-ring-wrap">
+        <svg class="rumble-svg" viewBox="0 0 80 80">
+          <circle class="rumble-bg" cx="40" cy="40" r="34"></circle>
+          <circle id="rumble-progress" class="rumble-progress" cx="40" cy="40" r="34"></circle>
+        </svg>
+        <div id="rumble-icon" class="rumble-icon">⏳</div>
+      </div>
+      <div class="rumble-info">
+        <div id="rumble-name" class="rumble-name">CHARGING...</div>
+        <div id="rumble-key-hint" class="rumble-key-hint">[F] USE POWERUP</div>
+      </div>
     </div>
 
     <div class="boost-container hud-match-only">
@@ -2282,9 +2662,16 @@
     
     <!-- GARAGE MODAL -->
     <div id="garage-modal" class="game-modal" style="max-width: 900px; width: 92%; max-height: 90vh;">
-      <div class="modal-header">
-        <div class="modal-title">🚗 VEHICLE CUSTOMIZATION GARAGE</div>
-        <button class="close-btn" onclick="closeModal('garage-modal')">✕</button>
+      <div class="modal-header" style="flex-wrap: wrap; gap: 8px;">
+        <div style="display: flex; align-items: center;">
+          <div class="modal-title">🚗 VEHICLE CUSTOMIZATION GARAGE</div>
+          <span class="rarity-badge-header">⚡ 7,000 COOL ITEMS</span>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center; margin-left: auto;">
+          <button class="filter-chip" onclick="randomizeLoadout()" style="background: linear-gradient(135deg, #7928ca, #ff0080); border: 1.5px solid #ff0080; color: #fff; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px rgba(255,0,128,0.4);" title="Roll a completely randomized custom loadout across all 7,000 items!">🎲 RANDOMIZE (7K)</button>
+          <button class="filter-chip" onclick="openCrateModal()" style="background: linear-gradient(135deg, #f59e0b, #ef4444); border: 1.5px solid #ffd700; color: #fff; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px rgba(255,215,0,0.4);" title="Open an authentic animated 7,000 item loot drop!">🎁 7K CRATE DROP</button>
+          <button class="close-btn" onclick="closeModal('garage-modal')">✕</button>
+        </div>
       </div>
 
       <!-- 3D Turntable Showroom Preview Canvas -->
@@ -2312,20 +2699,62 @@
       <!-- Active Category Items Grid -->
       <div class="garage-section-title" id="garage-category-title">SELECT CAR BODY</div>
       
-      <!-- 100-Car Hitbox Filters & Live Search Toolbar -->
-      <div class="garage-filter-bar" id="garage-body-filters" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center;">
-        <input type="text" id="garage-search-input" placeholder="🔍 Search 100 cars (e.g. Skyline, Batmobile, Octane, Dominus, Fennec...)" style="flex: 1; min-width: 240px; background: rgba(12, 18, 30, 0.95); border: 1.5px solid rgba(0, 225, 255, 0.4); border-radius: 8px; color: #fff; padding: 7px 12px; font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; outline: none;" oninput="onGarageSearchChanged(this.value)">
-        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-          <button class="filter-chip active" id="chip-ALL" onclick="filterGarageHitbox('ALL')">ALL (100)</button>
-          <button class="filter-chip" id="chip-OCTANE" onclick="filterGarageHitbox('OCTANE')">OCTANE (30)</button>
-          <button class="filter-chip" id="chip-DOMINUS" onclick="filterGarageHitbox('DOMINUS')">DOMINUS (25)</button>
-          <button class="filter-chip" id="chip-BREAKOUT" onclick="filterGarageHitbox('BREAKOUT')">BREAKOUT (20)</button>
-          <button class="filter-chip" id="chip-HYBRID" onclick="filterGarageHitbox('HYBRID')">HYBRID (15)</button>
-          <button class="filter-chip" id="chip-MERC" onclick="filterGarageHitbox('MERC')">MERC (10)</button>
+      <!-- 7,000-Item Universal Search & Tier Filters Toolbar -->
+      <div class="garage-filter-bar" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+          <input type="text" id="garage-search-input" placeholder="🔍 Search across 7,000 items (e.g. Hyper, Dragon, Titanium, Laser, Singularity...)" style="flex: 1; min-width: 240px; background: rgba(12, 18, 30, 0.95); border: 1.5px solid rgba(0, 225, 255, 0.4); border-radius: 8px; color: #fff; padding: 7px 12px; font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; outline: none;" oninput="onGarageSearchChanged(this.value)">
+          <div id="garage-counter-badge" style="font-size: 12px; color: #00f0ff; font-weight: 700; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.5px;">SHOWING 60 OF 1,000 ITEMS</div>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
+          <span style="font-size: 11px; color: #94a3b8; font-weight: 700; margin-right: 4px;">RARITY:</span>
+          <button class="filter-chip rarity-chip active" id="chip-rarity-ALL" onclick="filterGarageRarity('ALL')">ALL (1,000)</button>
+          <button class="filter-chip rarity-chip" id="chip-rarity-black_market" onclick="filterGarageRarity('black_market')" style="color: #ffcc00; border-color: rgba(255,204,0,0.5);">🟡 BLACK MARKET</button>
+          <button class="filter-chip rarity-chip" id="chip-rarity-exotic" onclick="filterGarageRarity('exotic')" style="color: #ff2a4b; border-color: rgba(255,42,75,0.5);">🔴 EXOTIC</button>
+          <button class="filter-chip rarity-chip" id="chip-rarity-import" onclick="filterGarageRarity('import')" style="color: #d166ff; border-color: rgba(184,41,255,0.5);">🟣 IMPORT</button>
+          <button class="filter-chip rarity-chip" id="chip-rarity-very_rare" onclick="filterGarageRarity('very_rare')" style="color: #38bdf8; border-color: rgba(0,136,255,0.5);">🔵 VERY RARE</button>
+          <button class="filter-chip rarity-chip" id="chip-rarity-rare" onclick="filterGarageRarity('rare')" style="color: #00ff88; border-color: rgba(0,255,136,0.5);">🟢 RARE</button>
+          <button class="filter-chip rarity-chip" id="chip-rarity-common" onclick="filterGarageRarity('common')" style="color: #e0e6ed;">⚪ COMMON</button>
+        </div>
+        <div id="garage-body-filters" style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
+          <span style="font-size: 11px; color: #94a3b8; font-weight: 700; margin-right: 4px;">HITBOX:</span>
+          <button class="filter-chip hitbox-chip active" id="chip-hitbox-ALL" onclick="filterGarageHitbox('ALL')">ALL</button>
+          <button class="filter-chip hitbox-chip" id="chip-hitbox-OCTANE" onclick="filterGarageHitbox('OCTANE')">OCTANE</button>
+          <button class="filter-chip hitbox-chip" id="chip-hitbox-DOMINUS" onclick="filterGarageHitbox('DOMINUS')">DOMINUS</button>
+          <button class="filter-chip hitbox-chip" id="chip-hitbox-BREAKOUT" onclick="filterGarageHitbox('BREAKOUT')">BREAKOUT</button>
+          <button class="filter-chip hitbox-chip" id="chip-hitbox-HYBRID" onclick="filterGarageHitbox('HYBRID')">HYBRID</button>
+          <button class="filter-chip hitbox-chip" id="chip-hitbox-MERC" onclick="filterGarageHitbox('MERC')">MERC</button>
         </div>
       </div>
 
       <div class="cards-grid" id="grid-customization"></div>
+    </div>
+
+    
+    <!-- 7,000 ITEM CRATE DROP UNBOXING MODAL -->
+    <div id="crate-modal" class="game-modal" style="max-width: 680px; width: 92%;">
+      <div class="modal-header">
+        <div class="modal-title">🎁 7,000 ITEM CRATE DROP</div>
+        <button class="close-btn" onclick="closeModal('crate-modal')">✕</button>
+      </div>
+      <div class="crate-box">
+        <div style="font-size: 13px; color: #94a3b8; margin-bottom: 6px;">
+          Unbox rare items from the legendary 7,000 item vault across all 7 customization categories!
+        </div>
+        <div class="crate-reel-viewport">
+          <div class="crate-reel-indicator"></div>
+          <div class="crate-reel-needle-top"></div>
+          <div class="crate-reel-needle-bot"></div>
+          <div class="crate-track" id="crate-track"></div>
+        </div>
+        <div id="crate-result-area" style="min-height: 52px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center;">
+          <div id="crate-status-text" style="font-size: 15px; font-weight: 700; color: #ffcc00; letter-spacing: 0.8px;">PRESS SPIN TO OPEN CRATE!</div>
+        </div>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+          <button id="btn-spin-crate" class="btn-hud primary" onclick="spinCrateDrop()" style="font-size: 16px; padding: 10px 28px; background: linear-gradient(135deg, #f59e0b, #ef4444); border-color: #ffcc00;">🎰 SPIN 7K CRATE</button>
+          <button id="btn-equip-crate" class="btn-hud" onclick="equipCrateDropPrize()" style="display: none; background: #00ff88; color: #080d14; font-weight: 800; border-color: #00ff88;">⚡ EQUIP PRIZE NOW</button>
+          <button class="btn-hud" onclick="closeModal('crate-modal')">CLOSE</button>
+        </div>
+      </div>
     </div>
 
     <!-- MAP SELECTOR MODAL -->
@@ -2788,6 +3217,55 @@
       </div>
     </div>
 
+    <!-- MULTIPLAYER MODAL (CROSS-DEVICE ONLINE & LAN MATCHMAKING) -->
+    <div id="multiplayer-modal" class="game-modal" style="max-width: 620px; width: 92%;">
+      <div class="modal-header">
+        <div class="modal-title">🌐 CROSS-DEVICE MULTIPLAYER</div>
+        <button class="close-btn" onclick="closeModal('multiplayer-modal')">✕</button>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 18px;">
+        <button id="mp-tab-host" class="garage-tab-btn active" style="flex: 1; padding: 10px; font-size: 15px;" onclick="switchMpTab('host')">📡 HOST A MATCH</button>
+        <button id="mp-tab-join" class="garage-tab-btn" style="flex: 1; padding: 10px; font-size: 15px;" onclick="switchMpTab('join')">🔗 JOIN WITH CODE</button>
+      </div>
+
+      <!-- HOST TAB -->
+      <div id="mp-panel-host">
+        <div style="background: rgba(12, 18, 32, 0.85); border: 1.5px solid rgba(0, 255, 136, 0.4); border-radius: 12px; padding: 22px; text-align: center; margin-bottom: 16px;">
+          <div style="font-size: 13px; color: #8899aa; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 6px;">YOUR ROOM CODE</div>
+          <div id="mp-room-display" style="font-size: 46px; font-family: 'Teko', sans-serif; letter-spacing: 5px; color: #00ff88; text-shadow: 0 0 20px rgba(0,255,136,0.6); margin-bottom: 12px; line-height: 48px;">GENERATING...</div>
+          <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 16px;">
+            <button class="btn-action primary" onclick="copyMpRoomCode()" style="padding: 9px 20px; font-size: 14px; background: linear-gradient(135deg, #00ff88, #00aa55); border-color: #00ff88; color: #06111a; font-weight: 800;">📋 COPY CODE</button>
+            <button class="btn-action" onclick="copyMpInviteLink()" style="padding: 9px 20px; font-size: 14px; font-weight: 700;">🔗 COPY LINK</button>
+          </div>
+          <div id="mp-host-status" style="font-size: 15px; color: #ffaa00; font-weight: 700; letter-spacing: 0.5px;">
+            <span class="pulse-dot">⏳</span> Waiting for player on another device to join...
+          </div>
+        </div>
+
+        <div style="background: rgba(6, 10, 20, 0.65); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #99aabb; line-height: 1.6;">
+          🎮 <strong>How to play across devices:</strong><br>
+          1. Share this Room Code with a friend on another computer, laptop, phone, or tablet.<br>
+          2. When they click Join and enter the code, both screens will connect directly via WebRTC!
+        </div>
+      </div>
+
+      <!-- JOIN TAB -->
+      <div id="mp-panel-join" style="display: none;">
+        <div style="background: rgba(12, 18, 32, 0.85); border: 1.5px solid rgba(0, 225, 255, 0.4); border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 16px;">
+          <div style="font-size: 13px; color: #8899aa; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 10px;">ENTER HOST'S ROOM CODE</div>
+          <input type="text" id="mp-join-input" maxlength="12" placeholder="e.g. ROCK-42" style="width: 100%; max-width: 320px; text-align: center; font-size: 32px; font-family: 'Teko', sans-serif; letter-spacing: 4px; background: rgba(6, 10, 18, 0.95); border: 2px solid #00f0ff; border-radius: 8px; color: #fff; padding: 6px 14px; text-transform: uppercase; margin-bottom: 18px; outline: none; box-shadow: 0 0 16px rgba(0,240,255,0.25);">
+          <br>
+          <button id="btn-mp-join-action" class="btn-action primary" onclick="joinMpMatch()" style="width: 100%; max-width: 320px; padding: 12px; font-size: 18px; letter-spacing: 1px; font-weight: 800; background: linear-gradient(135deg, #00f0ff, #0066ff); border-color: #00f0ff; color: #06111a;">🚀 CONNECT & PLAY</button>
+          <div id="mp-join-status" style="font-size: 14px; color: #8899aa; font-weight: 700; margin-top: 14px; min-height: 20px;"></div>
+        </div>
+
+        <div style="background: rgba(6, 10, 20, 0.65); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #99aabb; line-height: 1.6;">
+          📡 <strong>Direct Peer-to-Peer Connection:</strong> Connects over local Wi-Fi or Internet without third-party game servers.
+        </div>
+      </div>
+    </div>
+
     <div id="ball-arrow" class="hud-match-only">
       <div class="arrow-icon">▲</div>
       <div id="ball-dist-text" class="arrow-dist">0m</div>
@@ -2807,6 +3285,8 @@
   <script src="three.min.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'"></script>
   <!-- 1:1 Authentic Rocket League Octane 3D Geometry Baked from Blender 5.1.2 -->
   <script src="octane_model_data.js"></script>
+  <!-- PeerJS for WebRTC Zero-Config Cross-Device P2P Multiplayer -->
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 
   <script>
     /* =========================================================================
@@ -3302,6 +3782,137 @@
           osc.start(t);
           osc.stop(t + 0.035);
         }
+      }
+
+      playPunch() {
+        if (!this.ensureAudio()) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(32, now + 0.35);
+        g.gain.setValueAtTime(0.75, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+        osc.connect(g);
+        g.connect(this.masterGain || this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.50);
+
+        const slap = this.ctx.createOscillator();
+        const sg = this.ctx.createGain();
+        slap.type = 'triangle';
+        slap.frequency.setValueAtTime(950, now);
+        slap.frequency.exponentialRampToValueAtTime(180, now + 0.12);
+        sg.gain.setValueAtTime(0.40, now);
+        sg.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        slap.connect(sg);
+        sg.connect(this.masterGain || this.ctx.destination);
+        slap.start(now);
+        slap.stop(now + 0.16);
+      }
+
+      playPlunger() {
+        if (!this.ensureAudio()) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(350, now);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.08);
+        osc.frequency.exponentialRampToValueAtTime(600, now + 0.18);
+        g.gain.setValueAtTime(0.35, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+        osc.connect(g);
+        g.connect(this.masterGain || this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.25);
+      }
+
+      playSpikes() {
+        if (!this.ensureAudio()) return;
+        const now = this.ctx.currentTime;
+        for (let i = 0; i < 4; i++) {
+          const t = now + i * 0.03;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(900 + i * 250, t);
+          osc.frequency.exponentialRampToValueAtTime(300, t + 0.04);
+          g.gain.setValueAtTime(0.20, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+          osc.connect(g);
+          g.connect(this.masterGain || this.ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.06);
+        }
+      }
+
+      playFreeze() {
+        if (!this.ensureAudio()) return;
+        const now = this.ctx.currentTime;
+        [1200, 1600, 2400].forEach((f, idx) => {
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(f, now + idx * 0.04);
+          g.gain.setValueAtTime(0.22, now + idx * 0.04);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+          osc.connect(g);
+          g.connect(this.masterGain || this.ctx.destination);
+          osc.start(now + idx * 0.04);
+          osc.stop(now + 0.65);
+        });
+      }
+
+      playGrapple() {
+        if (!this.ensureAudio()) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(400, now);
+        osc.frequency.linearRampToValueAtTime(1400, now + 0.4);
+        g.gain.setValueAtTime(0.22, now);
+        g.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+        osc.connect(g);
+        g.connect(this.masterGain || this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.5);
+      }
+
+      playTornado() {
+        if (!this.ensureAudio()) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(80, now);
+        osc.frequency.linearRampToValueAtTime(260, now + 0.6);
+        osc.frequency.linearRampToValueAtTime(90, now + 1.8);
+        g.gain.setValueAtTime(0.35, now);
+        g.gain.exponentialRampToValueAtTime(0.01, now + 2.0);
+        osc.connect(g);
+        g.connect(this.masterGain || this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 2.1);
+      }
+
+      playPowerupReady() {
+        if (!this.ensureAudio()) return;
+        const now = this.ctx.currentTime;
+        [523.25, 659.25, 783.99, 1046.5].forEach((f, idx) => {
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(f, now + idx * 0.05);
+          g.gain.setValueAtTime(0.18, now + idx * 0.05);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.connect(g);
+          g.connect(this.masterGain || this.ctx.destination);
+          osc.start(now + idx * 0.05);
+          osc.stop(now + 0.4);
+        });
       }
     }
 
@@ -4543,6 +5154,17 @@
     /* =========================================================================
        AUTHENTIC ROCKET LEAGUE CURVED NEON GOAL POSTS & TUNNEL CAGE
        ========================================================================= */
+    const goalFlameCannons = [];
+
+    function triggerGoalFlames(scoringTeam) {
+      const isOrangeScored = (scoringTeam !== 'COBALT' && scoringTeam !== 'BLUE');
+      goalFlameCannons.forEach(fc => {
+        if (fc.isOrange === isOrangeScored) {
+          fc.timer = 3.5;
+        }
+      });
+    }
+
     function buildGoal(zPos, isOrange) {
       const group = new THREE.Group();
       const colHex = isOrange ? 0xff6600 : 0x00f0ff;
@@ -4642,6 +5264,83 @@
       const net = new THREE.Mesh(netGeo, netMat);
       net.position.set(0, GOAL_H / 2, (isOrange ? 1 : -1) * (GOAL_D / 2));
       group.add(net);
+
+      // 4b. Interior Goal Depth Neon Ribs (3 neon arches receding back into the net)
+      for (let d = 1; d <= 3; d++) {
+        const depthFraction = d / 3.4;
+        const depthZ = (isOrange ? 1 : -1) * (GOAL_D * depthFraction);
+        const inW = GOAL_W - 0.35 * d;
+        const inH = GOAL_H - 0.20 * d;
+        const inRad = cornerRad * 0.9;
+        const innerCurve = new THREE.CurvePath();
+        innerCurve.add(new THREE.LineCurve3(new THREE.Vector3(-inW / 2, 0, 0), new THREE.Vector3(-inW / 2, inH - inRad, 0)));
+        innerCurve.add(new THREE.QuadraticBezierCurve3(new THREE.Vector3(-inW / 2, inH - inRad, 0), new THREE.Vector3(-inW / 2, inH, 0), new THREE.Vector3(-inW / 2 + inRad, inH, 0)));
+        innerCurve.add(new THREE.LineCurve3(new THREE.Vector3(-inW / 2 + inRad, inH, 0), new THREE.Vector3(inW / 2 - inRad, inH, 0)));
+        innerCurve.add(new THREE.QuadraticBezierCurve3(new THREE.Vector3(inW / 2 - inRad, inH, 0), new THREE.Vector3(inW / 2, inH, 0), new THREE.Vector3(inW / 2, inH - inRad, 0)));
+        innerCurve.add(new THREE.LineCurve3(new THREE.Vector3(inW / 2, inH - inRad, 0), new THREE.Vector3(inW / 2, 0, 0)));
+        const innerRibGeo = new THREE.TubeGeometry(innerCurve, 32, postRadius * 0.24, 8, false);
+        const innerRibMat = new THREE.MeshBasicMaterial({ color: colHex, transparent: true, opacity: 0.85 - d * 0.18 });
+        const innerRib = new THREE.Mesh(innerRibGeo, innerRibMat);
+        innerRib.position.z = depthZ;
+        group.add(innerRib);
+      }
+
+      // 4c. Goal Backwall Holographic Team Shield Crest
+      const shieldMat = new THREE.MeshBasicMaterial({
+        color: colHex,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.75
+      });
+      const shieldMesh = new THREE.Mesh(new THREE.CircleGeometry(2.4, 6), shieldMat);
+      shieldMesh.position.set(0, GOAL_H * 0.52, (isOrange ? 1 : -1) * (GOAL_D - 0.15));
+      if (!isOrange) shieldMesh.rotation.y = Math.PI;
+      group.add(shieldMesh);
+
+      // 4d. Pyrotechnic Flame Cannons on Crossbar Corners
+      const flameNozzles = [-GOAL_W / 2 + 1.2, GOAL_W / 2 - 1.2];
+      flameNozzles.forEach(nx => {
+        const nozzleBase = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.38, 0.48, 0.85, 8),
+          new THREE.MeshStandardMaterial({ color: 0x141822, metalness: 0.9, roughness: 0.25 })
+        );
+        nozzleBase.position.set(nx, GOAL_H + 0.42, 0);
+        group.add(nozzleBase);
+
+        // Glowing Pilot Flame Orb
+        const pilot = new THREE.Mesh(
+          new THREE.SphereGeometry(0.20, 8, 8),
+          new THREE.MeshBasicMaterial({ color: isOrange ? 0xffaa00 : 0x00f0ff })
+        );
+        pilot.position.set(nx, GOAL_H + 0.92, 0);
+        group.add(pilot);
+
+        // Celebratory Flame Burst Column Mesh
+        const flameColGeo = new THREE.ConeGeometry(1.6, 9.5, 10, 1, true);
+        flameColGeo.translate(0, 4.75, 0);
+        const flameColMat = new THREE.MeshBasicMaterial({
+          color: isOrange ? 0xff6600 : 0x00d4ff,
+          transparent: true,
+          opacity: 0,
+          blending: THREE.AdditiveBlending,
+          side: THREE.DoubleSide,
+          depthWrite: false
+        });
+        const flameCol = new THREE.Mesh(flameColGeo, flameColMat);
+        flameCol.position.set(nx, GOAL_H + 0.85, 0);
+        group.add(flameCol);
+
+        const flameLight = new THREE.PointLight(isOrange ? 0xff7700 : 0x00e1ff, 0, 40);
+        flameLight.position.set(nx, GOAL_H + 4.5, 0);
+        group.add(flameLight);
+
+        goalFlameCannons.push({
+          isOrange: isOrange,
+          flameMesh: flameCol,
+          light: flameLight,
+          timer: 0
+        });
+      });
 
       // 5. Interior Goal Glow Spot & Downward Focused Flood
       const goalLight = new THREE.PointLight(colHex, 4.5, 48);
@@ -4918,6 +5617,159 @@
 
     scene.add(mountainGroup);
 
+    // 2B. TWILIGHT COASTAL OCEAN BAY & DISTANT HARBOR LIGHTHOUSE
+    const oceanGroup = new THREE.Group();
+    const oceanGeo = new THREE.PlaneGeometry(1800, 1400);
+    const oceanMat = new THREE.MeshStandardMaterial({
+      color: 0x0a1628,      // Deep twilight coastal ocean blue
+      roughness: 0.18,      // Glistening wet surface
+      metalness: 0.85,
+      envMapIntensity: 2.5
+    });
+    const ocean = new THREE.Mesh(oceanGeo, oceanMat);
+    ocean.rotation.x = -Math.PI / 2;
+    ocean.position.set(520, -1.8, -1250);
+    oceanGroup.add(ocean);
+
+    // Distant Coastal Harbor Breakwater & Lighthouse
+    const breakwater = new THREE.Mesh(
+      new THREE.BoxGeometry(220, 12, 28),
+      new THREE.MeshStandardMaterial({ color: 0x181e28, roughness: 0.9 })
+    );
+    breakwater.position.set(580, 2.0, -1120);
+    oceanGroup.add(breakwater);
+
+    const lighthouse = new THREE.Group();
+    const towerMast = new THREE.Mesh(
+      new THREE.CylinderGeometry(3.5, 6.0, 38, 8),
+      new THREE.MeshStandardMaterial({ color: 0xeeeeee, roughness: 0.7 })
+    );
+    towerMast.position.y = 19;
+    lighthouse.add(towerMast);
+
+    const lanternRoom = new THREE.Mesh(
+      new THREE.CylinderGeometry(4.2, 4.2, 6, 8),
+      new THREE.MeshBasicMaterial({ color: 0xffe888 })
+    );
+    lanternRoom.position.y = 41;
+    lighthouse.add(lanternRoom);
+
+    // Lighthouse rotating beacon
+    const lighthouseBeam = new THREE.Mesh(
+      new THREE.ConeGeometry(8, 240, 12, 1, true),
+      new THREE.MeshBasicMaterial({
+        color: 0xffea88,
+        transparent: true,
+        opacity: 0.35,
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      })
+    );
+    lighthouseBeam.geometry.translate(0, 120, 0);
+    lighthouseBeam.geometry.rotateX(Math.PI / 2);
+    lighthouseBeam.position.y = 41;
+    lighthouse.add(lighthouseBeam);
+    lighthouse.position.set(670, 0, -1120);
+    oceanGroup.add(lighthouse);
+    scene.add(oceanGroup);
+
+    // 2C. MOUNTAINTOP AERIAL GONDOLA CABLEWAY SYSTEM
+    const gondolaGroup = new THREE.Group();
+    const pylonA = new THREE.Vector3(-450, 275, -880);
+    const pylonB = new THREE.Vector3(340, 310, -1150);
+
+    const cableCurve = new THREE.LineCurve3(pylonA, pylonB);
+    const cableGeo = new THREE.TubeGeometry(cableCurve, 24, 0.45, 6, false);
+    const cableMat = new THREE.MeshStandardMaterial({ color: 0x111622, metalness: 0.9, roughness: 0.4 });
+    const cableMesh = new THREE.Mesh(cableGeo, cableMat);
+    gondolaGroup.add(cableMesh);
+
+    [pylonA, pylonB].forEach(pos => {
+      const pylonMesh = new THREE.Mesh(
+        new THREE.CylinderGeometry(3.0, 5.5, 45, 6),
+        new THREE.MeshStandardMaterial({ color: 0x222a38, metalness: 0.85, roughness: 0.35 })
+      );
+      pylonMesh.position.set(pos.x, pos.y - 20, pos.z);
+      gondolaGroup.add(pylonMesh);
+    });
+
+    const gondolaCabins = [];
+    const cabinPalette = [0xef5350, 0xf5c542, 0x42a5f5, 0x26a69a];
+    for (let g = 0; g < 4; g++) {
+      const cabin = new THREE.Group();
+      const cMat = new THREE.MeshStandardMaterial({ color: cabinPalette[g % 4], metalness: 0.6, roughness: 0.3 });
+      const cBody = new THREE.Mesh(new THREE.BoxGeometry(6.5, 5.0, 5.2), cMat);
+      cabin.add(cBody);
+
+      const cWin = new THREE.Mesh(
+        new THREE.BoxGeometry(6.7, 2.2, 5.4),
+        new THREE.MeshBasicMaterial({ color: 0xfff0aa, transparent: true, opacity: 0.85 })
+      );
+      cabin.add(cWin);
+
+      const hanger = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.25, 0.25, 6.0, 4),
+        cableMat
+      );
+      hanger.position.y = 4.5;
+      cabin.add(hanger);
+
+      gondolaGroup.add(cabin);
+      gondolaCabins.push({ mesh: cabin, progress: (g / 4) });
+    }
+    scene.add(gondolaGroup);
+
+    // 2D. STADIUM PLAZA PROMENADE & VIP ARRIVAL CONCOURSE
+    const plazaGroup = new THREE.Group();
+    const bollardMat = new THREE.MeshStandardMaterial({ color: 0x1b2230, metalness: 0.9, roughness: 0.3 });
+    const bollardGlowMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
+
+    for (let b = 0; b < 28; b++) {
+      const bAng = (b / 28) * Math.PI * 2;
+      const bx = Math.cos(bAng) * 133;
+      const bz = Math.sin(bAng) * 133;
+      const bPost = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.45, 1.8, 8), bollardMat);
+      bPost.position.set(bx, 0.9, bz);
+      plazaGroup.add(bPost);
+
+      const bRing = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.25, 8), bollardGlowMat);
+      bRing.position.set(bx, 1.5, bz);
+      plazaGroup.add(bRing);
+    }
+
+    const coachGeo = new THREE.BoxGeometry(7.5, 3.8, 18.0);
+    const busMatBlue = new THREE.MeshStandardMaterial({ color: 0x0288d1, metalness: 0.7, roughness: 0.25 });
+    const busMatOrange = new THREE.MeshStandardMaterial({ color: 0xe65100, metalness: 0.7, roughness: 0.25 });
+    const coachBlue = new THREE.Mesh(coachGeo, busMatBlue);
+    coachBlue.position.set(-hw - 36, 1.9, -24);
+    coachBlue.rotation.y = 0.35;
+    plazaGroup.add(coachBlue);
+
+    const coachOrange = new THREE.Mesh(coachGeo, busMatOrange);
+    coachOrange.position.set(-hw - 36, 1.9, 24);
+    coachOrange.rotation.y = -0.35;
+    plazaGroup.add(coachOrange);
+
+    const tvTruck = new THREE.Mesh(
+      new THREE.BoxGeometry(6.0, 3.4, 12.0),
+      new THREE.MeshStandardMaterial({ color: 0xf0f4f8, metalness: 0.5, roughness: 0.4 })
+    );
+    tvTruck.position.set(hw + 38, 1.7, 0);
+    plazaGroup.add(tvTruck);
+
+    const dishGroup = new THREE.Group();
+    dishGroup.position.set(hw + 38, 4.2, 0);
+    const dish = new THREE.Mesh(
+      new THREE.SphereGeometry(1.6, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2),
+      new THREE.MeshStandardMaterial({ color: 0xdde2ec, metalness: 0.8, roughness: 0.3 })
+    );
+    dish.rotation.x = -Math.PI / 3;
+    dishGroup.add(dish);
+    plazaGroup.add(dishGroup);
+
+    scene.add(plazaGroup);
+
     // 3. CHAMPIONS FIELD ARENA SUPERSTRUCTURE & HOLOGRAPHIC SPECTACLE
     const superstructureGroup = new THREE.Group();
     superstructureGroup.visible = false; // Hidden on Estadio Vida grass map
@@ -5073,54 +5925,54 @@
 
     const holoShieldBlue = createHolographicGoalShield(true);
     holoShieldBlue.position.set(0, 11.5, -hl - 0.8);
-    superstructureGroup.add(holoShieldBlue);
+    scene.add(holoShieldBlue);
 
     const holoShieldOrange = createHolographicGoalShield(false);
     holoShieldOrange.position.set(0, 11.5, hl + 0.8);
     holoShieldOrange.rotation.y = Math.PI;
-    superstructureGroup.add(holoShieldOrange);
+    scene.add(holoShieldOrange);
 
-    // 3. Sweeping Volumetric Stadium Searchlights
+    // 3. Sweeping Volumetric Stadium Sky Searchlights (Active on Estadio Vida)
     const stadiumSearchlights = [];
     const searchlightCoords = [
-      { x: -hw - 12, z: -hl - 6, baseRot: Math.PI / 4 },
-      { x: hw + 12, z: -hl - 6, baseRot: -Math.PI / 4 },
-      { x: -hw - 12, z: hl + 6, baseRot: (3 * Math.PI) / 4 },
-      { x: hw + 12, z: hl + 6, baseRot: -(3 * Math.PI) / 4 }
+      { x: -hw - 16, z: -hl - 10, baseRot: Math.PI / 4 },
+      { x: hw + 16, z: -hl - 10, baseRot: -Math.PI / 4 },
+      { x: -hw - 16, z: hl + 10, baseRot: (3 * Math.PI) / 4 },
+      { x: hw + 16, z: hl + 10, baseRot: -(3 * Math.PI) / 4 }
     ];
 
     searchlightCoords.forEach((sc, sidx) => {
       const slGroup = new THREE.Group();
-      slGroup.position.set(sc.x, 24, sc.z);
+      slGroup.position.set(sc.x, 26, sc.z);
 
-      const slBase = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.5, 2.0, 8), superArchTrussMat);
+      const slBase = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.8, 2.4, 8), superArchTrussMat);
       slGroup.add(slBase);
 
       const slHead = new THREE.Group();
-      slHead.position.y = 1.6;
+      slHead.position.y = 1.8;
       slGroup.add(slHead);
 
       const barrelMat = new THREE.MeshStandardMaterial({ color: 0x111620, metalness: 0.9, roughness: 0.2 });
-      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.7, 2.2, 12), barrelMat);
+      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 0.85, 2.6, 12), barrelMat);
       barrel.rotation.x = Math.PI / 2;
       slHead.add(barrel);
 
-      // Volumetric Sweeping Light Cone (Soft additive beam)
+      // Volumetric Sweeping Light Cone (Soft high-altitude beam)
       const beamMat = new THREE.MeshBasicMaterial({
         color: sidx < 2 ? 0x66d4ff : 0xffaa44,
         transparent: true,
-        opacity: 0.28,
+        opacity: 0.32,
         depthWrite: false,
         blending: THREE.AdditiveBlending,
         side: THREE.DoubleSide
       });
-      const beamGeo = new THREE.ConeGeometry(5.8, 90, 16, 1, true);
-      beamGeo.translate(0, 45, 0);
+      const beamGeo = new THREE.ConeGeometry(7.5, 140, 16, 1, true);
+      beamGeo.translate(0, 70, 0);
       beamGeo.rotateX(Math.PI / 2);
       const beam = new THREE.Mesh(beamGeo, beamMat);
       slHead.add(beam);
 
-      superstructureGroup.add(slGroup);
+      scene.add(slGroup);
       stadiumSearchlights.push({ head: slHead, baseRot: sc.baseRot, phase: sidx * 1.57 });
     });
 
@@ -5546,15 +6398,39 @@
       ribbonCanvas.width = 1024;
       ribbonCanvas.height = 128;
       const rCtx = ribbonCanvas.getContext("2d");
-      rCtx.fillStyle = "#070d1e";
-      rCtx.fillRect(0, 0, 1024, 128);
-      rCtx.strokeStyle = "#00f0ff";
-      rCtx.lineWidth = 5;
-      rCtx.strokeRect(6, 6, 1012, 116);
-      rCtx.fillStyle = "#00f0ff";
-      rCtx.font = "900 38px Rajdhani, Teko, sans-serif";
-      rCtx.textAlign = "center";
-      rCtx.fillText("⚡ ESTADIO VIDA ⚡ ROCKET CHAMPIONSHIP ⚡ TURBO STRIKE ⚡ ESTADIO VIDA ⚡", 512, 76);
+
+      function redrawRibbon(timeSec) {
+        rCtx.fillStyle = "#060b18";
+        rCtx.fillRect(0, 0, 1024, 128);
+
+        // Cyber grid line
+        rCtx.strokeStyle = "rgba(0, 240, 255, 0.25)";
+        rCtx.lineWidth = 2;
+        rCtx.beginPath();
+        rCtx.moveTo(0, 24); rCtx.lineTo(1024, 24);
+        rCtx.moveTo(0, 104); rCtx.lineTo(1024, 104);
+        rCtx.stroke();
+
+        // Animated Graphic Equalizer soundwave bars
+        const numBars = 32;
+        for (let b = 0; b < numBars; b++) {
+          const bx = 16 + b * 31;
+          const bh = 14 + Math.abs(Math.sin(timeSec * 4.0 + b * 0.45)) * 48;
+          const isBlue = (b % 2 === 0);
+          rCtx.fillStyle = isBlue ? "#00f0ff" : "#ffaa00";
+          rCtx.fillRect(bx, 64 - bh / 2, 14, bh);
+        }
+
+        // Tournament Marquee Text
+        rCtx.fillStyle = "#ffffff";
+        rCtx.font = "900 34px Rajdhani, Teko, sans-serif";
+        rCtx.textAlign = "center";
+        rCtx.shadowColor = "#00f0ff";
+        rCtx.shadowBlur = 10;
+        rCtx.fillText("⚡ ESTADIO VIDA ⚡ CHAMPIONSHIP CUP ⚡ SUPERSONIC ACROBATIC ⚡ TURBO STRIKE ⚡", 512, 74);
+        rCtx.shadowBlur = 0;
+      }
+      redrawRibbon(0);
 
       stadiumRibbonTex = new THREE.CanvasTexture(ribbonCanvas);
       stadiumRibbonTex.wrapS = THREE.RepeatWrapping;
@@ -5563,29 +6439,37 @@
       const ribbonMat = new THREE.MeshBasicMaterial({ map: stadiumRibbonTex });
       const ribbonGeo = new THREE.BoxGeometry(0.5, 1.4, PITCH_L + 12);
 
-      // Low 3-Tier Open-Air Neighborhood Bleachers along Sidelines (Estadio Vida Parity)
-      [-hw - 4, hw + 4].forEach((sx, idx) => {
+      // Materials for Stadium Bowl
+      const suiteInteriorMat = new THREE.MeshBasicMaterial({ color: 0xffe2a4 }); // Warm cozy lounge light
+      const canopyTrussMat = new THREE.MeshStandardMaterial({ color: 0x141822, metalness: 0.9, roughness: 0.3 });
+      const bannerBlueMat = new THREE.MeshBasicMaterial({ color: 0x0077ff, side: THREE.DoubleSide });
+      const bannerOrangeMat = new THREE.MeshBasicMaterial({ color: 0xff5500, side: THREE.DoubleSide });
+
+      // 1. DYNAMIC MULTI-TIER GRANDSTAND BOWLS ALONG SIDELINES
+      [-hw - 4.5, hw + 4.5].forEach((sx, idx) => {
         const isLeft = idx === 0;
+        const dir = isLeft ? -1 : 1;
         const crowdMat = isLeft ? blueCrowdMat : orangeCrowdMat;
 
-        for (let tier = 0; tier < 3; tier++) {
-          const stepW = 2.4;
-          const stepH = 1.0;
-          const stepX = sx + (isLeft ? -1 : 1) * tier * (stepW * 0.95);
+        // --- TIER 1: LOWER SEATING BOWL (5 Tiers) ---
+        for (let tier = 0; tier < 5; tier++) {
+          const stepW = 1.7;
+          const stepH = 0.8;
+          const stepX = sx + dir * tier * (stepW * 0.96);
           const stepY = tier * stepH + stepH / 2;
 
           const step = new THREE.Mesh(new THREE.BoxGeometry(stepW, stepH, PITCH_L + 12), standMat);
           step.position.set(stepX, stepY, 0);
           standsGroup.add(step);
 
-          // Colorful seated spectators
-          const crowdStrip = new THREE.Mesh(new THREE.BoxGeometry(stepW * 0.75, 0.35, PITCH_L + 10), crowdMat);
-          crowdStrip.position.set(stepX + (isLeft ? -0.2 : 0.2), stepY + stepH / 2 + 0.17, 0);
+          // Crowd seating strip
+          const crowdStrip = new THREE.Mesh(new THREE.BoxGeometry(stepW * 0.78, 0.35, PITCH_L + 10), crowdMat);
+          crowdStrip.position.set(stepX - dir * 0.15, stepY + stepH / 2 + 0.17, 0);
           standsGroup.add(crowdStrip);
         }
 
-        // Low safety barrier railing along bleachers
-        const railX = sx + (isLeft ? 1.0 : -1.0);
+        // Lower pitch safety glass railing
+        const railX = sx + dir * 0.8;
         const glassRailing = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.95, PITCH_L + 10), railingGlassMat);
         glassRailing.position.set(railX, 1.1, 0);
         standsGroup.add(glassRailing);
@@ -5595,40 +6479,144 @@
         handrailTop.rotation.x = Math.PI / 2;
         standsGroup.add(handrailTop);
 
-        // LED Ribbon Banner positioned along top bleacher parapet
+        // Access Vomitories (2 Arched Tunnels per Sideline where fans enter from below)
+        [-24, 24].forEach(vz => {
+          const vomitoryPortal = new THREE.Mesh(
+            new THREE.BoxGeometry(3.5, 3.2, 5.0),
+            new THREE.MeshBasicMaterial({ color: isLeft ? 0x004488 : 0x883300 })
+          );
+          vomitoryPortal.position.set(sx + dir * 4.0, 1.6, vz);
+          standsGroup.add(vomitoryPortal);
+        });
+
+        // --- TIER 2: MEZZANINE VIP SUITES & SKYBOXES ---
+        const suiteX = sx + dir * 5 * 1.6 + dir * 1.5;
+        const suiteY = 4.8;
+        const suiteDepth = 4.2;
+        const suiteH = 2.6;
+
+        // Suite back & structural framing
+        const suiteFrame = new THREE.Mesh(new THREE.BoxGeometry(suiteDepth, suiteH, PITCH_L + 12), clubDeckMat);
+        suiteFrame.position.set(suiteX, suiteY, 0);
+        standsGroup.add(suiteFrame);
+
+        // Warm Glowing VIP Windows
+        const suiteWindow = new THREE.Mesh(new THREE.BoxGeometry(0.2, suiteH * 0.75, PITCH_L + 10), suiteInteriorMat);
+        suiteWindow.position.set(suiteX - dir * (suiteDepth / 2 - 0.2), suiteY, 0);
+        standsGroup.add(suiteWindow);
+
+        // Suite Front Balcony Railing
+        const suiteBalcony = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.9, PITCH_L + 10), railingGlassMat);
+        suiteBalcony.position.set(suiteX - dir * (suiteDepth / 2 + 0.5), suiteY + 0.5, 0);
+        standsGroup.add(suiteBalcony);
+
+        // LED Ribbon Fascia Banner running below the VIP suites
         const rib = new THREE.Mesh(ribbonGeo, ribbonMat);
-        rib.position.set(sx + (isLeft ? -1 : 1) * 3 * 2.3, 3.6, 0);
+        rib.position.set(suiteX - dir * (suiteDepth / 2 + 0.3), suiteY - suiteH / 2 - 0.6, 0);
         standsGroup.add(rib);
+
+        // --- TIER 3: UPPER GRANDSTAND DECK (5 Steep Tiers) ---
+        for (let uTier = 0; uTier < 5; uTier++) {
+          const uStepW = 1.9;
+          const uStepH = 1.1;
+          const uStepX = suiteX + dir * (suiteDepth / 2) + dir * uTier * (uStepW * 0.95);
+          const uStepY = suiteY + suiteH / 2 + uTier * uStepH + uStepH / 2;
+
+          const uStep = new THREE.Mesh(new THREE.BoxGeometry(uStepW, uStepH, PITCH_L + 14), standMat);
+          uStep.position.set(uStepX, uStepY, 0);
+          standsGroup.add(uStep);
+
+          const uCrowd = new THREE.Mesh(new THREE.BoxGeometry(uStepW * 0.75, 0.4, PITCH_L + 12), crowdMat);
+          uCrowd.position.set(uStepX - dir * 0.2, uStepY + uStepH / 2 + 0.2, 0);
+          standsGroup.add(uCrowd);
+        }
+
+        // --- MODERN CANTILEVERED ROOF CANOPY ---
+        // Cantilever beams reaching over the upper bowl
+        const canopyY = 16.5;
+        const canopyReach = 18.0;
+        const canopyX = suiteX + dir * 6.0;
+
+        const canopyBeam = new THREE.Mesh(
+          new THREE.BoxGeometry(canopyReach, 0.6, PITCH_L + 16),
+          canopyTrussMat
+        );
+        canopyBeam.position.set(canopyX - dir * 2.0, canopyY, 0);
+        canopyBeam.rotation.z = dir * 0.08;
+        standsGroup.add(canopyBeam);
+
+        // Aerodynamic Angled Canopy Fascia
+        const fascia = new THREE.Mesh(
+          new THREE.BoxGeometry(0.4, 1.8, PITCH_L + 16),
+          isLeft ? new THREE.MeshBasicMaterial({ color: 0x00d8ff }) : new THREE.MeshBasicMaterial({ color: 0xff6600 })
+        );
+        fascia.position.set(canopyX - dir * (canopyReach / 2 + 2.0), canopyY - 0.4, 0);
+        standsGroup.add(fascia);
+
+        // Canopy Downward Floodlights illuminating the stands
+        [-30, -10, 10, 30].forEach(cz => {
+          const downSpot = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.5, 0.6, 6), canopyTrussMat);
+          downSpot.position.set(canopyX - dir * 4.0, canopyY - 0.4, cz);
+          standsGroup.add(downSpot);
+
+          const downBulb = new THREE.Mesh(new THREE.CircleGeometry(0.3, 8), new THREE.MeshBasicMaterial({ color: 0xfff0dd }));
+          downBulb.position.set(canopyX - dir * 4.0, canopyY - 0.72, cz);
+          downBulb.rotation.x = Math.PI / 2;
+          standsGroup.add(downBulb);
+        });
+
+        // Team Banners along the upper stadium structure
+        [-32, -16, 0, 16, 32].forEach((bz) => {
+          const banner = new THREE.Mesh(
+            new THREE.PlaneGeometry(3.6, 7.5),
+            isLeft ? bannerBlueMat : bannerOrangeMat
+          );
+          banner.position.set(suiteX - dir * (suiteDepth / 2 + 0.1), suiteY + 4.8, bz);
+          banner.rotation.y = isLeft ? Math.PI / 2 : -Math.PI / 2;
+          standsGroup.add(banner);
+        });
       });
 
-      // Low 3-Tier Bleachers behind Endzone Goals
+      // 2. ENDZONE GRANDSTANDS (BEHIND GOALS)
       [-hl - 5, hl + 5].forEach((sz, idx) => {
         const isBlueEnd = idx === 0;
+        const dirZ = isBlueEnd ? -1 : 1;
         const crowdMat = isBlueEnd ? blueCrowdMat : orangeCrowdMat;
 
-        for (let tier = 0; tier < 3; tier++) {
-          const stepD = 2.4;
-          const stepH = 1.0;
-          const stepZ = sz + (isBlueEnd ? -1 : 1) * tier * (stepD * 0.95);
+        for (let tier = 0; tier < 4; tier++) {
+          const stepD = 2.2;
+          const stepH = 0.95;
+          const stepZ = sz + dirZ * tier * (stepD * 0.95);
           const stepY = tier * stepH + stepH / 2;
 
-          const step = new THREE.Mesh(new THREE.BoxGeometry(PITCH_W + 8, stepH, stepD), standMat);
+          const step = new THREE.Mesh(new THREE.BoxGeometry(PITCH_W + 10, stepH, stepD), standMat);
           step.position.set(0, stepY, stepZ);
           standsGroup.add(step);
 
-          const crowdStrip = new THREE.Mesh(new THREE.BoxGeometry(PITCH_W + 6, 0.35, stepD * 0.75), crowdMat);
-          crowdStrip.position.set(0, stepY + stepH / 2 + 0.17, stepZ + (isBlueEnd ? -0.2 : 0.2));
+          const crowdStrip = new THREE.Mesh(new THREE.BoxGeometry(PITCH_W + 8, 0.35, stepD * 0.75), crowdMat);
+          crowdStrip.position.set(0, stepY + stepH / 2 + 0.17, stepZ - dirZ * 0.2);
           standsGroup.add(crowdStrip);
         }
 
-        // Endzone Rim Railing
-        const endRailZ = sz + (isBlueEnd ? 1.0 : -1.0);
-        const endGlassRailing = new THREE.Mesh(new THREE.BoxGeometry(PITCH_W + 6, 0.95, 0.1), railingGlassMat);
+        // Endzone Concourse Railing
+        const endRailZ = sz + dirZ * 0.9;
+        const endGlassRailing = new THREE.Mesh(new THREE.BoxGeometry(PITCH_W + 8, 0.95, 0.1), railingGlassMat);
         endGlassRailing.position.set(0, 1.1, endRailZ);
         standsGroup.add(endGlassRailing);
+
+        // Hanging Team Insignia Crest Pennants
+        [-20, 20].forEach(px => {
+          const pennant = new THREE.Mesh(
+            new THREE.PlaneGeometry(4.2, 8.0),
+            isBlueEnd ? bannerBlueMat : bannerOrangeMat
+          );
+          pennant.position.set(px, 7.5, sz + dirZ * 6.5);
+          if (!isBlueEnd) pennant.rotation.y = Math.PI;
+          standsGroup.add(pennant);
+        });
       });
 
-      // Compact Endzone Jumbotrons (Estadio Vida Scoreboards)
+      // 3. ENHANCED HIGH-DEFINITION CURVED ENDZONE JUMBOTRONS
       jCtx.fillStyle = "#070b14";
       jCtx.fillRect(0, 0, 512, 256);
       jCtx.strokeStyle = "#00c8ff";
@@ -5643,52 +6631,52 @@
       jCtx.fillText("ROCKET LEAGUE", 256, 165);
 
       const jumbotronMat = new THREE.MeshBasicMaterial({ map: jumbotronTex });
-      const jumbotronGeo = new THREE.BoxGeometry(11, 6.2, 0.8);
+      const jumbotronGeo = new THREE.BoxGeometry(13.5, 7.5, 0.9);
 
       // Blue Endzone Jumbotron
       const jumb1 = new THREE.Mesh(jumbotronGeo, jumbotronMat);
-      jumb1.position.set(-18, 9.5, -hl - 10);
-      jumb1.rotation.y = 0.22;
+      jumb1.position.set(-20, 11.5, -hl - 12);
+      jumb1.rotation.y = 0.20;
       standsGroup.add(jumb1);
 
       const jumb1Frame = new THREE.Mesh(
-        new THREE.BoxGeometry(11.4, 6.6, 0.2),
+        new THREE.BoxGeometry(14.0, 8.0, 0.2),
         new THREE.MeshBasicMaterial({ color: 0x00f0ff })
       );
-      jumb1Frame.position.set(-18, 9.5, -hl - 10.1);
-      jumb1Frame.rotation.y = 0.22;
+      jumb1Frame.position.set(-20, 11.5, -hl - 12.1);
+      jumb1Frame.rotation.y = 0.20;
       standsGroup.add(jumb1Frame);
 
       // Orange Endzone Jumbotron
       const jumb2 = new THREE.Mesh(jumbotronGeo, jumbotronMat);
-      jumb2.position.set(18, 9.5, hl + 10);
-      jumb2.rotation.y = Math.PI - 0.22;
+      jumb2.position.set(20, 11.5, hl + 12);
+      jumb2.rotation.y = Math.PI - 0.20;
       standsGroup.add(jumb2);
 
       const jumb2Frame = new THREE.Mesh(
-        new THREE.BoxGeometry(11.4, 6.6, 0.2),
+        new THREE.BoxGeometry(14.0, 8.0, 0.2),
         new THREE.MeshBasicMaterial({ color: 0xff6600 })
       );
-      jumb2Frame.position.set(18, 9.5, hl + 10.1);
-      jumb2Frame.rotation.y = Math.PI - 0.22;
+      jumb2Frame.position.set(20, 11.5, hl + 12.1);
+      jumb2Frame.rotation.y = Math.PI - 0.20;
       standsGroup.add(jumb2Frame);
 
-      // Twinkling Spectator Camera Flashes
+      // Spectator Camera Flash Points
       const flashGeo = new THREE.PlaneGeometry(1.6, 1.6);
-      for (let f = 0; f < 32; f++) {
+      for (let f = 0; f < 36; f++) {
         const flashMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
         const flash = new THREE.Mesh(flashGeo, flashMat);
-        const isSide = Math.random() > 0.45;
+        const isSide = Math.random() > 0.4;
         if (isSide) {
-          const sx = (Math.random() > 0.5 ? 1 : -1) * (hw + 5 + Math.random() * 8);
-          const sz = (Math.random() - 0.5) * (PITCH_L + 10);
-          const sy = 1.2 + Math.random() * 3.5;
+          const sx = (Math.random() > 0.5 ? 1 : -1) * (hw + 6 + Math.random() * 14);
+          const sz = (Math.random() - 0.5) * (PITCH_L + 12);
+          const sy = 2.0 + Math.random() * 8.5;
           flash.position.set(sx, sy, sz);
           flash.rotation.y = sx > 0 ? -Math.PI / 2 : Math.PI / 2;
         } else {
-          const ez = (Math.random() > 0.5 ? 1 : -1) * (hl + 6 + Math.random() * 8);
-          const ex = (Math.random() - 0.5) * (PITCH_W + 10);
-          const ey = 1.2 + Math.random() * 3.5;
+          const ez = (Math.random() > 0.5 ? 1 : -1) * (hl + 7 + Math.random() * 8);
+          const ex = (Math.random() - 0.5) * (PITCH_W + 12);
+          const ey = 2.0 + Math.random() * 6.5;
           flash.position.set(ex, ey, ez);
           flash.rotation.y = ez > 0 ? Math.PI : 0;
         }
@@ -5697,7 +6685,6 @@
         crowdFlashes.push({ mesh: flash, timer: Math.random() * 2.5 });
       }
 
-      // Freeze static stand matrices to eliminate CPU overhead and lag
       if (typeof standsGroup.traverse === "function") {
         standsGroup.traverse(child => {
           if (child.isMesh && !crowdFlashes.some(f => f.mesh === child)) {
@@ -5810,6 +6797,21 @@
         }
       }
 
+      // Volumetric Corona Bloom Rings on Floodlight Rack
+      const coronaGeo = new THREE.RingGeometry(12, 38, 24);
+      const coronaMat = new THREE.MeshBasicMaterial({
+        color: 0xfffaea,
+        transparent: true,
+        opacity: 0.36,
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+      const corona = new THREE.Mesh(coronaGeo, coronaMat);
+      corona.position.set(0, mastHeight + 6, 2.5);
+      corona.rotation.x = 0.36;
+      tower.add(corona);
+
       // Soft non-glaring pitch illumination spotlight (No shadow pass overhead for high FPS)
       const flood = new THREE.SpotLight(0xfff0dc, 0.60, 350, Math.PI / 3.6, 0.50);
       flood.position.set(0, mastHeight + 7, 0);
@@ -5827,7 +6829,6 @@
     buildFloodlightTower(-hw - 42, hl + 15, (2.6 * Math.PI) / 3.6);
     buildFloodlightTower(hw + 42, hl + 15, -(2.6 * Math.PI) / 3.6);
 
-    /* =========================================================================
     /* =========================================================================
        AUTHENTIC ROCKET LEAGUE BOOST PADS (FULL 3X EXPANDED ARENA NETWORK)
        ========================================================================= */
@@ -5875,6 +6876,33 @@
       cage.position.set(0, 1.8, 0);
       padGroup.add(cage);
 
+      // Vertical Holographic Energy Light Column & Floating Rune Ring
+      const beaconGeo = new THREE.CylinderGeometry(0.5, 0.9, 7.5, 16, 1, true);
+      beaconGeo.translate(0, 3.75, 0);
+      const beaconMat = new THREE.MeshBasicMaterial({
+        color: 0xffbb00,
+        transparent: true,
+        opacity: 0.22,
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+      const beacon = new THREE.Mesh(beaconGeo, beaconMat);
+      padGroup.add(beacon);
+
+      const runeGeo = new THREE.RingGeometry(0.7, 1.1, 16);
+      const runeMat = new THREE.MeshBasicMaterial({
+        color: 0xffea00,
+        transparent: true,
+        opacity: 0.45,
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide
+      });
+      const rune = new THREE.Mesh(runeGeo, runeMat);
+      rune.rotation.x = -Math.PI / 2;
+      rune.position.y = 3.6;
+      padGroup.add(rune);
+
       padGroup.position.set(bx, 0, bz);
       scene.add(padGroup);
 
@@ -5887,6 +6915,8 @@
         mesh: padGroup,
         crystal: crystal,
         cage: cage,
+        beacon: beacon,
+        rune: rune,
         floorRing: ringMesh,
         light: padLight,
         x: bx,
@@ -6123,40 +7153,6 @@
     /* =========================================================================
        AUTHENTIC ROCKET LEAGUE OCTANE WHEELS (BLUE MULTI-SPOKE ALLOY)
        ========================================================================= */
-    // Helper: High-fidelity beveled smooth box geometry with rounded edges & smooth normals
-    function createSmoothBoxGeo(w, h, d, bevel, segments) {
-      const minDim = Math.min(w, h, d);
-      const b = Math.max(0.003, bevel !== undefined ? bevel : Math.min(0.038, minDim * 0.22));
-      const segs = segments || 3;
-      const hw = Math.max(0.005, w / 2 - b);
-      const hh = Math.max(0.005, h / 2 - b);
-      const r = Math.min(b, hw, hh);
-
-      const shape = new THREE.Shape();
-      shape.moveTo(-hw + r, -hh);
-      shape.lineTo(hw - r, -hh);
-      shape.quadraticCurveTo(hw, -hh, hw, -hh + r);
-      shape.lineTo(hw, hh - r);
-      shape.quadraticCurveTo(hw, hh, hw - r, hh);
-      shape.lineTo(-hw + r, hh);
-      shape.quadraticCurveTo(-hw, hh, -hw, hh - r);
-      shape.lineTo(-hw, -hh + r);
-      shape.quadraticCurveTo(-hw, -hh, -hw + r, -hh);
-
-      const extrudeSettings = {
-        steps: 1,
-        depth: Math.max(0.005, d - b * 2),
-        bevelEnabled: true,
-        bevelThickness: b,
-        bevelSize: b,
-        bevelOffset: 0,
-        bevelSegments: segs
-      };
-      const geo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-      geo.center();
-      geo.computeVertexNormals();
-      return geo;
-    }
 
     function createDetailedWheel(isLeft = true, underglowColor = 0x00a2ff, isGunmetal = true, radius = 0.35, width = 0.28) {
       const wGroup = new THREE.Group();
@@ -6705,57 +7701,45 @@
       const isOrangeTeam = (teamTheme === 'orange' || teamTheme === 0xff5500);
       const primaryColor = isOrangeTeam ? 0xff4800 : 0x0052f5;
 
-      // Deep Automotive Clearcoat & Smooth Automotive PBR Materials
+      // Authentic PBR Automotive materials
       const mats = {
-        paint: new THREE.MeshPhysicalMaterial({
+        paint: new THREE.MeshStandardMaterial({
           color: primaryColor,
-          metalness: 0.65,
-          roughness: 0.10,
-          clearcoat: 1.0,
-          clearcoatRoughness: 0.03,
-          reflectivity: 0.95,
-          envMapIntensity: 2.8,
-          side: THREE.DoubleSide
-        }),
-        white_trim: new THREE.MeshPhysicalMaterial({
-          color: 0xf5f5fa,
-          metalness: 0.20,
-          roughness: 0.12,
-          clearcoat: 1.0,
-          clearcoatRoughness: 0.03,
-          envMapIntensity: 2.4,
-          side: THREE.DoubleSide
-        }),
-        racing_stripe: new THREE.MeshPhysicalMaterial({
-          color: 0xffffff,
-          metalness: 0.10,
-          roughness: 0.08,
-          clearcoat: 1.0,
-          clearcoatRoughness: 0.02,
+          metalness: 0.68,
+          roughness: 0.18,
           envMapIntensity: 2.6,
           side: THREE.DoubleSide
         }),
-        glass: new THREE.MeshPhysicalMaterial({
-          color: 0x060810,
-          roughness: 0.02,
+        white_trim: new THREE.MeshStandardMaterial({
+          color: 0xf5f5fa,
+          metalness: 0.18,
+          roughness: 0.20,
+          envMapIntensity: 2.2,
+          side: THREE.DoubleSide
+        }),
+        racing_stripe: new THREE.MeshStandardMaterial({
+          color: 0xffffff,
+          metalness: 0.10,
+          roughness: 0.14,
+          envMapIntensity: 2.4,
+          side: THREE.DoubleSide
+        }),
+        glass: new THREE.MeshStandardMaterial({
+          color: 0x080b12,
+          roughness: 0.03,
           metalness: 0.96,
-          clearcoat: 1.0,
-          clearcoatRoughness: 0.01,
-          transmission: 0.20,
-          transparent: true,
-          opacity: 0.94,
-          envMapIntensity: 4.2,
+          envMapIntensity: 3.8,
           side: THREE.DoubleSide
         }),
         carbon: new THREE.MeshStandardMaterial({
           color: 0x12141a,
-          roughness: 0.45,
-          metalness: 0.50,
-          envMapIntensity: 1.8
+          roughness: 0.48,
+          metalness: 0.45,
+          envMapIntensity: 1.6
         }),
         chassis: new THREE.MeshStandardMaterial({
           color: 0x161820,
-          roughness: 0.35,
+          roughness: 0.38,
           metalness: 0.88,
           envMapIntensity: 2.0
         }),
@@ -6776,12 +7760,10 @@
           roughness: 0.85,
           metalness: 0.05
         }),
-        engine_red: new THREE.MeshPhysicalMaterial({
+        engine_red: new THREE.MeshStandardMaterial({
           color: 0xd32f2f,
-          roughness: 0.18,
+          roughness: 0.20,
           metalness: 0.45,
-          clearcoat: 0.85,
-          clearcoatRoughness: 0.04,
           envMapIntensity: 2.2
         }),
         neon_cyan: new THREE.MeshBasicMaterial({ color: 0x00f0ff }),
@@ -6793,13 +7775,7 @@
       car.secondaryMat = mats.racing_stripe;
 
       const addMesh = (geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => {
-        // Automatically smoothen box geometries with rounded bevels & continuous vertex normals
-        let finalGeo = geo;
-        if (geo && geo.type === 'BoxGeometry' && geo.parameters) {
-          const p = geo.parameters;
-          finalGeo = createSmoothBoxGeo(p.width, p.height, p.depth);
-        }
-        const m = new THREE.Mesh(finalGeo, mat);
+        const m = new THREE.Mesh(geo, mat);
         m.position.set(x, y, z);
         if (rx || ry || rz) m.rotation.set(rx, ry, rz);
         m.castShadow = true;
@@ -10208,6 +11184,162 @@
       ]
     };
 
+    /* =========================================================================
+       7,000 COOL THINGS: PROCEDURAL INVENTORY GENERATOR
+       Expands each of the 7 customization categories to exactly 1,000 unique items!
+       ========================================================================= */
+    function expandGarageCatalogTo7000() {
+      const rarities = [
+        { key: 'black_market', badge: 'BLACK MARKET', color: '#ffcc00' },
+        { key: 'exotic', badge: 'EXOTIC', color: '#ff2a4b' },
+        { key: 'import', badge: 'IMPORT', color: '#b829ff' },
+        { key: 'very_rare', badge: 'VERY RARE', color: '#0088ff' },
+        { key: 'rare', badge: 'RARE', color: '#00ff88' },
+        { key: 'common', badge: 'COMMON', color: '#e0e6ed' }
+      ];
+
+      const prefixes = [
+        'Apex', 'Quantum', 'Hyper', 'Neon', 'Cosmic', 'Solar', 'Void', 'Titanium', 'Cyber', 'Inferno',
+        'Cryo', 'Shadow', 'Phoenix', 'Vortex', 'Phantom', 'Starlight', 'Galactic', 'Electra', 'Omega', 'Valkyrie',
+        'Obsidian', 'Chroma', 'Aero', 'Matrix', 'Vapor', 'Zenith', 'Prism', 'Radiant', 'Eclipse', 'Dominion',
+        'Velocity', 'Tempest', 'Overdrive', 'Specter', 'Mirage', 'Fusion', 'Pulse', 'Aurora', 'Ion', 'Astral',
+        'Riptide', 'Thunder', 'Magma', 'Glacier', 'Reaper', 'Viper', 'Horizon', 'Singularity', 'Zero', 'Alpha'
+      ];
+
+      const colors = [
+        '#ff0055', '#00e1ff', '#ffd700', '#a855f7', '#22c55e', '#f97316', '#ec4899', '#06b6d4',
+        '#eab308', '#8b5cf6', '#10b981', '#f43f5e', '#3b82f6', '#14b8a6', '#f59e0b', '#6366f1',
+        '#d946ef', '#84cc16', '#0ea5e9', '#ef4444', '#ffffff', '#111827', '#e2e8f0', '#fbbf24'
+      ];
+
+      // Mark existing items with rarity if missing
+      Object.keys(garageCatalog).forEach(cat => {
+        garageCatalog[cat].forEach((item, idx) => {
+          if (!item.rarity) {
+            item.rarity = (idx < 5) ? 'black_market' : (idx < 15) ? 'exotic' : (idx < 35) ? 'import' : (idx < 70) ? 'very_rare' : 'rare';
+            item.badge = item.badge || item.rarity.toUpperCase().replace('_', ' ');
+          }
+        });
+      });
+
+      const catConfigs = {
+        body: {
+          cores: ['Octane', 'Striker', 'Racer', 'Drifter', 'Avenger', 'Interceptor', 'Marauder', 'Corsair', 'Vanguard', 'Specter',
+                  'Cyclone', 'Titan', 'Ronin', 'Blade', 'Nemesis', 'Predator', 'Samurai', 'Warlock', 'Hornet', 'Valkyrie'],
+          suffixes: ['MK-I', 'MK-II', 'MK-III', 'Prime', 'Pro', 'Ultra', 'GT', 'RS', 'Evo', 'Custom', 'Edition', 'Spec-R', 'X', 'Zero', 'Apex'],
+          archetypes: ['octane', 'dominus', 'fennec', 'breakout', 'takumi', 'truck', 'formula', 'hotrod'],
+          classes: ['OCTANE', 'DOMINUS', 'BREAKOUT', 'HYBRID', 'MERC'],
+          wings: ['gt', 'whale', 'ducktail', 'shark', 'active', 'clean'],
+          intakes: ['blower', 'snorkel', 'turbo', 'v8', 'clean'],
+          fronts: ['bullbar', 'wedge', 'formula', 'stealth'],
+          exhausts: ['cannons', 'quad', 'center', 'side'],
+          icons: ['🏎️', '⚡', '🔥', '🛸', '🚀', '👑', '💎', '🌪️', '💥']
+        },
+        wheels: {
+          cores: ['Pulsar', 'Apex', 'Infinium', 'Draco', 'Hypnotik', 'Gripstride', 'Turbine', 'Aero', 'Zomba', 'Vortex',
+                  'Chrono', 'Dynamo', 'Reactor', 'Sprocket', 'Stella', 'Tremor', 'Voltaic', 'Wonderment', 'Yuzo', 'Hiro'],
+          suffixes: ['Forged', 'Inverted', 'Holographic', 'Prism', 'Infinite', 'Carbon', 'Machined', 'Illuminated', 'Neon', 'Billet', 'Radial', 'Aero-Disc'],
+          icons: ['🔘', '☸️', '⚙️', '🌀', '💎', '🔥', '⚡', '✨']
+        },
+        boost: {
+          cores: ['Ion', 'Plasma', 'Solar Flare', 'Dark Matter', 'Tachyon', 'Fusion', 'Glacier', 'Hypernova', 'Sun Ray', 'Comet',
+                  'Synthwave', 'Blast Ray', 'Enchanter', 'Flamethrower', 'Fractal', 'Helios', 'Lightning', 'Magic Missile', 'Neo-Thermal', 'Pixel'],
+          suffixes: ['Thruster', 'Burner', 'Exhaust', 'Afterburner', 'Drive', 'Accelerator', 'Ignition', 'Stream', 'Cascade', 'Discharge'],
+          icons: ['🚀', '🔥', '⚡', '💥', '🌌', '✨', '☄️']
+        },
+        trail: {
+          cores: ['Laser', 'Aurora', 'Electric', 'Pixel', 'Vapor', 'Stardust', 'Glitch', 'Discotheque', 'Binary', 'Friction',
+                  'Blazer', 'Lightspeed', 'Luminous', 'Zigzag', 'Tachyon', 'Hack Swerve', 'Rumble', 'Riptide', 'Dimension', 'Quantum'],
+          suffixes: ['Streak', 'Wake', 'Stream', 'Ribbon', 'Cascade', 'Horizon', 'Vortex', 'Surge', 'Trail', 'Beam'],
+          icons: ['⚡', '🌈', '👾', '💨', '✨', '💫', '🌠']
+        },
+        explosion: {
+          cores: ['Supernova', 'Singularity', 'Cryo Nova', 'Nuke', 'Phoenix', 'Dragon', 'Hellfire', 'Party Time', 'Poly Pop', 'Sub-Zero',
+                  'Electroshock', 'Fireworks', 'Juiced', 'Atomizer', 'Solar Flare', 'Voxel', 'Shattered', 'Neuro-Agitator', 'Meteor', 'Gravity'],
+          suffixes: ['Blast', 'Burst', 'Detonation', 'Collapse', 'Implosion', 'Shockwave', 'Eruption', 'Cataclysm', 'Vortex', 'Shatter'],
+          icons: ['💥', '✨', '❄️', '🌀', '🎉', '🐉', '☢️', '🌌']
+        },
+        primary_paint: {
+          cores: ['Obsidian', 'Pearl', 'Candy', 'Anodized', 'Metallic', 'Holographic', 'Chroma', 'Iridescent', 'Matte', 'Velvet',
+                  'Liquid', 'Prismatic', 'Satin', 'Damascus', 'Carbon', 'Galvanized', 'Cosmic', 'Solar', 'Cryo', 'Neon'],
+          suffixes: ['Finish', 'Coat', 'Lacquer', 'Gloss', 'Enamel', 'Sheen', 'Luster', 'Pearl', 'Flake', 'Tint'],
+          icons: ['🎨']
+        },
+        secondary_paint: {
+          cores: ['Accent', 'Decal', 'Stripe', 'Livery', 'Hex', 'Cyber', 'Tribal', 'Splatter', 'Circuit', 'Grid',
+                  'Geometric', 'Wave', 'Flame', 'Speedline', 'Vector', 'Matrix', 'Carbon Accent', 'Aero Trim', 'Glow Band', 'Prism Border'],
+          suffixes: ['Overlay', 'Detail', 'Decal', 'Stripe', 'Trim', 'Vinyl', 'Highlight', 'Accents', 'Graphics', 'Livery'],
+          icons: ['✨']
+        }
+      };
+
+      Object.keys(catConfigs).forEach(cat => {
+        const list = garageCatalog[cat];
+        const cfg = catConfigs[cat];
+        let idCounter = list.length + 1;
+        while (list.length < 1000) {
+          const pIdx = (idCounter * 7) % prefixes.length;
+          const cIdx = (idCounter * 11) % cfg.cores.length;
+          const sIdx = (idCounter * 13) % cfg.suffixes.length;
+          const name = prefixes[pIdx] + ' ' + cfg.cores[cIdx] + ' ' + cfg.suffixes[sIdx];
+          
+          const rTier = (idCounter % 50 === 0) ? rarities[0] : // Black Market (2%)
+                        (idCounter % 15 === 0) ? rarities[1] : // Exotic (6%)
+                        (idCounter % 7 === 0)  ? rarities[2] : // Import (14%)
+                        (idCounter % 4 === 0)  ? rarities[3] : // Very Rare (25%)
+                        (idCounter % 2 === 0)  ? rarities[4] : // Rare (50%)
+                                                 rarities[5];  // Common
+
+          const color = colors[(idCounter * 3) % colors.length];
+          const icon = cfg.icons[idCounter % cfg.icons.length];
+          const id = cat + '_7k_' + idCounter;
+
+          if (cat === 'body') {
+            const arch = cfg.archetypes[idCounter % cfg.archetypes.length];
+            const cls = cfg.classes[idCounter % cfg.classes.length];
+            const wing = cfg.wings[idCounter % cfg.wings.length];
+            const intake = cfg.intakes[idCounter % cfg.intakes.length];
+            const front = cfg.fronts[idCounter % cfg.fronts.length];
+            const exhaust = cfg.exhausts[idCounter % cfg.exhausts.length];
+            const sx = +(0.96 + ((idCounter % 8) * 0.015)).toFixed(2);
+            const sy = +(0.96 + (((idCounter + 2) % 8) * 0.015)).toFixed(2);
+            const sz = +(0.96 + (((idCounter + 4) % 8) * 0.015)).toFixed(2);
+
+            list.push({
+              id: id,
+              name: name,
+              class: cls,
+              badge: rTier.badge,
+              rarity: rTier.key,
+              desc: rTier.badge + ' Custom Spec • ' + arch.toUpperCase() + ' Aero • ' + intake.toUpperCase() + ' Intake',
+              color: color,
+              icon: icon,
+              archetype: arch,
+              scale: [sx, sy, sz],
+              wing: wing,
+              intake: intake,
+              front: front,
+              exhaust: exhaust
+            });
+          } else {
+            list.push({
+              id: id,
+              name: name,
+              badge: rTier.badge,
+              rarity: rTier.key,
+              desc: rTier.badge + ' Custom Edition • ' + name + ' Specification',
+              color: color,
+              icon: icon
+            });
+          }
+          idCounter++;
+        }
+      });
+    }
+
+    // Initialize the complete 7,000 items database
+    expandGarageCatalogTo7000();
+
     localStorage.removeItem('turbostrike_body');
     localStorage.removeItem('rl_body');
     let savedPrimPaint = localStorage.getItem('turbostrike_primary_paint') || localStorage.getItem('rl_paint');
@@ -10558,6 +11690,16 @@
       } else if (mode === '3v3') {
         bot.mesh.visible = true;
         extraBots.forEach(b => b.mesh.visible = true);
+      } else if (mode === 'rumble') {
+        isRumbleMode = true;
+        bot.mesh.visible = true;
+        extraBots.forEach(b => b.mesh.visible = true);
+        showStatBadge('RUMBLE ROYALE STARTED!', 0, '🥊');
+      } else if (mode === 'derby') {
+        mutatorInstagib = true;
+        bot.mesh.visible = true;
+        extraBots.forEach(b => b.mesh.visible = true);
+        showStatBadge('DEMOLITION DERBY: INSTAGIB ON!', 0, '💥');
       }
     }
 
@@ -11254,6 +12396,855 @@
       }, 2200);
     }
 
+    /* =========================================================================
+       CROSS-DEVICE P2P MULTIPLAYER ENGINE (WebRTC via PeerJS)
+       ========================================================================= */
+    let mpPeer = null;
+    let mpConn = null;
+    let isMpActive = false;
+    let isMpHost = false;
+    let mpRoomCode = '';
+    let mpPing = 0;
+    let lastMpPingSend = 0;
+    let lastMpPacketSend = 0;
+    let mpTargetCarState = null;
+    let mpTargetBallState = null;
+
+    function openMultiplayerModal() {
+      openModal('multiplayer-modal');
+      switchMpTab('host');
+    }
+
+    function switchMpTab(tab) {
+      const tabHost = document.getElementById('mp-tab-host');
+      const tabJoin = document.getElementById('mp-tab-join');
+      const panelHost = document.getElementById('mp-panel-host');
+      const panelJoin = document.getElementById('mp-panel-join');
+      if (!tabHost || !tabJoin || !panelHost || !panelJoin) return;
+
+      if (tab === 'host') {
+        tabHost.classList.add('active');
+        tabJoin.classList.remove('active');
+        panelHost.style.display = 'block';
+        panelJoin.style.display = 'none';
+        if (!mpRoomCode) generateAndHostRoom();
+      } else {
+        tabHost.classList.remove('active');
+        tabJoin.classList.add('active');
+        panelHost.style.display = 'none';
+        panelJoin.style.display = 'block';
+        const joinInput = document.getElementById('mp-join-input');
+        if (joinInput) joinInput.focus();
+      }
+      if (sound) sound.playMenuSelect();
+    }
+
+    function generateRoomCode() {
+      const letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+      let partA = '';
+      for (let i = 0; i < 4; i++) {
+        partA += letters.charAt(Math.floor(Math.random() * letters.length));
+      }
+      const partB = Math.floor(10 + Math.random() * 89);
+      return partA + '-' + partB;
+    }
+
+    function generateAndHostRoom() {
+      mpRoomCode = generateRoomCode();
+      const displayEl = document.getElementById('mp-room-display');
+      const statusEl = document.getElementById('mp-host-status');
+      if (displayEl) displayEl.innerText = mpRoomCode;
+      if (statusEl) statusEl.innerHTML = '<span class="pulse-dot">⏳</span> Waiting for player on another device to join...';
+
+      if (typeof Peer === 'undefined') {
+        if (statusEl) statusEl.innerHTML = '⚠️ Networking library loading... If offline on LAN, run <code>node server.js</code>';
+        return;
+      }
+
+      if (mpPeer) {
+        try { mpPeer.destroy(); } catch (e) {}
+      }
+
+      const peerId = 'lor-' + mpRoomCode.toLowerCase().replace(/[^a-z0-9]/g, '');
+      try {
+        mpPeer = new Peer(peerId, { debug: 1 });
+      } catch (err) {
+        console.warn('Peer creation error:', err);
+        return;
+      }
+
+      mpPeer.on('open', (id) => {
+        console.log('Multiplayer Host ready with Peer ID:', id);
+      });
+
+      mpPeer.on('connection', (conn) => {
+        mpConn = conn;
+        isMpHost = true;
+        setupMpConnection();
+        if (statusEl) statusEl.innerHTML = '✅ <span style="color:#00ff88">OPPONENT CONNECTED! LAUNCHING...</span>';
+        if (sound) sound.playMenuSelect();
+        setTimeout(() => {
+          closeModal('multiplayer-modal');
+          startMultiplayerMatch(true);
+        }, 800);
+      });
+
+      mpPeer.on('error', (err) => {
+        console.warn('Host Peer error:', err);
+        if (statusEl) statusEl.innerText = 'Notice: ' + (err.message || err.type || 'Readying connection...');
+      });
+    }
+
+    function copyMpRoomCode() {
+      if (!mpRoomCode) return;
+      navigator.clipboard.writeText(mpRoomCode).then(() => {
+        showStatBadge('ROOM CODE COPIED!', 0, '📋');
+      }).catch(() => {
+        showStatBadge(mpRoomCode, 0, '📋');
+      });
+      if (sound) sound.playMenuClick();
+    }
+
+    function copyMpInviteLink() {
+      if (!mpRoomCode) return;
+      const url = window.location.origin + window.location.pathname + '?room=' + encodeURIComponent(mpRoomCode);
+      navigator.clipboard.writeText(url).then(() => {
+        showStatBadge('INVITE LINK COPIED!', 0, '🔗');
+      }).catch(() => {
+        showStatBadge('CODE: ' + mpRoomCode, 0, '🔗');
+      });
+      if (sound) sound.playMenuClick();
+    }
+
+    function joinMpMatch() {
+      const inputEl = document.getElementById('mp-join-input');
+      const statusEl = document.getElementById('mp-join-status');
+      if (!inputEl) return;
+      const rawCode = inputEl.value.trim().toUpperCase();
+      if (!rawCode) {
+        if (statusEl) statusEl.innerText = 'Please enter a valid room code';
+        return;
+      }
+
+      if (typeof Peer === 'undefined') {
+        if (statusEl) statusEl.innerHTML = '⚠️ Networking library loading... If offline on LAN, run <code>node server.js</code>';
+        return;
+      }
+
+      mpRoomCode = rawCode;
+      const peerId = 'lor-' + rawCode.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (statusEl) statusEl.innerHTML = '⏳ Connecting to <strong>' + rawCode + '</strong>...';
+
+      if (mpPeer) {
+        try { mpPeer.destroy(); } catch (e) {}
+      }
+
+      try {
+        mpPeer = new Peer({ debug: 1 });
+      } catch (err) {
+        if (statusEl) statusEl.innerText = 'Connection error: ' + err.message;
+        return;
+      }
+
+      mpPeer.on('open', () => {
+        mpConn = mpPeer.connect(peerId, { reliable: false });
+        isMpHost = false;
+        setupMpConnection();
+
+        mpConn.on('open', () => {
+          if (statusEl) statusEl.innerHTML = '✅ <span style="color:#00ff88">CONNECTED! ENTERING STADIUM...</span>';
+          if (sound) sound.playMenuSelect();
+          setTimeout(() => {
+            closeModal('multiplayer-modal');
+            startMultiplayerMatch(false);
+          }, 800);
+        });
+      });
+
+      mpPeer.on('error', (err) => {
+        console.warn('Client Peer error:', err);
+        if (statusEl) statusEl.innerText = 'Could not find room "' + rawCode + '". Check code and ensure host is active.';
+      });
+    }
+
+    function setupMpConnection() {
+      if (!mpConn) return;
+
+      mpConn.on('data', (data) => {
+        handleMpPacket(data);
+      });
+
+      mpConn.on('close', () => {
+        showStatBadge('OPPONENT DISCONNECTED', 0, '⚠️');
+        handleMpDisconnect();
+      });
+
+      mpConn.on('error', (err) => {
+        console.warn('MP connection error:', err);
+      });
+    }
+
+    function startMultiplayerMatch(isHost) {
+      isMpActive = true;
+      isMpHost = isHost;
+
+      const hudBadge = document.getElementById('mp-hud-badge');
+      const hudRole = document.getElementById('mp-hud-role');
+      const hudRoom = document.getElementById('mp-hud-room');
+      if (hudBadge) hudBadge.style.display = 'flex';
+      if (hudRole) hudRole.innerText = isHost ? 'HOST' : 'CLIENT';
+      if (hudRoom) hudRoom.innerText = mpRoomCode;
+
+      setupTeamsForMode('1v1');
+      const activeBots = getActiveBots();
+
+      if (isHost) {
+        player.isBlueTeam = true;
+        player.team = 'COBALT';
+        const opp = activeBots.find(b => !b.isBlueTeam) || (activeBots.length > 0 ? activeBots[0] : null);
+        if (opp) {
+          opp.aiDisabled = true;
+          opp.name = 'REMOTE PLAYER';
+        }
+      } else {
+        player.isBlueTeam = false;
+        player.team = 'AMBER';
+        const opp = activeBots.find(b => b.isBlueTeam) || (activeBots.length > 0 ? activeBots[0] : null);
+        if (opp) {
+          opp.aiDisabled = true;
+          opp.name = 'HOST PLAYER';
+        }
+      }
+
+      showStatBadge(`CONNECTED: ${isHost ? 'HOST' : 'CLIENT'}`, 0, '🌐');
+      startKickoffCountdown();
+    }
+
+    function handleMpPacket(packet) {
+      if (!packet || !packet.type) return;
+
+      if (packet.type === 'PING') {
+        if (mpConn && mpConn.open) {
+          mpConn.send({ type: 'PONG', t: packet.t });
+        }
+        return;
+      }
+
+      if (packet.type === 'PONG') {
+        mpPing = Math.max(1, Math.round(performance.now() - packet.t));
+        const pingEl = document.getElementById('mp-hud-ping');
+        if (pingEl) pingEl.innerText = mpPing + ' ms';
+        return;
+      }
+
+      if (packet.type === 'H_SYNC') {
+        if (!isMpHost) {
+          if (packet.ball) mpTargetBallState = packet.ball;
+          if (packet.hostCar) mpTargetCarState = packet.hostCar;
+          if (packet.scores) {
+            if (blueScore !== packet.scores.blue || orangeScore !== packet.scores.orange) {
+              blueScore = packet.scores.blue;
+              orangeScore = packet.scores.orange;
+              if (blueScoreEl) blueScoreEl.innerText = blueScore;
+              if (orangeScoreEl) orangeScoreEl.innerText = orangeScore;
+            }
+          }
+          if (packet.timer !== undefined) matchTime = packet.timer;
+        }
+      } else if (packet.type === 'C_SYNC') {
+        if (isMpHost) {
+          if (packet.clientCar) mpTargetCarState = packet.clientCar;
+        }
+      } else if (packet.type === 'GOAL') {
+        if (!isMpHost && !isGoalScored) {
+          triggerGoal(packet.team);
+        }
+      }
+    }
+
+    function handleMpDisconnect() {
+      isMpActive = false;
+      const hudBadge = document.getElementById('mp-hud-badge');
+      if (hudBadge) hudBadge.style.display = 'none';
+      const activeBots = getActiveBots();
+      activeBots.forEach(b => { b.aiDisabled = false; });
+    }
+
+    function updateMultiplayerNetwork(dt) {
+      if (!isMpActive || !mpConn || !mpConn.open) return;
+      const now = performance.now();
+
+      // Send Ping every 1.5 seconds
+      if (now - lastMpPingSend > 1500) {
+        lastMpPingSend = now;
+        mpConn.send({ type: 'PING', t: now });
+      }
+
+      // Send State Packet at ~35 Hz (every 28ms)
+      if (now - lastMpPacketSend > 28) {
+        lastMpPacketSend = now;
+
+        if (isMpHost) {
+          mpConn.send({
+            type: 'H_SYNC',
+            ball: {
+              x: ball.pos.x, y: ball.pos.y, z: ball.pos.z,
+              vx: ball.vel.x, vy: ball.vel.y, vz: ball.vel.z
+            },
+            hostCar: {
+              x: player.pos.x, y: player.pos.y, z: player.pos.z,
+              qx: player.mesh.quaternion.x, qy: player.mesh.quaternion.y, qz: player.mesh.quaternion.z, qw: player.mesh.quaternion.w,
+              vx: player.vel.x, vy: player.vel.y, vz: player.vel.z,
+              boost: player.boost,
+              isBoosting: player.isBoosting
+            },
+            scores: { blue: blueScore, orange: orangeScore },
+            timer: matchTime
+          });
+        } else {
+          mpConn.send({
+            type: 'C_SYNC',
+            clientCar: {
+              x: player.pos.x, y: player.pos.y, z: player.pos.z,
+              qx: player.mesh.quaternion.x, qy: player.mesh.quaternion.y, qz: player.mesh.quaternion.z, qw: player.mesh.quaternion.w,
+              vx: player.vel.x, vy: player.vel.y, vz: player.vel.z,
+              boost: player.boost,
+              isBoosting: player.isBoosting
+            }
+          });
+        }
+      }
+
+      // Smooth Interpolation of Remote Car
+      if (mpTargetCarState) {
+        const activeBots = getActiveBots();
+        const opp = activeBots.find(b => b.aiDisabled) || (activeBots.length > 0 ? activeBots[0] : null);
+        if (opp) {
+          const tLerp = Math.min(1.0, dt * 20.0);
+          opp.pos.lerp(new THREE.Vector3(mpTargetCarState.x, mpTargetCarState.y, mpTargetCarState.z), tLerp);
+          opp.vel.set(mpTargetCarState.vx, mpTargetCarState.vy, mpTargetCarState.vz);
+          opp.speed = opp.vel.length();
+          opp.boost = mpTargetCarState.boost;
+          opp.isBoosting = mpTargetCarState.isBoosting;
+
+          const targetQuat = new THREE.Quaternion(mpTargetCarState.qx, mpTargetCarState.qy, mpTargetCarState.qz, mpTargetCarState.qw);
+          opp.mesh.quaternion.slerp(targetQuat, tLerp);
+          opp.mesh.position.copy(opp.pos);
+        }
+      }
+
+      // Smooth Interpolation of Ball on Client (Host has pure physics authority)
+      if (!isMpHost && mpTargetBallState) {
+        const tBall = Math.min(1.0, dt * 15.0);
+        ball.pos.lerp(new THREE.Vector3(mpTargetBallState.x, mpTargetBallState.y, mpTargetBallState.z), tBall);
+        ball.vel.set(mpTargetBallState.vx, mpTargetBallState.vy, mpTargetBallState.vz);
+        if (ball.mesh) ball.mesh.position.copy(ball.pos);
+      }
+    }
+
+    // Auto-Join if URL has ?room=... parameter
+    window.addEventListener('load', () => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const roomParam = params.get('room');
+        if (roomParam) {
+          openMultiplayerModal();
+          switchMpTab('join');
+          const joinInput = document.getElementById('mp-join-input');
+          if (joinInput) {
+            joinInput.value = roomParam.toUpperCase();
+            setTimeout(joinMpMatch, 700);
+          }
+        }
+      } catch (e) {}
+    });
+
+    /* =========================================================================
+       RUMBLE ROYALE POWERUP SUBSYSTEM & CHAOS MUTATORS
+       ========================================================================= */
+    const RUMBLE_POWERUPS = [
+      { id: 'haymaker', name: 'HAYMAKER', icon: '🥊', desc: 'Punches ball with massive hypersonic velocity', color: '#ff1744' },
+      { id: 'plunger', name: 'PLUNGER', icon: '🪠', desc: 'Tethers ball with a bungee cord pulling it behind you', color: '#ff9100' },
+      { id: 'spikes', name: 'SPIKES', icon: '🧲', desc: 'Locks ball to your car roof for wall dribbles', color: '#00e5ff' },
+      { id: 'freeze', name: 'FREEZE', icon: '❄️', desc: 'Freezes the ball solid in mid-air in ice', color: '#a7f3d0' },
+      { id: 'grapple', name: 'GRAPPLE', icon: '⚓', desc: 'Reels car directly into the ball at supersonic speed', color: '#f59e0b' },
+      { id: 'tornado', name: 'TORNADO', icon: '🌪️', desc: 'Creates a cyclone sucking up opponents and ball', color: '#8b5cf6' }
+    ];
+
+    let isRumbleMode = true;
+    let mutatorInstagib = false;
+    let mutatorSuperSpeed = false;
+
+    const playerRumble = {
+      powerup: null,
+      cooldown: 0,
+      maxCooldown: 10.0
+    };
+
+    const botRumbles = new Map();
+
+    let boxingGloveMesh = null;
+    let plungerLine = null;
+    let grappleLine = null;
+    let iceBlockMesh = null;
+    let tornadoMesh = null;
+
+    function initRumbleMeshes() {
+      if (typeof THREE === 'undefined' || !scene) return;
+      // 1. Boxing Glove (Haymaker)
+      const gloveGroup = new THREE.Group();
+      const gloveBody = new THREE.Mesh(
+        new THREE.BoxGeometry(1.4, 1.2, 1.6),
+        new THREE.MeshStandardMaterial({ color: 0xd50000, roughness: 0.35, metalness: 0.1 })
+      );
+      gloveGroup.add(gloveBody);
+      const thumb = new THREE.Mesh(
+        new THREE.BoxGeometry(0.5, 0.6, 0.8),
+        new THREE.MeshStandardMaterial({ color: 0xb71c1c, roughness: 0.35 })
+      );
+      thumb.position.set(-0.75, 0, 0.2);
+      gloveGroup.add(thumb);
+      const wrist = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.65, 0.65, 0.4, 16),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 })
+      );
+      wrist.rotation.x = Math.PI / 2;
+      wrist.position.z = -0.9;
+      gloveGroup.add(wrist);
+      gloveGroup.visible = false;
+      scene.add(gloveGroup);
+      boxingGloveMesh = gloveGroup;
+
+      // 2. Plunger Line
+      const pLineGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
+      const pLineMat = new THREE.LineBasicMaterial({ color: 0xff9100, linewidth: 3 });
+      plungerLine = new THREE.Line(pLineGeo, pLineMat);
+      plungerLine.visible = false;
+      scene.add(plungerLine);
+
+      // 3. Grapple Line
+      const gLineGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
+      const gLineMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, linewidth: 3 });
+      grappleLine = new THREE.Line(gLineGeo, gLineMat);
+      grappleLine.visible = false;
+      scene.add(grappleLine);
+
+      // 4. Ice Block
+      const iceGeo = new THREE.BoxGeometry(2.35, 2.35, 2.35);
+      const iceMat = new THREE.MeshStandardMaterial({
+        color: 0x99f6e4,
+        roughness: 0.08,
+        metalness: 0.15,
+        transparent: true,
+        opacity: 0.72,
+        side: THREE.DoubleSide
+      });
+      iceBlockMesh = new THREE.Mesh(iceGeo, iceMat);
+      iceBlockMesh.visible = false;
+      scene.add(iceBlockMesh);
+
+      // 5. Tornado Funnel
+      const tGeo = new THREE.ConeGeometry(5.5, 8.5, 16, 4, true);
+      const tMat = new THREE.MeshBasicMaterial({
+        color: 0xc4b5fd,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.45,
+        side: THREE.DoubleSide
+      });
+      tornadoMesh = new THREE.Mesh(tGeo, tMat);
+      tornadoMesh.rotation.x = Math.PI;
+      tornadoMesh.visible = false;
+      scene.add(tornadoMesh);
+    }
+
+    function createCarSpikes(carObj) {
+      if (!carObj || !carObj.model) return;
+      const spikeGroup = new THREE.Group();
+      const spikeMat = new THREE.MeshStandardMaterial({ color: 0xe0e6ed, metalness: 0.95, roughness: 0.15 });
+      const spikeGeo = new THREE.ConeGeometry(0.12, 0.45, 8);
+      const positions = [
+        [-0.32, 1.05, 0.2], [0.32, 1.05, 0.2],
+        [-0.32, 1.05, -0.4], [0.32, 1.05, -0.4],
+        [0, 1.08, -0.1],
+        [-0.72, 0.72, 0.9], [0.72, 0.72, 0.9],
+        [-0.72, 0.75, -0.9], [0.72, 0.75, -0.9]
+      ];
+      positions.forEach(p => {
+        const spike = new THREE.Mesh(spikeGeo, spikeMat);
+        spike.position.set(p[0], p[1], p[2]);
+        spikeGroup.add(spike);
+      });
+      carObj.model.add(spikeGroup);
+      carObj.spikesMesh = spikeGroup;
+      spikeGroup.visible = false;
+    }
+
+    function toggleRumbleMode(forcedState) {
+      isRumbleMode = (forcedState !== undefined) ? forcedState : !isRumbleMode;
+      const btn = document.getElementById('btn-rumble-toggle');
+      if (btn) {
+        btn.innerText = isRumbleMode ? '⚡ RUMBLE: ON' : '⚡ RUMBLE: OFF';
+        btn.style.color = isRumbleMode ? '#ff0077' : '#8899aa';
+        btn.style.borderColor = isRumbleMode ? '#ff0077' : '#8899aa';
+      }
+      showStatBadge(isRumbleMode ? 'RUMBLE MODE: ACTIVE' : 'RUMBLE MODE: DISABLED', 0, isRumbleMode ? '🥊' : '⚪');
+      if (sound) sound.playMenuSelect();
+    }
+
+    function toggleChaosDrawer() {
+      const drawer = document.getElementById('chaos-drawer');
+      if (!drawer) return;
+      drawer.classList.toggle('active');
+      if (sound) sound.playMenuClick();
+    }
+
+    function toggleChaosMutator(type) {
+      if (type === 'instagib') {
+        mutatorInstagib = !mutatorInstagib;
+        const btn = document.getElementById('cbtn-instagib');
+        if (btn) btn.classList.toggle('active', mutatorInstagib);
+        showStatBadge(mutatorInstagib ? 'INSTAGIB DERBY: ON' : 'INSTAGIB: OFF', 0, '💥');
+      } else if (type === 'moon') {
+        const isMoon = (mutatorGravity < 15.0);
+        mutatorGravity = isMoon ? 22.0 : 8.5;
+        const btn = document.getElementById('cbtn-moon');
+        if (btn) btn.classList.toggle('active', !isMoon);
+        showStatBadge(!isMoon ? 'MOON GRAVITY: ON' : 'NORMAL GRAVITY', 0, '🌙');
+      } else if (type === 'superboost') {
+        mutatorBoost = (mutatorBoost === 'unlimited') ? 'standard' : 'unlimited';
+        player.boost = 100;
+        const btn = document.getElementById('cbtn-superboost');
+        if (btn) btn.classList.toggle('active', mutatorBoost === 'unlimited');
+        showStatBadge(mutatorBoost === 'unlimited' ? 'INFINITE BOOST: ON' : 'STANDARD BOOST', 0, '⚡');
+      } else if (type === 'beach') {
+        const isBeach = (mutatorBallScale > 1.2);
+        setMutatorSize(isBeach ? 'normal' : 'giant');
+        mutatorBounciness = isBeach ? 0.48 : 0.85;
+        const btn = document.getElementById('cbtn-beach');
+        if (btn) btn.classList.toggle('active', !isBeach);
+      } else if (type === 'pinball') {
+        const isPinball = (mutatorBounciness > 0.8);
+        mutatorBounciness = isPinball ? 0.48 : 0.92;
+        const btn = document.getElementById('cbtn-pinball');
+        if (btn) btn.classList.toggle('active', !isPinball);
+        showStatBadge(!isPinball ? 'PINBALL BOUNCE: ON' : 'NORMAL BOUNCE', 0, '🕹️');
+      } else if (type === 'superspeed') {
+        mutatorSuperSpeed = !mutatorSuperSpeed;
+        customGameSpeed = mutatorSuperSpeed ? 1.45 : 1.0;
+        const btn = document.getElementById('cbtn-superspeed');
+        if (btn) btn.classList.toggle('active', mutatorSuperSpeed);
+        showStatBadge(mutatorSuperSpeed ? 'HYPERSPEED 1.5X: ON' : 'NORMAL SPEED', 0, '🏎️');
+      }
+      if (sound) sound.playMenuSelect();
+    }
+
+    function updateRumbleHUDProgress(pct) {
+      const bar = document.getElementById('rumble-progress');
+      const widget = document.getElementById('rumble-widget');
+      const icon = document.getElementById('rumble-icon');
+      const name = document.getElementById('rumble-name');
+      const hint = document.getElementById('rumble-key-hint');
+      if (!bar) return;
+      const offset = 213 * (1 - Math.min(1.0, Math.max(0, pct)));
+      bar.style.strokeDashoffset = offset;
+      if (widget) widget.classList.remove('ready');
+      if (icon) icon.innerText = '⏳';
+      if (name) name.innerText = `CHARGING ${Math.ceil((1 - pct) * 10)}s`;
+      if (hint) hint.innerText = '[F] CHARGING';
+    }
+
+    function updateRumbleHUDReady(p) {
+      const bar = document.getElementById('rumble-progress');
+      const widget = document.getElementById('rumble-widget');
+      const icon = document.getElementById('rumble-icon');
+      const name = document.getElementById('rumble-name');
+      const hint = document.getElementById('rumble-key-hint');
+      if (!bar) return;
+      bar.style.strokeDashoffset = 0;
+      if (widget) widget.classList.add('ready');
+      if (icon) icon.innerText = p.icon;
+      if (name) name.innerText = p.name;
+      if (hint) hint.innerText = '[F] USE POWERUP';
+      showStatBadge(`${p.icon} ${p.name} READY! [F]`, 0, '⚡');
+    }
+
+    function activatePlayerRumblePowerup() {
+      if (!isRumbleMode) {
+        toggleRumbleMode(true);
+      }
+      if (!playerRumble.powerup) {
+        if (currentGameMode === 'training') {
+          playerRumble.powerup = RUMBLE_POWERUPS[Math.floor(Math.random() * RUMBLE_POWERUPS.length)];
+          sound.playPowerupReady();
+          updateRumbleHUDReady(playerRumble.powerup);
+          return;
+        } else {
+          showStatBadge(`CHARGING POWERUP (${Math.ceil(playerRumble.maxCooldown - playerRumble.cooldown)}s)`, 0, '⏳');
+          return;
+        }
+      }
+
+      const p = playerRumble.powerup;
+      playerRumble.powerup = null;
+      playerRumble.cooldown = 0;
+      updateRumbleHUDProgress(0);
+
+      const fwd = player.forwardDir ? player.forwardDir.clone() : new THREE.Vector3(Math.sin(player.heading), 0, Math.cos(player.heading));
+      const toBall = ball.pos.clone().sub(player.pos);
+      const toBallDir = toBall.clone().normalize();
+
+      if (p.id === 'haymaker') {
+        sound.playPunch();
+        showStatBadge('🥊 HAYMAKER PUNCH!', 50, '💥');
+        if (boxingGloveMesh) {
+          boxingGloveMesh.position.copy(player.pos).addScaledVector(fwd, 1.8);
+          boxingGloveMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), toBallDir);
+          boxingGloveMesh.visible = true;
+          setTimeout(() => { if (boxingGloveMesh) boxingGloveMesh.visible = false; }, 350);
+        }
+        ball.vel.add(toBallDir.multiplyScalar(62.0));
+        ball.vel.y += 8.0;
+        spawnBallImpactSparks(ball.pos, toBallDir, 45);
+        cameraTrauma = 0.85;
+      } else if (p.id === 'plunger') {
+        sound.playPlunger();
+        showStatBadge('🪠 PLUNGER FIRED!', 25, '🎯');
+        player.plungerActive = true;
+        player.plungerTimer = 4.0;
+      } else if (p.id === 'spikes') {
+        sound.playSpikes();
+        showStatBadge('🧲 SPIKES ACTIVATED!', 25, '⚡');
+        player.spikesActive = true;
+        player.spikesTimer = 5.0;
+        if (!player.spikesMesh) createCarSpikes(player);
+        if (player.spikesMesh) player.spikesMesh.visible = true;
+      } else if (p.id === 'freeze') {
+        sound.playFreeze();
+        showStatBadge('❄️ FROST FREEZE!', 25, '🧊');
+        ball.isFrozen = true;
+        ball.freezeTimer = 3.2;
+        ball.vel.set(0, 0, 0);
+        ball.rotVel.set(0, 0, 0);
+        if (iceBlockMesh) {
+          iceBlockMesh.position.copy(ball.pos);
+          iceBlockMesh.visible = true;
+        }
+        spawnBallImpactSparks(ball.pos, new THREE.Vector3(0, 1, 0), 18);
+      } else if (p.id === 'grapple') {
+        sound.playGrapple();
+        showStatBadge('⚓ GRAPPLING HOOK!', 25, '🚀');
+        player.grappleActive = true;
+        player.grappleTimer = 2.5;
+        player.vel.copy(toBallDir.multiplyScalar(58.0));
+        player.isGrounded = false;
+      } else if (p.id === 'tornado') {
+        sound.playTornado();
+        showStatBadge('🌪️ TORNADO CYCLONE!', 25, '🌀');
+        player.tornadoActive = true;
+        player.tornadoTimer = 5.0;
+        if (tornadoMesh) tornadoMesh.visible = true;
+      }
+    }
+
+    function activateBotRumblePowerup(b, p) {
+      if (!p) return;
+      const toBall = ball.pos.clone().sub(b.pos);
+      const toBallDir = toBall.clone().normalize();
+
+      if (p.id === 'haymaker') {
+        sound.playPunch();
+        showStatBadge(`DominusBot: 🥊 HAYMAKER!`, 20, '💥');
+        ball.vel.add(toBallDir.multiplyScalar(55.0));
+        ball.vel.y += 6.0;
+        spawnBallImpactSparks(ball.pos, toBallDir, 35);
+      } else if (p.id === 'freeze') {
+        sound.playFreeze();
+        showStatBadge(`DominusBot: ❄️ FREEZE!`, 20, '🧊');
+        ball.isFrozen = true;
+        ball.freezeTimer = 2.5;
+        ball.vel.set(0, 0, 0);
+        if (iceBlockMesh) {
+          iceBlockMesh.position.copy(ball.pos);
+          iceBlockMesh.visible = true;
+        }
+      } else if (p.id === 'plunger') {
+        sound.playPlunger();
+        b.plungerActive = true;
+        b.plungerTimer = 3.5;
+      } else if (p.id === 'spikes') {
+        sound.playSpikes();
+        b.spikesActive = true;
+        b.spikesTimer = 4.5;
+      } else if (p.id === 'grapple') {
+        sound.playGrapple();
+        b.vel.copy(toBallDir.multiplyScalar(48.0));
+      } else if (p.id === 'tornado') {
+        sound.playTornado();
+        b.tornadoActive = true;
+        b.tornadoTimer = 4.0;
+      }
+    }
+
+    function updateRumbleSystem(dt) {
+      if (!isRumbleMode) return;
+
+      if (!boxingGloveMesh && scene) {
+        initRumbleMeshes();
+      }
+
+      // 1. Player Cooldown
+      if (!playerRumble.powerup) {
+        playerRumble.cooldown += dt;
+        updateRumbleHUDProgress(playerRumble.cooldown / playerRumble.maxCooldown);
+        if (playerRumble.cooldown >= playerRumble.maxCooldown) {
+          const p = RUMBLE_POWERUPS[Math.floor(Math.random() * RUMBLE_POWERUPS.length)];
+          playerRumble.powerup = p;
+          playerRumble.cooldown = 0;
+          sound.playPowerupReady();
+          updateRumbleHUDReady(p);
+        }
+      }
+
+      // 2. Active Spikes
+      if (player.spikesActive) {
+        player.spikesTimer -= dt;
+        if (player.spikesMesh) player.spikesMesh.visible = true;
+        if (ball.spikedTo === player) {
+          const carQuat = player.mesh ? player.mesh.quaternion : new THREE.Quaternion().setFromEuler(new THREE.Euler(player.pitch || 0, player.heading || 0, player.roll || 0, 'YXZ'));
+          ball.pos.copy(player.pos).add(new THREE.Vector3(0, 1.25, 0).applyQuaternion(carQuat));
+          ball.vel.copy(player.vel);
+          ball.rotVel.set(0, 0, 0);
+          if (player.isFlipping) {
+            ball.spikedTo = null;
+            player.spikesActive = false;
+            if (player.spikesMesh) player.spikesMesh.visible = false;
+            const fwd = player.forwardDir ? player.forwardDir.clone() : new THREE.Vector3(Math.sin(player.heading), 0, Math.cos(player.heading));
+            ball.vel.add(fwd.multiplyScalar(28.0));
+            ball.vel.y += 10.0;
+            sound.playHit(3.5);
+            showStatBadge('SPIKE FLICK!', 25, '⚽');
+          }
+        }
+        if (player.spikesTimer <= 0) {
+          player.spikesActive = false;
+          if (ball.spikedTo === player) ball.spikedTo = null;
+          if (player.spikesMesh) player.spikesMesh.visible = false;
+        }
+      }
+
+      // 3. Active Plunger
+      if (player.plungerActive) {
+        player.plungerTimer -= dt;
+        const toBall = ball.pos.clone().sub(player.pos);
+        const dist = toBall.length();
+        if (dist > 3.0) {
+          const pullForce = toBall.clone().normalize().multiplyScalar(-52.0 * dt);
+          ball.vel.add(pullForce);
+        }
+        if (plungerLine) {
+          plungerLine.visible = true;
+          const posArr = plungerLine.geometry.attributes.position.array;
+          posArr[0] = player.pos.x; posArr[1] = player.pos.y + 0.6; posArr[2] = player.pos.z;
+          posArr[3] = ball.pos.x; posArr[4] = ball.pos.y; posArr[5] = ball.pos.z;
+          plungerLine.geometry.attributes.position.needsUpdate = true;
+        }
+        if (player.plungerTimer <= 0 || dist < 2.5) {
+          player.plungerActive = false;
+          if (plungerLine) plungerLine.visible = false;
+        }
+      }
+
+      // 4. Active Freeze
+      if (ball.isFrozen) {
+        ball.freezeTimer -= dt;
+        ball.vel.set(0, 0, 0);
+        ball.rotVel.set(0, 0, 0);
+        if (iceBlockMesh) {
+          iceBlockMesh.position.copy(ball.pos);
+          iceBlockMesh.visible = true;
+          iceBlockMesh.rotation.y += dt * 0.5;
+        }
+        if (ball.freezeTimer <= 0) {
+          ball.isFrozen = false;
+          if (iceBlockMesh) iceBlockMesh.visible = false;
+          spawnBallImpactSparks(ball.pos, new THREE.Vector3(0, 1, 0), 15);
+        }
+      }
+
+      // 5. Active Grapple Hook
+      if (player.grappleActive) {
+        player.grappleTimer -= dt;
+        const toBall = ball.pos.clone().sub(player.pos);
+        const dist = toBall.length();
+        if (dist > 2.8) {
+          player.vel.copy(toBall.clone().normalize().multiplyScalar(56.0));
+          player.isGrounded = false;
+        } else {
+          player.grappleActive = false;
+        }
+        if (grappleLine) {
+          grappleLine.visible = true;
+          const posArr = grappleLine.geometry.attributes.position.array;
+          posArr[0] = player.pos.x; posArr[1] = player.pos.y + 0.5; posArr[2] = player.pos.z;
+          posArr[3] = ball.pos.x; posArr[4] = ball.pos.y; posArr[5] = ball.pos.z;
+          grappleLine.geometry.attributes.position.needsUpdate = true;
+        }
+        if (player.grappleTimer <= 0) {
+          player.grappleActive = false;
+          if (grappleLine) grappleLine.visible = false;
+        }
+      }
+
+      // 6. Active Tornado
+      if (player.tornadoActive) {
+        player.tornadoTimer -= dt;
+        if (tornadoMesh) {
+          tornadoMesh.position.copy(player.pos);
+          tornadoMesh.position.y += 3.5;
+          tornadoMesh.rotation.y += dt * 14.0;
+          tornadoMesh.visible = true;
+        }
+        const allTargets = [...getActiveBots(), ball];
+        allTargets.forEach(tgt => {
+          const dist = tgt.pos.distanceTo(player.pos);
+          if (dist < 9.5 && dist > 0.5) {
+            const rel = tgt.pos.clone().sub(player.pos);
+            const tangent = new THREE.Vector3(-rel.z, 0.9, rel.x).normalize();
+            tgt.vel.addScaledVector(tangent, 38.0 * dt);
+            tgt.vel.y += 20.0 * dt;
+            if (tgt.isGrounded !== undefined) tgt.isGrounded = false;
+          }
+        });
+        if (player.tornadoTimer <= 0) {
+          player.tornadoActive = false;
+          if (tornadoMesh) tornadoMesh.visible = false;
+        }
+      }
+
+      // 7. Bot AI Rumble Usage
+      getActiveBots().forEach(b => {
+        let bRumble = botRumbles.get(b);
+        if (!bRumble) {
+          bRumble = { cooldown: Math.random() * 5.0, powerup: null };
+          botRumbles.set(b, bRumble);
+        }
+        if (!bRumble.powerup) {
+          bRumble.cooldown += dt;
+          if (bRumble.cooldown >= 11.0) {
+            bRumble.powerup = RUMBLE_POWERUPS[Math.floor(Math.random() * RUMBLE_POWERUPS.length)];
+            bRumble.cooldown = 0;
+          }
+        } else {
+          const bDist = b.pos.distanceTo(ball.pos);
+          if (bDist < 24.0 && Math.random() < dt * 0.40) {
+            activateBotRumblePowerup(b, bRumble.powerup);
+            bRumble.powerup = null;
+          }
+        }
+      });
+    }
+
     /* Global State: Cinematic Intro, BakkesMod & Pro Camera */
     // Cinematic intro state initialized at top of script
     // customGameSpeed initialized at top of script
@@ -11288,6 +13279,8 @@
       const isE = keys['e'] || keys['keye'];
       const bq = document.getElementById('badge-q'); if (bq) bq.classList.toggle('active-key', !!isQ);
       const be = document.getElementById('badge-e'); if (be) be.classList.toggle('active-key', !!isE);
+      const isF = keys['f'] || keys['keyf'];
+      const bf = document.getElementById('badge-f'); if (bf) bf.classList.toggle('active-key', !!isF);
     }
 
     window.addEventListener('keydown', e => {
@@ -11299,6 +13292,10 @@
       if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'space', 'tab'].includes(e.code.toLowerCase()) ||
           ['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' ', 'tab'].includes(e.key.toLowerCase())) {
         e.preventDefault();
+      }
+
+      if ((e.key.toLowerCase() === 'f' || e.code.toLowerCase() === 'keyf') && !e.repeat) {
+        activatePlayerRumblePowerup();
       }
 
       const isSpace = (e.key === ' ' || e.code === 'Space' || e.key === 'Enter');
@@ -11689,6 +13686,17 @@
       if (isGoalScored) return;
       isGoalScored = true;
       sound.playGoal();
+      if (typeof triggerGoalFlames === 'function') triggerGoalFlames(scoringTeam);
+
+      if (typeof isMpActive !== 'undefined' && isMpActive && isMpHost && mpConn && mpConn.open) {
+        try { mpConn.send({ type: 'GOAL', team: scoringTeam }); } catch (e) {}
+      }
+
+      // Dramatic slow-mo matrix bullet-time right as ball hits net
+      customGameSpeed = 0.22;
+      setTimeout(() => {
+        customGameSpeed = 1.0;
+      }, 750);
 
       const shotSpeedKph = Math.max(35, Math.round(ball.vel.length() * 3.6));
 
@@ -12299,57 +14307,115 @@
     }
 
     let activeHitboxFilter = 'ALL';
-    let carSearchTerm = '';
+    let activeRarityFilter = 'ALL';
+    let garageSearchTerm = '';
+    let garageDisplayLimit = 60;
 
     function filterGarageHitbox(hitbox) {
       activeHitboxFilter = hitbox;
-      document.querySelectorAll('.filter-chip').forEach(btn => {
-        btn.classList.toggle('active', btn.id === 'chip-' + hitbox);
+      document.querySelectorAll('.hitbox-chip').forEach(btn => {
+        btn.classList.toggle('active', btn.id === 'chip-hitbox-' + hitbox);
       });
+      garageDisplayLimit = 60;
+      renderGarageCards();
+    }
+
+    function filterGarageRarity(rarity) {
+      activeRarityFilter = rarity;
+      document.querySelectorAll('.rarity-chip').forEach(btn => {
+        btn.classList.toggle('active', btn.id === 'chip-rarity-' + rarity);
+      });
+      garageDisplayLimit = 60;
       renderGarageCards();
     }
 
     function onGarageSearchChanged(val) {
-      carSearchTerm = (val || '').trim().toLowerCase();
+      garageSearchTerm = (val || '').trim().toLowerCase();
+      garageDisplayLimit = 60;
       renderGarageCards();
     }
 
-    function renderGarageCards() {
+    function loadMoreGarageItems() {
+      garageDisplayLimit += 60;
+      renderGarageCards(true);
+    }
+
+    function switchGarageCategory(cat) {
+      currentGarageCategory = cat;
+      document.querySelectorAll('.garage-tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.id === 'tab-' + cat);
+      });
+      const titles = {
+        body: 'SELECT CAR BODY (1,000 UNIQUE DESIGNS)',
+        primary_paint: 'SELECT PRIMARY PAINT FINISH (1,000 FINISHES)',
+        secondary_paint: 'SELECT SECONDARY ACCENT FINISH (1,000 ACCENTS)',
+        wheels: 'SELECT CUSTOM WHEELS & RIMS (1,000 WHEELS)',
+        boost: 'SELECT ROCKET BOOST THRUSTER (1,000 BOOSTS)',
+        trail: 'SELECT SUPERSONIC WHEEL TRAIL (1,000 TRAILS)',
+        explosion: 'SELECT SCORING GOAL EXPLOSION (1,000 EXPLOSIONS)'
+      };
+      const titleEl = document.getElementById('garage-category-title');
+      if (titleEl) titleEl.innerText = titles[cat] || 'SELECT ITEM';
+
+      garageDisplayLimit = 60;
+      renderGarageCards();
+    }
+
+    function renderGarageCards(preserveScroll = false) {
       const container = document.getElementById('grid-customization');
       if (!container) return;
+
+      const hitboxFilterEl = document.getElementById('garage-body-filters');
+      if (hitboxFilterEl) {
+        hitboxFilterEl.style.display = (currentGarageCategory === 'body') ? 'flex' : 'none';
+      }
+
+      let allItems = garageCatalog[currentGarageCategory] || [];
+      let items = allItems;
+
+      // Filter by Hitbox (body category only)
+      if (currentGarageCategory === 'body' && activeHitboxFilter && activeHitboxFilter !== 'ALL') {
+        items = items.filter(item => (item.class || '').toUpperCase() === activeHitboxFilter);
+      }
+
+      // Filter by Rarity Tier
+      if (activeRarityFilter && activeRarityFilter !== 'ALL') {
+        items = items.filter(item => (item.rarity || 'common').toLowerCase() === activeRarityFilter.toLowerCase());
+      }
+
+      // Filter by Search Query
+      if (garageSearchTerm) {
+        items = items.filter(item => {
+          const name = (item.name || '').toLowerCase();
+          const desc = (item.desc || '').toLowerCase();
+          const badge = (item.badge || '').toLowerCase();
+          const cls = (item.class || '').toLowerCase();
+          const arch = (item.archetype || '').toLowerCase();
+          return name.includes(garageSearchTerm) || desc.includes(garageSearchTerm) || badge.includes(garageSearchTerm) || cls.includes(garageSearchTerm) || arch.includes(garageSearchTerm);
+        });
+      }
+
+      // Update counter badge
+      const counterEl = document.getElementById('garage-counter-badge');
+      if (counterEl) {
+        counterEl.innerText = `SHOWING ${Math.min(garageDisplayLimit, items.length)} OF ${items.length} ITEMS (${allItems.length} TOTAL)`;
+      }
+
+      const prevScrollY = container.scrollTop;
       container.innerHTML = '';
 
-      const filterBar = document.getElementById('garage-body-filters');
-      if (filterBar) {
-        filterBar.style.display = (currentGarageCategory === 'body') ? 'flex' : 'none';
-      }
-
-      let items = garageCatalog[currentGarageCategory] || [];
-
-      if (currentGarageCategory === 'body') {
-        if (activeHitboxFilter && activeHitboxFilter !== 'ALL') {
-          items = items.filter(item => (item.class || '').toUpperCase() === activeHitboxFilter);
-        }
-        if (carSearchTerm) {
-          items = items.filter(item => {
-            const name = (item.name || '').toLowerCase();
-            const desc = (item.desc || '').toLowerCase();
-            const badge = (item.badge || '').toLowerCase();
-            const cls = (item.class || '').toLowerCase();
-            return name.includes(carSearchTerm) || desc.includes(carSearchTerm) || badge.includes(carSearchTerm) || cls.includes(carSearchTerm);
-          });
-        }
-      }
-
       if (items.length === 0) {
-        container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #8899aa; font-family: Rajdhani, sans-serif; font-size: 16px;">NO CARS FOUND MATCHING SEARCH CRITERIA</div>';
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #8899aa; font-family: Rajdhani, sans-serif; font-size: 16px;">NO ITEMS FOUND MATCHING SEARCH / FILTER CRITERIA</div>';
         return;
       }
 
-      items.forEach(item => {
+      const visibleItems = items.slice(0, garageDisplayLimit);
+
+      visibleItems.forEach(item => {
         const isEquipped = equippedLoadout[currentGarageCategory] === item.id;
+        const rarity = item.rarity || 'common';
         const card = document.createElement('div');
-        card.className = 'item-card' + (isEquipped ? ' equipped' : '');
+        card.className = 'item-card rarity-' + rarity + (isEquipped ? ' equipped' : '');
 
         let previewStyle = 'background: rgba(255,255,255,0.06);';
         let previewContent = item.icon || '';
@@ -12358,14 +14424,28 @@
         if (currentGarageCategory === 'body') {
           previewStyle = `background: radial-gradient(circle, ${item.color}44 0%, rgba(12,18,28,0.92) 100%); border: 1.5px solid ${item.color}88;`;
           extraCardHtml = `
-            <div style="color: ${item.color}; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; margin: 3px 0 1px 0; text-transform: uppercase;">${item.badge || 'CHASSIS'}</div>
-            <div style="font-size: 8px; color: #8899aa; letter-spacing: 0.5px;">HITBOX: ${item.class || 'OCTANE'}</div>
+            <div style="display:flex; justify-content:center; gap:4px; margin: 3px 0 1px 0;">
+              <span class="item-card-rarity-tag tag-${rarity}">${item.badge || rarity.toUpperCase()}</span>
+              <span class="item-card-rarity-tag" style="background:rgba(255,255,255,0.08); color:#8899aa;">${item.class || 'OCTANE'}</span>
+            </div>
           `;
         } else if (currentGarageCategory === 'primary_paint' || currentGarageCategory === 'secondary_paint') {
-          previewStyle = `background: ${item.color}; border: 1px solid rgba(255,255,255,0.3);`;
+          previewStyle = `background: ${item.color}; border: 1.5px solid rgba(255,255,255,0.3);`;
           previewContent = '';
-        } else if (item.color) {
-          previewStyle = `background: radial-gradient(circle, ${item.color}33 0%, rgba(20,25,35,0.7) 100%); border: 1px solid ${item.color}66;`;
+          extraCardHtml = `
+            <div style="margin: 3px 0 1px 0;">
+              <span class="item-card-rarity-tag tag-${rarity}">${item.badge || rarity.toUpperCase()}</span>
+            </div>
+          `;
+        } else {
+          if (item.color) {
+            previewStyle = `background: radial-gradient(circle, ${item.color}33 0%, rgba(20,25,35,0.7) 100%); border: 1.5px solid ${item.color}66;`;
+          }
+          extraCardHtml = `
+            <div style="margin: 3px 0 1px 0;">
+              <span class="item-card-rarity-tag tag-${rarity}">${item.badge || rarity.toUpperCase()}</span>
+            </div>
+          `;
         }
 
         card.innerHTML = `
@@ -12383,6 +14463,188 @@
         };
         container.appendChild(card);
       });
+
+      // Pagination Load More Button
+      if (items.length > garageDisplayLimit) {
+        const loadMoreRow = document.createElement('div');
+        loadMoreRow.style.gridColumn = '1 / -1';
+        loadMoreRow.style.textAlign = 'center';
+        loadMoreRow.style.padding = '18px 0 10px 0';
+        loadMoreRow.innerHTML = `
+          <button class="btn-hud primary" onclick="loadMoreGarageItems()" style="font-size: 14px; padding: 10px 32px; background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 80, 255, 0.4)); border: 1.5px solid #00f0ff;">
+            ⬇️ LOAD MORE (+60 ITEMS) • SHOWING ${visibleItems.length} OF ${items.length}
+          </button>
+        `;
+        container.appendChild(loadMoreRow);
+      }
+
+      if (preserveScroll) {
+        container.scrollTop = prevScrollY;
+      }
+    }
+
+    /* 🎲 7,000-ITEM LOADOUT RANDOMIZER */
+    function randomizeLoadout() {
+      const cats = ['body', 'primary_paint', 'secondary_paint', 'wheels', 'boost', 'trail', 'explosion'];
+      cats.forEach(cat => {
+        const list = garageCatalog[cat];
+        if (list && list.length > 0) {
+          const randItem = list[Math.floor(Math.random() * list.length)];
+          equippedLoadout[cat] = randItem.id;
+          localStorage.setItem('turbostrike_' + cat, randItem.id);
+          if (cat === 'primary_paint') localStorage.setItem('rl_paint', randItem.id);
+          if (cat === 'wheels') localStorage.setItem('rl_wheels', randItem.id);
+          if (cat === 'boost') localStorage.setItem('rl_boost', randItem.id);
+          if (cat === 'explosion') localStorage.setItem('rl_explosion', randItem.id);
+          if (cat === 'body') localStorage.setItem('rl_body', randItem.id);
+        }
+      });
+
+      applyEquippedLoadout();
+      renderGarageCards();
+      updateMenuLoadoutWidget();
+      rebuildPreviewCar();
+      triggerPreviewBoost();
+      showStatBadge('🎲 7,000 LOADOUT RANDOMIZED!', 0, '✨');
+      if (sound && sound.playGoal) sound.playGoal();
+    }
+
+    /* 🎁 7,000-ITEM CRATE DROP UNBOXING SYSTEM */
+    let crateSpinning = false;
+    let crateDropPrize = null;
+    let crateDropCategory = null;
+
+    function openCrateModal() {
+      openModal('crate-modal');
+      buildCrateReel();
+      const statusEl = document.getElementById('crate-status-text');
+      if (statusEl) statusEl.innerHTML = '🎰 READY TO UNBOX FROM 7,000 ITEMS!';
+      const equipBtn = document.getElementById('btn-equip-crate');
+      if (equipBtn) equipBtn.style.display = 'none';
+      const spinBtn = document.getElementById('btn-spin-crate');
+      if (spinBtn) {
+        spinBtn.disabled = false;
+        spinBtn.innerText = '🎰 SPIN 7K CRATE';
+      }
+    }
+
+    function buildCrateReel() {
+      const track = document.getElementById('crate-track');
+      if (!track) return;
+      track.innerHTML = '';
+      track.style.transition = 'none';
+      track.style.transform = 'translateX(0px)';
+
+      const cats = ['body', 'wheels', 'boost', 'trail', 'explosion', 'primary_paint', 'secondary_paint'];
+      for (let i = 0; i < 35; i++) {
+        const cat = cats[i % cats.length];
+        const list = garageCatalog[cat] || [];
+        const item = list[Math.floor(Math.random() * list.length)] || { name: 'Prize', icon: '🎁', color: '#00f0ff', rarity: 'rare' };
+        const rarity = item.rarity || 'rare';
+
+        const slot = document.createElement('div');
+        slot.className = 'crate-item-slot';
+        slot.style.borderColor = (rarity === 'black_market') ? '#ffcc00' :
+                                 (rarity === 'exotic') ? '#ff2a4b' :
+                                 (rarity === 'import') ? '#b829ff' :
+                                 (rarity === 'very_rare') ? '#0088ff' : '#00ff88';
+
+        slot.innerHTML = `
+          <div class="c-icon" style="${item.color ? `color:${item.color}; filter:drop-shadow(0 0 6px ${item.color});` : ''}">${item.icon || '🎁'}</div>
+          <div class="c-name" style="color: ${item.color || '#fff'};">${item.name}</div>
+          <div class="c-cat">${cat.replace('_', ' ')}</div>
+          <span class="item-card-rarity-tag tag-${rarity}" style="margin-top: 4px;">${rarity.toUpperCase().replace('_', ' ')}</span>
+        `;
+        track.appendChild(slot);
+      }
+    }
+
+    function spinCrateDrop() {
+      if (crateSpinning) return;
+      crateSpinning = true;
+
+      const spinBtn = document.getElementById('btn-spin-crate');
+      if (spinBtn) {
+        spinBtn.disabled = true;
+        spinBtn.innerText = 'SPINNING...';
+      }
+      const equipBtn = document.getElementById('btn-equip-crate');
+      if (equipBtn) equipBtn.style.display = 'none';
+
+      // Pick winning target index (slot 26 out of 35)
+      const targetIdx = 26;
+      const cats = ['body', 'wheels', 'boost', 'trail', 'explosion', 'primary_paint', 'secondary_paint'];
+      crateDropCategory = cats[Math.floor(Math.random() * cats.length)];
+      const list = garageCatalog[crateDropCategory];
+
+      // Bias towards high-tier items for exciting unboxing!
+      const highTier = list.filter(it => it.rarity === 'black_market' || it.rarity === 'exotic' || it.rarity === 'import');
+      crateDropPrize = highTier.length > 0 ? highTier[Math.floor(Math.random() * highTier.length)] : list[Math.floor(Math.random() * list.length)];
+
+      const track = document.getElementById('crate-track');
+      if (!track) return;
+
+      // Update slot 26 with the actual prize
+      const prizeSlot = track.children[targetIdx];
+      if (prizeSlot) {
+        const rarity = crateDropPrize.rarity || 'exotic';
+        prizeSlot.style.borderColor = (rarity === 'black_market') ? '#ffcc00' :
+                                      (rarity === 'exotic') ? '#ff2a4b' :
+                                      (rarity === 'import') ? '#b829ff' : '#0088ff';
+        prizeSlot.innerHTML = `
+          <div class="c-icon" style="${crateDropPrize.color ? `color:${crateDropPrize.color}; filter:drop-shadow(0 0 10px ${crateDropPrize.color});` : ''}">${crateDropPrize.icon || '🎁'}</div>
+          <div class="c-name" style="color: ${crateDropPrize.color || '#fff'}; font-weight:800;">${crateDropPrize.name}</div>
+          <div class="c-cat">${crateDropCategory.replace('_', ' ')}</div>
+          <span class="item-card-rarity-tag tag-${rarity}" style="margin-top: 4px;">${rarity.toUpperCase().replace('_', ' ')}</span>
+        `;
+      }
+
+      // Slot width 130 + gap 12 = 142px per slot
+      // Center position calculation: viewport width ~630px, center is ~315px, half-slot is 65px
+      const viewport = document.querySelector('.crate-reel-viewport');
+      const viewCenter = (viewport ? viewport.clientWidth : 630) / 2;
+      const targetOffset = targetIdx * 142 + 65 - viewCenter + (Math.random() * 30 - 15);
+
+      track.style.transition = 'transform 5.2s cubic-bezier(0.12, 0.88, 0.24, 1)';
+      track.style.transform = `translateX(-${targetOffset}px)`;
+
+      // Play tick audio during spin
+      let tickCount = 0;
+      const tickInterval = setInterval(() => {
+        tickCount++;
+        if (sound && sound.playHit) sound.playHit(0.5);
+        if (tickCount > 28) clearInterval(tickInterval);
+      }, 160);
+
+      const statusEl = document.getElementById('crate-status-text');
+      if (statusEl) statusEl.innerHTML = '⚡ DECELERATING...';
+
+      setTimeout(() => {
+        crateSpinning = false;
+        clearInterval(tickInterval);
+        if (spinBtn) {
+          spinBtn.disabled = false;
+          spinBtn.innerText = '🎰 SPIN AGAIN';
+        }
+        if (equipBtn) equipBtn.style.display = 'inline-block';
+
+        if (statusEl) {
+          const rarity = (crateDropPrize.rarity || 'EXOTIC').toUpperCase().replace('_', ' ');
+          statusEl.innerHTML = `<span style="color:#ffcc00; font-size:17px;">🏆 UNLOCKED: <strong>${crateDropPrize.name}</strong> (${rarity})!</span>`;
+        }
+
+        if (sound && sound.playGoal) sound.playGoal();
+        showStatBadge('UNLOCKED ' + crateDropPrize.name.toUpperCase(), 0, '🎁');
+      }, 5300);
+    }
+
+    function equipCrateDropPrize() {
+      if (!crateDropPrize || !crateDropCategory) return;
+      equipItem(crateDropCategory, crateDropPrize);
+      closeModal('crate-modal');
+      openModal('garage-modal');
+      switchGarageCategory(crateDropCategory);
+      showStatBadge('EQUIPPED UNBOXED PRIZE!', 0, '⚡');
     }
 
     function equipItem(category, item) {
@@ -13021,6 +15283,9 @@
     }
 
     function updatePhysics(dt) {
+
+      // Update Rumble Powerups & Chaos Mutators
+      updateRumbleSystem(dt);
 
       // Tire smoke & skid marks animation
       skidParticles.forEach(part => {
@@ -14161,6 +16426,20 @@
             ball.pos.addScaledVector(worldNorm, overlap + 0.08);
           }
 
+          // Rumble Powerups: Ice Break & Spikes Attachment
+          if (ball.isFrozen) {
+            ball.isFrozen = false;
+            if (iceBlockMesh) iceBlockMesh.visible = false;
+            sound.playFreeze();
+            spawnBallImpactSparks(ball.pos, worldNorm, 28);
+          }
+          if (carObj.spikesActive) {
+            ball.spikedTo = carObj;
+            sound.playSpikes();
+            if (isPlayer) showStatBadge('BALL SPIKED!', 25, '🧲');
+            return;
+          }
+
           // High impact shot calculation (Authentic Rocket League Hitbox Zones)
           const carSpeed = carObj.vel.length();
           const fwdDir = (carObj.forwardDir ? carObj.forwardDir.clone() : new THREE.Vector3(Math.sin(carObj.heading), 0, Math.cos(carObj.heading))).normalize();
@@ -14309,6 +16588,16 @@
               const aHitVelocity = carA.vel.dot(dirAtoB);
               const bHitVelocity = -carB.vel.dot(dirAtoB);
 
+              if (mutatorInstagib) {
+                if (speedA >= speedB) {
+                  demolishCar(carB, carA);
+                } else {
+                  demolishCar(carA, carB);
+                }
+                cameraTrauma = Math.max(cameraTrauma, 0.9);
+                continue;
+              }
+
               if (isOpposing && isASupersonic && aHitVelocity > 6.5) {
                 // Car A demolishes Car B!
                 demolishCar(carB, carA);
@@ -14377,6 +16666,8 @@
           if (pad.respawnTimer <= 0) {
             pad.active = true;
             pad.mesh.visible = true;
+            if (pad.beacon) pad.beacon.visible = true;
+            if (pad.rune) pad.rune.visible = true;
             if (pad.floorRing) pad.floorRing.material.color.setHex(0xffaa00);
             if (pad.light) pad.light.intensity = 2.0;
           }
@@ -14388,6 +16679,9 @@
               pad.cage.rotation.y -= dt * 1.8;
               pad.cage.rotation.x = Math.sin(performance.now() * 0.003) * 0.2;
             }
+            if (pad.rune) {
+              pad.rune.rotation.z += dt * 1.4;
+            }
           } else {
             // Rotating mini chevron disc
             pad.mesh.rotation.z += dt * 3.0;
@@ -14398,6 +16692,8 @@
           if (dToPlayer < pickupRadius && player.boost < 100) {
             pad.active = false;
             pad.mesh.visible = false;
+            if (pad.beacon) pad.beacon.visible = false;
+            if (pad.rune) pad.rune.visible = false;
             if (pad.floorRing) pad.floorRing.material.color.setHex(0x333333);
             if (pad.light) pad.light.intensity = 0;
             pad.respawnTimer = pad.isFull ? 10.0 : 4.0;
@@ -14410,6 +16706,8 @@
               if (dToBot < pickupRadius && b.boost < 100) {
                 pad.active = false;
                 pad.mesh.visible = false;
+                if (pad.beacon) pad.beacon.visible = false;
+                if (pad.rune) pad.rune.visible = false;
                 if (pad.floorRing) pad.floorRing.material.color.setHex(0x333333);
                 if (pad.light) pad.light.intensity = 0;
                 pad.respawnTimer = pad.isFull ? 10.0 : 4.0;
@@ -15090,6 +17388,37 @@
         holoShieldOrange.position.y = 11.5 + Math.sin(hTime * 2.0 + 1.5) * 0.25;
       }
 
+      // Goal Celebration Crossbar Flame Cannons
+      if (typeof goalFlameCannons !== 'undefined') {
+        goalFlameCannons.forEach(fc => {
+          if (fc.timer > 0) {
+            fc.timer -= dt;
+            const progress = Math.min(1.0, fc.timer / 0.5);
+            const flicker = 0.8 + Math.random() * 0.4;
+            fc.flameMesh.material.opacity = 0.85 * progress;
+            fc.flameMesh.scale.set(flicker, (1.0 + Math.random() * 0.3) * progress, flicker);
+            fc.light.intensity = 5.5 * progress * flicker;
+          } else {
+            fc.flameMesh.material.opacity = 0;
+            fc.light.intensity = 0;
+          }
+        });
+      }
+
+      // Mountaintop Aerial Cableway Gondola Cabins
+      if (typeof gondolaCabins !== 'undefined' && typeof pylonA !== 'undefined' && typeof pylonB !== 'undefined') {
+        gondolaCabins.forEach(gc => {
+          gc.progress = (gc.progress + dt * 0.012) % 1.0;
+          gc.mesh.position.lerpVectors(pylonA, pylonB, gc.progress);
+          gc.mesh.position.y -= Math.sin(gc.progress * Math.PI) * 14.0 + 3.0;
+        });
+      }
+
+      // Distant Coastal Harbor Lighthouse Rotating Beacon
+      if (typeof lighthouseBeam !== 'undefined') {
+        lighthouseBeam.rotation.y += dt * 0.6;
+      }
+
       if (typeof stadiumDust !== 'undefined' && stadiumDust && stadiumDust.geometry && stadiumDust.geometry.attributes && stadiumDust.geometry.attributes.position) {
         const dPos = stadiumDust.geometry.attributes.position.array;
         const dCount = dPos.length / 3;
@@ -15102,6 +17431,9 @@
 
       pollGamepad();
       updatePhysics(dt);
+      if (typeof updateMultiplayerNetwork === 'function') {
+        updateMultiplayerNetwork(dt);
+      }
       updateCamera(dt);
       renderer.render(scene, camera);
       updateGaragePreview(dt);
